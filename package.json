@@ -1,21 +1,25 @@
 {
   "name": "project-3-frontend",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
   "scripts": {
-    "start": "node -r dotenv/config app.js",
-	"bundle": "mkdir deploy && cp -r app app.js package.json package-lock.json course-backend-t6.service .env deploy"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
-  "author": "",
-  "license": "ISC",
   "dependencies": {
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "mysql2": "^3.15.0",
-    "sequelize": "^6.37.7"
+    "sequelize": "^6.37.7",
+    "vite-plugin-vuetify": "^2.1.2",
+    "vue": "3.5.18",
+    "vuetify": "^3.10.2"
   },
-  "type": "module"
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "vite": "^7.1.2"
+  }
 }
-

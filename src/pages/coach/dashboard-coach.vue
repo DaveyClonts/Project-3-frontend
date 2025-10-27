@@ -1,0 +1,3 @@
+<template>
+    Test text
+</template>

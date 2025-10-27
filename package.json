@@ -1,34 +1,26 @@
 {
-  "name": "tutorial-frontend-vue3",
-  "private": true,
+  "name": "project-3-frontend",
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
-    "dev": "cross-env APP_ENV=development vite",
-    "build": "cross-env APP_ENV=production vite build",
-    "preview": "vite preview",
-    "bundle": "mv .env dist",
-    "test": "cypress run",
-    "test:open": "cypress open"
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview"
   },
   "dependencies": {
-    "@mdi/font": "^7.0.96",
-    "axios": "^1.1.3",
-    "dotenv": "^16.0.3",
-    "eslint": "^8.28.0",
-    "eslint-plugin-vue": "^9.7.0",
-    "vite-plugin-vuetify": "^1.0.0",
-    "vue": "^3.2.47",
-    "vue-router": "^4.1.6",
-    "vuetify": "^3.0.1",
-    "vuex": "^4.0.2",
-    "webfontloader": "^1.6.28"
+    "cors": "^2.8.5",
+    "dotenv": "^17.2.2",
+    "express": "^5.1.0",
+    "mysql2": "^3.15.0",
+    "sequelize": "^6.37.7",
+    "vite-plugin-vuetify": "^2.1.2",
+    "vue": "3.5.18",
+    "vue-router": "^4.6.3",
+    "vuetify": "^3.10.2"
   },
   "devDependencies": {
-    "@mdi/js": "^7.0.96",
-    "@vitejs/plugin-vue": "^4.1.0",
-    "cross-env": "^7.0.3",
-    "cypress": "^12.9.0",
-    "vite": "^4.2.1"
+    "@vitejs/plugin-vue": "^6.0.1",
+    "vite": "^7.1.2"
   }
 }

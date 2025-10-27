@@ -6,8 +6,8 @@ import dns from "dns";
 dns.setDefaultResultOrder("verbatim");
 
 export default () => {
-  const baseURL =
-    process.env.APP_ENV === "development" ? "/" : "/tracker-t6/";
+  // const baseURL =
+  //   process.env.APP_ENV === "development" ? "/" : "/tracker-t6/";
 
   return defineConfig({
     plugins: [vue(), vuetify({ autoImport: true })],
@@ -17,6 +17,6 @@ export default () => {
       port: 8081,
     },
 
-    base: baseURL,
+    // base: baseURL,
   });
 };

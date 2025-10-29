@@ -9,25 +9,25 @@
                 >
                     Dashboard
                 </li>
-                <li 
-                    class="nav-item" 
+                <li
+                    class="nav-item"
                     @click="tab = 'Workouts'"
                     :class="{ active: tab === 'Workouts' }"
-                    >
+                >
                     Workouts
                 </li>
-                <li 
-                    class="nav-item" 
+                <li
+                    class="nav-item"
                     @click="tab = 'Exercises'"
                     :class="{ active: tab === 'Exercises' }"
-                    >
+                >
                     Exercises
                 </li>
-                <li 
-                    class="nav-item" 
+                <li
+                    class="nav-item"
                     @click="tab = 'Athletes'"
                     :class="{ active: tab === 'Athletes' }"
-                    >
+                >
                     Athletes
                 </li>
             </ul>
@@ -81,10 +81,9 @@
 </style>
 
 <script setup>
-    import { ref } from "vue";
+import { ref } from "vue";
 
-    const props = defineProps({
-        tab: String
-    });
-
+const props = defineProps({
+    tab: String,
+});
 </script>

@@ -30,6 +30,16 @@
                 >
                     Athletes
                 </li>
+
+                <!-- <li
+                    v-for="item in navItems"
+                    :key="item.name"
+                    class="nav-item"
+                    @click="navigate(item)"
+                    :class="{ active: route.name === item.name }"
+                >
+                    {{ item.label }}
+                </li> -->
             </ul>
         </div>
     </div>
@@ -81,9 +91,19 @@
 </style>
 
 <script setup>
-import { ref } from "vue";
+// import { useRouter, useRoute } from "vue-router";
+// import router from '../router.js';
 
-const props = defineProps({
-    tab: String,
-});
+// const navItems = [
+//     { name: "Dashboard", label: "Dashboard", path: "/dashboard" },
+//     { name: "Workouts", label: "Workouts", path: "/workouts" },
+//     { name: "Exercises", label: "Exercises", path: "/exercises" },
+//     { name: "Athletes", label: "Athletes", path: "/athletes" },
+// ];
+
+// const navigate = (item) => {
+//     if (route.name !== item.name) {
+//         router.push(item.path);
+//     }
+// };
 </script>

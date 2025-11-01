@@ -1,3 +1,7 @@
 <template>
-    Test text
+    Dashboard View
 </template>
+
+<script setup>
+    
+</script>

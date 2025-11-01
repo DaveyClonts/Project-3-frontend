@@ -1,0 +1,3 @@
+<template>
+    Exercises View
+</template>

@@ -13,7 +13,7 @@ const router = createRouter({
         {path: '/login', name: 'login', component: login},
         {path: '/dashboardCoach', name: 'dashboardCoach', component: dashboardCoach},
         {path: '/workoutsCoach', name: 'workoutsCoach', component: workoutsCoach},
-        {path: '/exercisesCoach', name: 'exerciesCoach', component: exercisesCoach},
+        {path: '/exercisesCoach', name: 'exercisesCoach', component: exercisesCoach},
         {path: '/athletesCoach', name: 'athletesCoach', component: athletesCoach}
     ]
 })

@@ -2,7 +2,7 @@
     <div class="navbar-container">
         <div class="navbar">
             <ul class="nav-list">
-                <li
+                <!-- <li
                     class="nav-item"
                     @click="tab = 'Dashboard'"
                     :class="{ active: tab === 'Dashboard' }"
@@ -29,9 +29,9 @@
                     :class="{ active: tab === 'Athletes' }"
                 >
                     Athletes
-                </li>
+                </li> -->
 
-                <!-- <li
+                <li
                     v-for="item in navItems"
                     :key="item.name"
                     class="nav-item"
@@ -39,7 +39,7 @@
                     :class="{ active: route.name === item.name }"
                 >
                     {{ item.label }}
-                </li> -->
+                </li>
             </ul>
         </div>
     </div>
@@ -91,19 +91,21 @@
 </style>
 
 <script setup>
-// import { useRouter, useRoute } from "vue-router";
-// import router from '../router.js';
+import { useRouter, useRoute} from 'vue-router';
 
-// const navItems = [
-//     { name: "Dashboard", label: "Dashboard", path: "/dashboard" },
-//     { name: "Workouts", label: "Workouts", path: "/workouts" },
-//     { name: "Exercises", label: "Exercises", path: "/exercises" },
-//     { name: "Athletes", label: "Athletes", path: "/athletes" },
-// ];
+const route = useRoute();
+const router = useRouter();
 
-// const navigate = (item) => {
-//     if (route.name !== item.name) {
-//         router.push(item.path);
-//     }
-// };
+const navItems = [
+    { name: "dashboardCoach", label: "Dashboard", path: "/dashboardCoach" },
+    { name: "workoutsCoach", label: "Workouts", path: "/workoutsCoach" },
+    { name: "exercisesCoach", label: "Exercises", path: "/exercisesCoach" },
+    { name: "athletesCoach", label: "Athletes", path: "/athletesCoach" },
+];
+
+const navigate = (item) => {
+    if (route.name !== item.name) {
+        router.push(item.path);
+    }
+};
 </script>

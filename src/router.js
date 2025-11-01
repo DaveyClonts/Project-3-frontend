@@ -6,6 +6,8 @@ import athletesCoach from "./pages/coach/athletes-coach.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
+
+    //removes the # from the url
     history: createWebHistory(),
 
     // the url /login exsits rn but we can just do / if we want (this doesnt actually matter)

@@ -8,6 +8,7 @@ import { createRouter, createWebHistory } from "vue-router";
 const router = createRouter({
     history: createWebHistory(),
 
+    // the url /login exsits rn but we can just do / if we want (this doesnt actually matter)
     routes: [
         {path: '/', redirect: '/login'},
         {path: '/login', name: 'login', component: login},

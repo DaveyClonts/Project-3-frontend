@@ -2,35 +2,6 @@
     <div class="navbar-container">
         <div class="navbar">
             <ul class="nav-list">
-                <!-- <li
-                    class="nav-item"
-                    @click="tab = 'Dashboard'"
-                    :class="{ active: tab === 'Dashboard' }"
-                >
-                    Dashboard
-                </li>
-                <li
-                    class="nav-item"
-                    @click="tab = 'Workouts'"
-                    :class="{ active: tab === 'Workouts' }"
-                >
-                    Workouts
-                </li>
-                <li
-                    class="nav-item"
-                    @click="tab = 'Exercises'"
-                    :class="{ active: tab === 'Exercises' }"
-                >
-                    Exercises
-                </li>
-                <li
-                    class="nav-item"
-                    @click="tab = 'Athletes'"
-                    :class="{ active: tab === 'Athletes' }"
-                >
-                    Athletes
-                </li> -->
-
                 <li
                     v-for="item in navItems"
                     :key="item.name"
@@ -63,7 +34,6 @@
 
 .nav-list {
     display: flex;
-    gap: 25px;
     list-style: none;
 }
 
@@ -73,7 +43,7 @@
     font-size: 20px;
     height: 50px;
     border-radius: 50px;
-    padding: 0px 20px;
+    padding: 0px 25px;
     cursor: pointer;
 }
 
@@ -92,7 +62,6 @@
 
 <script setup>
 import { useRouter, useRoute} from 'vue-router';
-
 const route = useRoute();
 const router = useRouter();
 
@@ -103,6 +72,7 @@ const navItems = [
     { name: "athletesCoach", label: "Athletes", path: "/athletesCoach" },
 ];
 
+// push the route to the router if that part of the navbar is active
 const navigate = (item) => {
     if (route.name !== item.name) {
         router.push(item.path);

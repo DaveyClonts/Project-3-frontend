@@ -1,4 +1,5 @@
 import axios from "axios";
+import router from "../router.js";
 import Utils from "../config/utils.js";
 import AuthServices from "./authServices.js";
 
@@ -43,7 +44,7 @@ const apiClient = axios.create({
                     console.log(response);
 
                     Utils.removeItem("user");
-                    //Router.push({ name: "login" }); NEED THE ROUTER
+                    router.push({ name: "login" });
                 })
                 .catch((err) => {
                     console.log("Error: " + err);

@@ -1,7 +1,7 @@
 import axios from "axios";
 import router from "../router.js";
+import authServices from "./authServices.js";
 import Utils from "../config/utils.js";
-import AuthServices from "./authServices.js";
 
 let baseURL = "";
 
@@ -39,7 +39,7 @@ const apiClient = axios.create({
             data.message !== undefined &&
             data.message.includes("Unauthorized")
         ) {
-            AuthServices.logoutUser(Utils.getStore("user"))
+            authServices.logoutUser(Utils.getStore("user"))
                 .then((response) => {
                     console.log(response);
 

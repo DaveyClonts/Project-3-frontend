@@ -6,17 +6,12 @@ import dns from "dns";
 dns.setDefaultResultOrder("verbatim");
 
 export default () => {
-  // const baseURL =
-  //   process.env.APP_ENV === "development" ? "/" : "/tracker-t6/";
+    return defineConfig({
+        plugins: [vue(), vuetify({ autoImport: true })],
 
-  return defineConfig({
-    plugins: [vue(), vuetify({ autoImport: true })],
-
-    server: {
-      host: "localhost",
-      port: 8081,
-    },
-
-    // base: baseURL,
-  });
+        server: {
+            host: "localhost",
+            port: 8081,
+        },
+    });
 };

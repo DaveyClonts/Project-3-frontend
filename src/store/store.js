@@ -1,8 +1,5 @@
-import Vue from "vue";
 import Vuex from "vuex";
 import Utils from "../config/utils";
-
-Vue.use(Vuex);
 
 const user = Utils.getStore("user");
 

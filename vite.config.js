@@ -1,8 +1,8 @@
 import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vuetify from "vite-plugin-vuetify";
-
 import dns from "dns";
+
 dns.setDefaultResultOrder("verbatim");
 
 export default () => {

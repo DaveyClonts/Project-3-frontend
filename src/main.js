@@ -4,8 +4,10 @@ import vuetify from "./plugins/vuetify.js";
 import router from "./router.js";
 import store from "./store/store.js";
 
-createApp(App)
+const app = createApp(App)
 .use(vuetify)
 .use(router)
 .use(store)
 .mount("#app");
+
+export default app;

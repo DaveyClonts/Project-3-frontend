@@ -1,5 +1,4 @@
 import login from "./pages/login.vue";
-import socialLogin from "./components/socialLogin.vue";
 import dashboardCoach from "./pages/coach/dashboard-coach.vue";
 import workoutsCoach from "./pages/coach/workouts-coach.vue";
 import exercisesCoach from "./pages/coach/exercises-coach.vue";
@@ -17,9 +16,13 @@ const router = createRouter({
             redirect: "/login",
         },
         {
+            path: "/callback",
+            redirect: "/login",
+        },
+        {
             path: "/login",
             name: "login",
-            component: socialLogin,
+            component: login,
         },
         {
             path: "/dashboardCoach",

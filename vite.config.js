@@ -8,7 +8,6 @@ dns.setDefaultResultOrder("verbatim");
 export default () => {
     return defineConfig({
         plugins: [vue(), vuetify({ autoImport: true })],
-
         server: {
             host: "localhost",
             port: 8081,

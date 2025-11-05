@@ -11,7 +11,7 @@ import { ref, onMounted } from "vue";
 import authServices from "../services/authServices";
 import Utils from "../config/utils";
 import User from "../classes/User";
-import { useRouter } from 'vue-router'
+import { useRouter } from "vue-router";
 
 const firstName = ref("");
 const lastName = ref("");
@@ -23,7 +23,7 @@ onMounted(() => {
 });
 
 async function loginWithGoogle() {
-    const client = process.env.VUE_APP_CLIENT_ID;
+    const client = import.meta.env.VITE_APP_CLIENT_ID;
     console.log(`Client: ${client}`);
 
     global.handleCredentialResponse = handleCredentialResponse;
@@ -35,7 +35,7 @@ async function loginWithGoogle() {
         callback: global.handleCredentialResponse,
     });
 
-    global.google.account.id.renderButton(
+    global.google.accounts.id.renderButton(
         document.getElementById("parent_id"),
         {
             type: "standard",
@@ -52,14 +52,22 @@ async function handleCredentialResponse(response) {
         credential: response.credential,
     };
 
-    authServices.loginUser(token).then((response) => {
-        user.value = new User(response.data.firstName, response.data.lastName);
-        firstName.value = user.firstName;
-        lastName.value = user.lastName;
+    authServices
+        .loginUser(token)
+        .then((response) => {
+            user.value = new User(
+                response.data.firstName,
+                response.data.lastName
+            );
+            firstName.value = user.firstName;
+            lastName.value = user.lastName;
 
-        Utils.setStore("user", user);
+            Utils.setStore("user", user);
 
-        router.push("/dashboardCoach");
-    });
+            router.push("/dashboardCoach");
+        })
+        .catch((err) => {
+            console.error(`Error with authentication: ${err}.`);
+        });
 }
 </script>

@@ -5,7 +5,7 @@ import Utils from "../config/utils.js";
 
 let baseURL = "";
 
-if (process.env.NODE_ENV === "development")
+if (import.meta.env.MODE === "development")
     baseURL = "http://localhost/tracker-t6/";
 else baseURL = "/tracker-t6/";
 
@@ -27,7 +27,7 @@ const apiClient = axios.create({
 
             if (token != null && token != "") authHeader = "Bearer " + token;
 
-            headers.common["Authorization"] = authHeader;
+            headers["Authorization"] = authHeader;
         }
 
         return JSON.stringify(data);
@@ -39,7 +39,8 @@ const apiClient = axios.create({
             data.message !== undefined &&
             data.message.includes("Unauthorized")
         ) {
-            authServices.logoutUser(Utils.getStore("user"))
+            authServices
+                .logoutUser(Utils.getStore("user"))
                 .then((response) => {
                     console.log(response);
 

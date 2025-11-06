@@ -20,7 +20,7 @@ jobs:
           ref: dev
       - uses: actions/setup-node@v3
         with:
-          node-version: 18
+          node-version: 22
       - run: |
           touch .env
           echo VITE_APP_CLIENT_ID="$VITE_APP_CLIENT_ID" >> .env

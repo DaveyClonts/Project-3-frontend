@@ -1,0 +1,73 @@
+<template>
+    <div class="signup-buttons">
+        <v-row justify="center">
+            <div id="parent_id" display="flex"></div>
+        </v-row>
+    </div>
+</template>
+
+<script setup>
+import { ref, onMounted } from "vue";
+import authServices from "../services/authServices";
+import Utils from "../config/utils";
+import User from "../classes/User";
+import { useRouter } from "vue-router";
+
+const firstName = ref("");
+const lastName = ref("");
+const user = ref({});
+const router = useRouter();
+
+onMounted(() => {
+    loginWithGoogle();
+});
+
+async function loginWithGoogle() {
+    const client = import.meta.env.VITE_APP_CLIENT_ID;
+    console.log(`Client: ${client}`);
+
+    global.handleCredentialResponse = handleCredentialResponse;
+
+    global.google.accounts.id.initialize({
+        client_id: client,
+        cancel_on_tap_outside: false,
+        auto_select: true,
+        callback: global.handleCredentialResponse,
+    });
+
+    global.google.accounts.id.renderButton(
+        document.getElementById("parent_id"),
+        {
+            type: "standard",
+            theme: "outline",
+            size: "large",
+            text: "signup_with",
+            width: 400,
+        }
+    );
+}
+
+async function handleCredentialResponse(response) {
+    const token = {
+        credential: response.credential,
+    };
+
+    authServices
+        .loginUser(token)
+        .then((response) => {
+            user.value = new User(
+                response.data.firstName,
+                response.data.lastName
+            );
+            firstName.value = user.firstName;
+            lastName.value = user.lastName;
+
+            Utils.setStore("user", user);
+
+            router.push("/dashboardCoach");
+        })
+        .catch((err) => {
+            console.error(`Error with authentication: ${err}.`);
+        });
+}
+</script>

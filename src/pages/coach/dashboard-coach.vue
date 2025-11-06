@@ -1,7 +1,7 @@
 <template>
     <div class="page-margins">
         <v-row>
-            <v-col class="fill-height flex-grow-0" style="width: 70vw">
+            <v-col class="fill-height flex-grow-0" style="width: 65vw; margin-left: 15px;">
                 <v-row>
                     <div class="title-text">
                         Welcome, Coach Jones
@@ -49,10 +49,10 @@
 }
 
 .athletes-card {
-    width: 20vw;
+    width: 25vw;
     height: 78vh;
     border-radius: 20px;
-    margin-left: 35px;
+    margin-left: 30px;
 }
 </style>
 

@@ -1,21 +1,23 @@
 <template>
     <div class="page-margins">
-        <v-col class="fill-height flex-grow-0" style="width: 70vw">
-            <v-row>
-                <div class="title-text">
-                    Welcome, Coach Jones
-                </div>
-            </v-row>
-            <v-row>
-                <v-card class="card">Test</v-card>
-            </v-row>
-            <v-row>
-                <v-card>Test</v-card>
-            </v-row>
-        </v-col>
-        <v-col>
-            <v-card></v-card>
-        </v-col>
+        <v-row>
+            <v-col class="fill-height flex-grow-0" style="width: 70vw">
+                <v-row>
+                    <div class="title-text">
+                        Welcome, Coach Jones
+                    </div>
+                </v-row>
+                <v-row>
+                    <v-card class="workouts-card">Test</v-card>
+                </v-row>
+                <v-row>
+                    <v-card class="exercises-card">Test</v-card>
+                </v-row>
+            </v-col>
+            <v-col>
+                <v-card class="athletes-card">Test</v-card>
+            </v-col>
+        </v-row>
     </div>
 </template>
 
@@ -31,14 +33,27 @@
     font-weight: 600;
 }
 
-.card {
+/* margin top and bottom prob not best practice... */
+.workouts-card {
     margin-top: 25px;
     margin-bottom: 50px;
     border-radius: 20px;
     width: 70vw;
-    height: 30vh;
+    height: 25vh;
 }
 
+.exercises-card {
+    height: 40vh;
+    width: 70vw;
+    border-radius: 20px;
+}
+
+.athletes-card {
+    width: 20vw;
+    height: 78vh;
+    border-radius: 20px;
+    margin-left: 35px;
+}
 </style>
 
 <script setup>

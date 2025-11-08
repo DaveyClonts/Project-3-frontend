@@ -1,5 +1,5 @@
 <template>
-    <div class="navbar-container">
+    <topbar>
         <div class="navbar">
             <ul class="nav-list">
                 <li
@@ -13,7 +13,7 @@
                 </li>
             </ul>
         </div>
-    </div>
+    </topbar>
 </template>
 
 <style>
@@ -61,6 +61,7 @@
 </style>
 
 <script setup>
+import topbar from '../components/topbar.vue';
 import { useRouter, useRoute} from 'vue-router';
 const route = useRoute();
 const router = useRouter();

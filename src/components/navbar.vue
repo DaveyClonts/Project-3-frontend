@@ -1,29 +1,20 @@
 <template>
-    <topbar>
-        <div class="navbar">
-            <ul class="nav-list">
-                <li
-                    v-for="item in navItems"
-                    :key="item.name"
-                    class="nav-item"
-                    @click="navigate(item)"
-                    :class="{ active: route.name === item.name }"
-                >
-                    {{ item.label }}
-                </li>
-            </ul>
-        </div>
-    </topbar>
+    <div class="navbar">
+        <ul class="nav-list">
+            <li
+                v-for="item in navItems"
+                :key="item.name"
+                class="nav-item"
+                @click="navigate(item)"
+                :class="{ active: route.name === item.name }"
+            >
+                {{ item.label }}
+            </li>
+        </ul>
+    </div>
 </template>
 
 <style>
-.navbar-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 12vh;
-}
-
 .navbar {
     height: 50px;
     border-radius: 50px;
@@ -61,8 +52,7 @@
 </style>
 
 <script setup>
-import topbar from '../components/topbar.vue';
-import { useRouter, useRoute} from 'vue-router';
+import { useRouter, useRoute } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 

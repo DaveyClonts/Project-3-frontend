@@ -1,5 +1,24 @@
 <script setup>
 import socialLogin from "../components/socialLogin.vue";
+import authServices from "../services/authServices.js";
+import store from "../store/store.js";
+
+function logout() {
+    const user = store.replaceState.getLoginUserInfo;
+
+    if (user == null) {
+        console.log("User is null!");
+        return;
+    }
+
+    await authServices.logoutUser(user.token)
+    .then(response => {
+        console.log(`Successfully logged out user: ${response}.`);
+    })
+    .catch(err => {
+        console.log(`Error logging out user: ${err}.`);
+    });
+}
 </script>
 
 <template>
@@ -7,11 +26,10 @@ import socialLogin from "../components/socialLogin.vue";
         <v-card class="login-card">
             <v-card-text class="title">Get Started!</v-card-text>
             <v-col class="d-flex flex-column align-center" style="gap: 20px">
-                <social-login/>
-                <v-btn class="button" variant="tonal" to="/dashboardCoach"
-                    >Login</v-btn
+                <social-login />
+                <v-btn class="button" variant="tonal" @click="logout"
+                    >Logout</v-btn
                 >
-                <v-btn class="button" variant="tonal">Login as Admin</v-btn>
             </v-col>
         </v-card>
     </v-container>

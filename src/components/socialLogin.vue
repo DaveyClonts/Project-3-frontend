@@ -13,8 +13,6 @@ import Utils from "../config/utils";
 import User from "../classes/User";
 import { useRouter } from "vue-router";
 
-const firstName = ref("");
-const lastName = ref("");
 const user = ref({});
 const router = useRouter();
 
@@ -57,10 +55,9 @@ async function handleCredentialResponse(response) {
         .then((response) => {
             user.value = new User(
                 response.data.firstName,
-                response.data.lastName
+                response.data.lastName,
+                token
             );
-            firstName.value = user.firstName;
-            lastName.value = user.lastName;
 
             Utils.setStore("user", user);
 

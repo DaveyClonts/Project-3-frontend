@@ -1,9 +1,10 @@
+import { createRouter, createWebHistory } from "vue-router";
 import login from "./pages/login.vue";
 import dashboardCoach from "./pages/coach/dashboard-coach.vue";
 import workoutsCoach from "./pages/coach/workouts-coach.vue";
 import exercisesCoach from "./pages/coach/exercises-coach.vue";
 import athletesCoach from "./pages/coach/athletes-coach.vue";
-import { createRouter, createWebHistory } from "vue-router";
+import DashboardAthlete from "./pages/athlete/dashboard-athlete.vue";
 
 const router = createRouter({
     //removes the # from the url
@@ -44,6 +45,11 @@ const router = createRouter({
             name: "athletesCoach",
             component: athletesCoach,
         },
+        {
+            path: "/dashboardAthlete",
+            name: "dashboardAthlete",
+            component: DashboardAthlete,
+        }
     ],
 });
 

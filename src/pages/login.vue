@@ -1,19 +1,24 @@
 <script setup>
 import socialLogin from "../components/socialLogin.vue";
 import authServices from "../services/authServices.js";
-import store from "../store/store.js";
+import { useStore } from "vuex";
+
+const store = useStore();
 
 function logout() {
-    const user = store.replaceState.getLoginUserInfo;
+    console.log("Log out.");
+
+    const user = store.getters.getLoginUserInfo;
 
     if (user == null) {
         console.log("User is null!");
         return;
     }
 
-    await authServices.logoutUser(user.token)
+    authServices.logoutUser(user.token)
     .then(response => {
-        console.log(`Successfully logged out user: ${response}.`);
+        console.log(`Successfully logged out user: ${response.data.message}`);
+        store.commit("setLoginUser", null);
     })
     .catch(err => {
         console.log(`Error logging out user: ${err}.`);

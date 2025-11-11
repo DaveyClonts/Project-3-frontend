@@ -12,7 +12,9 @@ import authServices from "../services/authServices";
 import Utils from "../config/utils";
 import User from "../classes/User";
 import { useRouter } from "vue-router";
+import { useStore } from "vuex";
 
+const store = useStore();
 const user = ref({});
 const router = useRouter();
 
@@ -22,10 +24,8 @@ onMounted(() => {
 
 async function loginWithGoogle() {
     const client = import.meta.env.VITE_APP_CLIENT_ID;
-    console.log(`Client: ${client}`);
 
     global.handleCredentialResponse = handleCredentialResponse;
-
     global.google.accounts.id.initialize({
         client_id: client,
         cancel_on_tap_outside: false,
@@ -59,8 +59,8 @@ async function handleCredentialResponse(response) {
                 token
             );
 
-            Utils.setStore("user", user);
-
+            console.log("Successfully logged in.");
+            store.commit("setLoginUser", user);
             router.push("/dashboardCoach");
         })
         .catch((err) => {

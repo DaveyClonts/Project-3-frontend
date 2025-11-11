@@ -16,6 +16,7 @@ const apiClient = axios.create({
         "Content-Type": "application/json",
         "X-Requested-With": "XMLHttpRequest",
         "Access-Control-Allow-Origin": "*",
+        'Cross-Origin-Opener-Policy': 'same-origin-allow-popups',
         crossDomain: true,
     },
     transformRequest: (data, headers) => {

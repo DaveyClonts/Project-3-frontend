@@ -4,17 +4,15 @@ import socialLogin from "../components/socialLogin.vue";
 
 <template>
     <v-container class="fill-height d-flex justify-center align-center">
-        <v-card class="login-card">
-            <v-card-text class="title">Get Started!</v-card-text>
-            <v-col class="d-flex flex-column align-center" style="gap: 20px">
-                <social-login/>
-                <v-btn class="button" variant="tonal" to="/dashboardCoach"
-                    >Login</v-btn
-                >
-                <v-btn class="button" variant="tonal">Login as Admin</v-btn>
-            </v-col>
-        </v-card>
-    </v-container>
+    <v-card class="login-card">
+      <v-card-text class="title">Get Started!</v-card-text>
+      <v-col class="d-flex flex-column align-center" style="gap: 20px">
+          <v-btn class="button" variant="tonal" to="/dashboardCoach">Login</v-btn>
+          <v-btn class="button" variant="tonal" to="/goalAthlete">Login as Athlete</v-btn>
+          <v-btn class="button" variant="tonal">Login as Admin</v-btn>
+    </v-col>
+    </v-card>
+  </v-container>
 </template>
 
 <style scoped>

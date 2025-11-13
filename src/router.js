@@ -3,6 +3,7 @@ import dashboardCoach from "./pages/coach/dashboard-coach.vue";
 import workoutsCoach from "./pages/coach/workouts-coach.vue";
 import exercisesCoach from "./pages/coach/exercises-coach.vue";
 import athletesCoach from "./pages/coach/athletes-coach.vue";
+import goalAthlete from "./pages/athlete/goalAthlete.vue";
 import { createRouter, createWebHistory } from "vue-router";
 
 const router = createRouter({
@@ -43,6 +44,11 @@ const router = createRouter({
             path: "/athletesCoach",
             name: "athletesCoach",
             component: athletesCoach,
+        },
+        {
+            path: "/goalAthlete",
+            name: "goalAthlete",
+            component: goalAthlete,
         },
     ],
 });

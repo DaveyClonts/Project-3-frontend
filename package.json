@@ -10,6 +10,7 @@
     "bundle": "mv .env dist"
   },
   "dependencies": {
+    "@mdi/font": "^7.4.47",
     "axios": "^1.13.1",
     "cors": "^2.8.5",
     "dotenv": "^17.2.2",

@@ -1,0 +1,42 @@
+<template>
+    <v-btn variant="plain" @click="logout">Logout</v-btn>
+</template>
+
+<style>
+.v-btn {
+    width: 70px;
+}
+</style>
+
+<script setup>
+import authServices from "../services/authServices.js";
+import { useStore } from "vuex";
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const store = useStore();
+
+function logout() {
+    console.log("Log out.");
+
+    const user = store.getters.getLoginUserInfo;
+
+    if (user == null) {
+        console.log("User is null!");
+        return;
+    }
+
+    authServices
+        .logoutUser(user.token)
+        .then((response) => {
+            console.log(
+                `Successfully logged out user: ${response.data.message}`
+            );
+            store.commit("setLoginUser", null);
+            router.push("/");
+        })
+        .catch((err) => {
+            console.log(`Error logging out user: ${err}.`);
+        });
+}
+</script>

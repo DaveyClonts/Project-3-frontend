@@ -3,6 +3,8 @@
         <div class="title">Your Athletes</div>
         <div class="column">
             <athlete/>
+            <athlete/>
+            <addButton/>
         </div>
     </v-card>
 </template>
@@ -19,6 +21,7 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    gap: 15px;
 }
 
 .title {
@@ -30,6 +33,6 @@
 
 <script setup>
 import athlete from '../../../components/athlete.vue';
-
+import addButton from '../../../components/addButton.vue';
 
 </script>

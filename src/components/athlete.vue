@@ -33,8 +33,8 @@
 
 .profile-icon {
     background-color: #d0d0d0;
-    width: 40px;
-    height: 40px;
+    width: 2.75vw;
+    height: 4vh;
     border-radius: 40px;
     display: flex;
     align-items: center;

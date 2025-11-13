@@ -4,11 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "vite",
+    "dev": "cross-env APP_ENV=development vite",
     "build": "cross-env APP_ENV=production vite build",
     "preview": "vite preview",
     "start": "node server.js",
-    "bundle": "mkdir deploy && cp -r app server.js package.json package-lock.json tracker-t6-backend.service .env deploy"
+    "bundle": "mv .env dist"
   },
   "dependencies": {
     "axios": "^1.13.1",

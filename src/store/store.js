@@ -1,22 +1,18 @@
-import Vuex from "vuex";
 import Utils from "../config/utils";
 
 const user = Utils.getStore("user");
 
-export default new Vuex.Store({
-    state: {
-        loginUser: user,
+export default {
+    user,
+    getUser() {
+        return this.user;
     },
-    mutations: {
-        setLoginUser(state, user) {
-            state.loginUser = user;
-            Utils.setStore("user", user);
-        },
+    setUser(user) {
+        this.user = user;
+        Utils.setStore("user", user);
     },
-    actions: {},
-    getters: {
-        getLoginUserInfo(state) {
-            return state.loginUser;
-        },
-    },
-});
+    clearUser() {
+        this.user = null;
+        Utils.removeItem("user");
+    }
+}

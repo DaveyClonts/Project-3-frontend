@@ -1,0 +1,8 @@
+html,
+body,
+.v-application,
+.v-main {
+  overflow: hidden;   /* Disable scrolling */
+}
+
+/* Maybe vars for color when we get there */

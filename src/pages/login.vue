@@ -1,25 +1,34 @@
 <script setup>
 import socialLogin from "../components/socialLogin.vue";
+import store from "../store/store.js";
+import { onMounted } from "vue";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
+
+onMounted(() => {
+    console.log("Component has been mounted!");
+    let user = store.getUser();
+
+    if (user != null && user.token != null && user.token != "")
+        router.push("/dashboardCoach");
+});
 </script>
 
 <template>
     <v-container class="fill-height d-flex justify-center align-center">
-        <v-card class="login-card">
+        <div class="login-card">
             <v-card-text class="title">Get Started!</v-card-text>
             <v-col class="d-flex flex-column align-center" style="gap: 20px">
-                <social-login/>
-                <v-btn class="button" variant="tonal" to="/dashboardCoach"
-                    >Login</v-btn
-                >
-                <v-btn class="button" variant="tonal">Login as Admin</v-btn>
+                <social-login />
             </v-col>
-        </v-card>
+        </div>
     </v-container>
 </template>
 
 <style scoped>
 .login-card {
-    background-color: #f2f2f2;
+    background-color: transparent;
     text-align: center;
     width: 30%;
     height: 50%;
@@ -27,7 +36,7 @@ import socialLogin from "../components/socialLogin.vue";
 }
 
 .title {
-    padding-top: 40%;
+    padding-top: 20%;
     font-size: 26px;
     font-weight: 600;
 }

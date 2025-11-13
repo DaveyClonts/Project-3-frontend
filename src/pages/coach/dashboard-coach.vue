@@ -1,6 +1,6 @@
 <template>
     <div class="page-margins">
-        <v-row>
+        <v-row style="gap: 5vw">
             <v-col class="fill-height flex-grow-0" style="width: 65vw; margin-left: 15px;">
                 <v-row>
                     <div class="title-text">
@@ -38,21 +38,20 @@
     margin-top: 25px;
     margin-bottom: 50px;
     border-radius: 20px;
-    width: 70vw;
+    width: 65vw;
     height: 25vh;
 }
 
 .exercises-card {
-    height: 40vh;
-    width: 70vw;
+    height: 45vh;
+    width: 65vw;
     border-radius: 20px;
 }
 
 .athletes-card {
-    width: 25vw;
+    width: 22vw;
     height: 78vh;
     border-radius: 20px;
-    margin-left: 30px;
 }
 </style>
 

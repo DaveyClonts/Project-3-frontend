@@ -8,7 +8,6 @@ import './css/global.css';
 const app = createApp(App)
 .use(vuetify)
 .use(router)
-.use(store)
 .mount("#app");
 
 export default app;

@@ -1,6 +1,9 @@
 <template>
-    <v-card>
-        
+    <v-card class="athletes-card">
+        <div class="title">Your Athletes</div>
+        <div class="column">
+            <athlete/>
+        </div>
     </v-card>
 </template>
 
@@ -9,5 +12,24 @@
     width: 22vw;
     height: 78vh;
     border-radius: 20px;
+    padding: 20px;
+}
+
+.column {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.title {
+    font-size: 25px;
+    font-weight: 600;
+    padding-bottom: 10px;
 }
 </style>
+
+<script setup>
+import athlete from '../../../components/athlete.vue';
+
+
+</script>

@@ -15,7 +15,7 @@
                 </v-row>
             </v-col>
             <v-col>
-                <v-card class="athletes-card">Test</v-card>
+                 <athletesCard/>
             </v-col>
         </v-row>
     </div>
@@ -47,14 +47,8 @@
     width: 65vw;
     border-radius: 20px;
 }
-
-.athletes-card {
-    width: 22vw;
-    height: 78vh;
-    border-radius: 20px;
-}
 </style>
 
 <script setup>
-    
+    import athletesCard from './athletes-card.vue';
 </script>

@@ -23,15 +23,15 @@ onMounted(() => {
 async function loginWithGoogle() {
     const client = import.meta.env.VITE_APP_CLIENT_ID;
 
-    global.handleCredentialResponse = handleCredentialResponse;
-    global.google.accounts.id.initialize({
+    window.handleCredentialResponse = handleCredentialResponse;
+    window.google.accounts.id.initialize({
         client_id: client,
         cancel_on_tap_outside: false,
         auto_select: true,
-        callback: global.handleCredentialResponse,
+        callback: window.handleCredentialResponse,
     });
 
-    global.google.accounts.id.renderButton(
+    window.google.accounts.id.renderButton(
         document.getElementById("parent_id"),
         {
             type: "standard",
@@ -55,12 +55,13 @@ async function handleCredentialResponse(response) {
             user.value = new User(
                 response.data.firstName,
                 response.data.lastName,
-                token
+                token,
+                response.data.id
             );
 
             console.log("Successfully logged in.");
-            store.setUser(user);
-            router.push("/dashboardCoach");
+            store.setUser(user.value);
+            router.push({ name: "dashboardCoach" });
         })
         .catch((err) => {
             console.error(`Error with authentication: ${err}.`);

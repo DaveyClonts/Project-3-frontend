@@ -5,12 +5,10 @@ import dns from "dns";
 
 dns.setDefaultResultOrder("verbatim");
 
-export default () => {
-    return defineConfig({
-        plugins: [vue(), vuetify({ autoImport: true })],
-        server: {
-            host: "localhost",
-            port: 8081,
-        },
-    });
-};
+export default defineConfig({
+    plugins: [vue(), vuetify({ autoImport: true })],
+    server: {
+        host: "localhost",
+        port: 8081,
+    },
+});

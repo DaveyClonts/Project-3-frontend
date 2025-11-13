@@ -12,6 +12,7 @@ export default {
         Utils.setStore("user", user);
     },
     clearUser() {
+        this.user = null;
         Utils.removeItem("user");
     }
 }

@@ -1,21 +1,26 @@
 <template>
-    <div class="goal-card" @click="handleClick">
+    <v-card class="goal-card" @click="handleClick">
         <h2>{{ props.goal.name }}</h2>
         <h2>{{ props.goal.description }}</h2>
         <h2>{{ props.goal.dueDate }}</h2>
-    </div>
+    </v-card>
+    <GoalViewPopup
+        v-model:show="showGoalViewPopup"
+        :goal="props.goal"
+    />
 </template>
 
 <script setup>
 import { ref } from "vue";
+import GoalViewPopup from "./goalViewPopup.vue";
 
 const props = defineProps(["goal"]);
-const showViewPopup = ref(false);
+const showGoalViewPopup = ref(false);
 
 console.log(props.goal);
 
 const handleClick = () => {
-    showViewPopup.value = true;
+    showGoalViewPopup.value = true;
 };
 </script>
 

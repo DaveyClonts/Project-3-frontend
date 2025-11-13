@@ -5,7 +5,7 @@
 
 <script setup>
 import { ref } from "vue";
-import AddGoalButtonAthlete from "./addGoalButtonAthlete.vue";
+import AddGoalButtonAthlete from "./goalAddButtonAthlete.vue";
 import GoalListAthlete from "./goalListAthlete.vue";
 
 </script>

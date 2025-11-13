@@ -4,7 +4,7 @@
 </template>
 <script setup>
 import { ref } from "vue";
-import AddGoalPopupAthlete from "./addGoalPopupAthlete.vue";
+import AddGoalPopupAthlete from "./goalAddPopupAthlete.vue";
 
 const showAddGoalPopup = ref(false);
 

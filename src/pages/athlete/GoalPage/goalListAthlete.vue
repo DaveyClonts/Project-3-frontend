@@ -12,9 +12,9 @@
 
 <script setup>
 import { ref, computed } from "vue";
-import goalService from "../../services/goalServices.js";
+import goalService from "../../../services/goalServices.js";
 import GoalDisplay from "./goalDisplayAthlete.vue";
-import Goal from "../../classes/Goal.js";
+import Goal from "../../../classes/Goal.js";
 
 const goals = ref([]);
 

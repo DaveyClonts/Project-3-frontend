@@ -1,0 +1,3 @@
+<template>
+    Athletes View
+</template>

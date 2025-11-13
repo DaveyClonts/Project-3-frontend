@@ -9,7 +9,6 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import authServices from "../services/authServices";
-import Utils from "../config/utils";
 import User from "../classes/User";
 import { useRouter } from "vue-router";
 import { useStore } from "vuex";
@@ -40,7 +39,8 @@ async function loginWithGoogle() {
             theme: "outline",
             size: "large",
             text: "signup_with",
-            width: 400,
+            width: 300,
+            height: 200
         }
     );
 }

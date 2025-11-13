@@ -21,13 +21,13 @@
 
             <v-list>
                 <v-list-item
-                    v-for="note in goal.notes"
+                    v-for="note in notesList"
                     :key="note.id"
                     class="note-item"
                 >
                     <v-list-item-content>
                         <v-list-item-title>{{
-                            note.content
+                            note.note
                         }}</v-list-item-title>
                         <v-list-item-subtitle>{{
                             note.date
@@ -61,27 +61,45 @@
 </template>
 
 <script setup>
-import { toRef } from "vue";
+import { toRef, ref } from "vue";
 import GoalDeleteButton from "./goalDeleteButtonAthlete.vue";
 import GoalEditButton from "./goalEditButtonAthlete.vue";
+import Note from "../../../classes/Note.js"
 import goalServices from "../../../services/goalServices.js";
 
 const props = defineProps({
     show: Boolean,
-    goal: Object,
+    goal: Object
 });
 
 console.log(props.goal);
-
-const goalID = props.goal.goalID;
 
 const emit = defineEmits(["update:show"]);
 
 const showDialog = toRef(props, "show");
 
-const closeDialog = () => {
+const notesList = ref([]);
+const newNote = ref("")
+
+function closeDialog() {
     emit("update:show", false);
-};
+}
+
+function addNote() {
+    if (!newNote.value.trim()) return;
+
+    props.goal.notes.push(new Note(newNote.value));
+    console.log(props.goal);
+    newNote.value = "";
+
+    getNotes();
+}
+
+function getNotes() {
+    notesList.value = props.goal.notes;
+}
+
+getNotes();
 
 const editGoal = () => {
     console.log("Edit goal:", props.goal);
@@ -107,6 +125,8 @@ const editGoal = () => {
     padding: 2rem;
     width: 80%;
     max-width: 90%;
+    max-height: 80%;
+    overflow-y: auto;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 .buttons {
@@ -119,5 +139,17 @@ const editGoal = () => {
 
 .action-button {
     flex: 1;
+}
+
+.note-item {
+    white-space: normal;
+}
+
+.note-item .v-list-item-title,
+.note-item .v-list-item-subtitle {
+    white-space: normal !important;
+    overflow: visible !important;
+    text-overflow: unset !important;
+    display: block !important;
 }
 </style>

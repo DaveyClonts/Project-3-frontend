@@ -43,7 +43,7 @@
 }
 
 .exercises-card {
-    height: 40vh;
+    height: 45vh;
     width: 65vw;
     border-radius: 20px;
 }

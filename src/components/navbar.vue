@@ -21,11 +21,11 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 15vh;
+    height: 12vh;
 }
 
 .navbar {
-    height: 60px;
+    height: 50px;
     border-radius: 50px;
     background-color: #d0d0d0;
     display: flex;
@@ -41,7 +41,7 @@
     display: flex;
     align-items: center;
     font-size: 20px;
-    height: 50px;
+    height: 45px;
     border-radius: 50px;
     padding: 0px 25px;
     cursor: pointer;
@@ -52,11 +52,11 @@
 }
 
 .nav-item:first-child {
-    margin-left: 6px;
+    margin-left: 4px;
 }
 
 .nav-item:last-child {
-    margin-right: 6px;
+    margin-right: 4px;
 }
 </style>
 

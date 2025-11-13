@@ -10,10 +10,9 @@
 import { ref, onMounted } from "vue";
 import authServices from "../services/authServices";
 import User from "../classes/User";
+import store from "../store/store.js";
 import { useRouter } from "vue-router";
-import { useStore } from "vuex";
 
-const store = useStore();
 const user = ref({});
 const router = useRouter();
 
@@ -60,7 +59,7 @@ async function handleCredentialResponse(response) {
             );
 
             console.log("Successfully logged in.");
-            store.commit("setLoginUser", user);
+            store.setUser(user);
             router.push("/dashboardCoach");
         })
         .catch((err) => {

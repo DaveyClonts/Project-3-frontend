@@ -1,7 +1,7 @@
 import axios from "axios";
 import router from "../router.js";
 import authServices from "./authServices.js";
-import Utils from "../config/utils.js";
+import store from "../store/store.js";
 
 let baseURL = "";
 
@@ -20,7 +20,7 @@ const apiClient = axios.create({
         crossDomain: true,
     },
     transformRequest: (data, headers) => {
-        const user = Utils.getStore("user");
+        const user = store.getUser();
 
         if (user != null) {
             const token = user.token;
@@ -41,11 +41,11 @@ const apiClient = axios.create({
             data.message.includes("Unauthorized")
         ) {
             authServices
-                .logoutUser(Utils.getStore("user"))
+                .logoutUser(store.getUser("user"))
                 .then((response) => {
                     console.log(response);
 
-                    Utils.removeItem("user");
+                    store.clearUser();
                     router.push({ name: "login" });
                 })
                 .catch((err) => {

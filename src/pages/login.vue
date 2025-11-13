@@ -1,17 +1,14 @@
 <script setup>
 import socialLogin from "../components/socialLogin.vue";
+import store from "../store/store.js";
 import { onMounted } from "vue";
-import { useStore } from "vuex";
 import { useRouter } from "vue-router";
 
-const store = useStore();
 const router = useRouter();
 
 onMounted(() => {
     console.log("Component has been mounted!");
-    let user = store.getters.getLoginUser;
-    console.log("store: " + JSON.stringify(store));
-    console.log("user: " + user);
+    let user = store.getUser();
 
     if (user != null && user.token != null && user.token != "")
         router.push("/dashboardCoach");

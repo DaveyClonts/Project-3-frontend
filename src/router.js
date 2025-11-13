@@ -55,6 +55,7 @@ const router = createRouter({
             path: "/dashboardAthlete",
             name: "dashboardAthlete",
             component: dashboardAthlete,
+            meta: { requiresAuth: true },
         }
     ],
 });

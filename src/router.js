@@ -1,3 +1,4 @@
+import { createRouter, createWebHistory } from "vue-router";
 import login from "./pages/login.vue";
 import dashboardCoach from "./pages/coach/dashboard-coach.vue";
 import workoutsCoach from "./pages/coach/workouts-coach.vue";
@@ -5,6 +6,9 @@ import exercisesCoach from "./pages/coach/exercises-coach.vue";
 import athletesCoach from "./pages/coach/athletes-coach.vue";
 import goalAthlete from "./pages/athlete/GoalPage/goalAthlete.vue";
 import { createRouter, createWebHistory } from "vue-router";
+import dashboardAthlete from "./pages/athlete/dashboard-athlete.vue";
+import store from "./store/store.js";
+import authServices from "./services/authServices.js";
 
 const router = createRouter({
     //removes the # from the url
@@ -29,28 +33,60 @@ const router = createRouter({
             path: "/dashboardCoach",
             name: "dashboardCoach",
             component: dashboardCoach,
+            meta: { requiresAuth: true },
         },
         {
             path: "/workoutsCoach",
             name: "workoutsCoach",
             component: workoutsCoach,
+            meta: { requiresAuth: true },
         },
         {
             path: "/exercisesCoach",
             name: "exercisesCoach",
             component: exercisesCoach,
+            meta: { requiresAuth: true },
         },
         {
             path: "/athletesCoach",
             name: "athletesCoach",
             component: athletesCoach,
+            meta: { requiresAuth: true },
         },
         {
             path: "/goalAthlete",
             name: "goalAthlete",
             component: goalAthlete,
         },
+            path: "/dashboardAthlete",
+            name: "dashboardAthlete",
+            component: dashboardAthlete,
+            meta: { requiresAuth: true },
+        }
     ],
+});
+
+router.beforeEach((to, from, next) => {
+    if (!to.meta.requiresAuth) {
+        next();
+        return;
+    }
+
+    const user = store.getUser();
+
+    if (user == null) {
+        next({ name: "login" });
+        return;
+    }
+
+    authServices
+        .authorizeUser(user)
+        .then(() => {
+            next();
+        })
+        .catch((err) => {
+            console.log(`Error authorizing user: ${err}`);
+        });
 });
 
 export default router;

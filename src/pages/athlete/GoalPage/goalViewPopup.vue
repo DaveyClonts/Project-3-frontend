@@ -1,6 +1,6 @@
 <template>
   <div v-if="showDialog" class="modal-overlay" @click.self="closeDialog">
-    <v-card class="modal" :style="{ backdropFilter: 'blur(8px)' }">
+    <v-card class="modal">
       <h3>View Goal</h3>
 
       <v-text-field :model-value="goal.name || 'N/A'" label="Goal Name" readonly />
@@ -20,17 +20,11 @@
       <v-btn @click="addNote">Add Note</v-btn>
 
       <div class="buttons">
-        <v-btn class="action-button">
-          <GoalDeleteButton :goal="goal" :refresh="getGoals" @closeParentPopup="closeDialog" />
-        </v-btn>
+          <GoalDeleteButton :goal="goal" :refresh="refresh" @closeParentPopup="closeDialog" />
 
-        <v-btn class="action-button">
-          <GoalEditButton :goal="goal" />
-        </v-btn>
+          <GoalEditButton :goal="goal" :refresh="refresh"/>
 
-        <v-btn class="action-button">
-          <button @click="closeDialog">Close</button>
-        </v-btn>
+          <v-btn @click="closeDialog">Close</v-btn>
       </div>
     </v-card>
   </div>
@@ -45,7 +39,7 @@ import Note from "../../../classes/Note.js";
 const props = defineProps({
   show: Boolean,
   goal: Object,
-  getGoals: Function,
+  refresh: Function,
 });
 
 const emit = defineEmits(["update:show", "closeParentPopup"]);
@@ -80,8 +74,9 @@ getNotes();
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: rgba(0, 0, 0, 0.4); /* just dim background */
+  background-color: rgba(0, 0, 0, 0.4); 
   z-index: 10;
+  will-change: auto !important;
 }
 
 .modal {
@@ -93,7 +88,7 @@ getNotes();
   max-height: 80%;
   overflow-y: auto;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
-  /* blur applied only to modal content */
+  will-change: auto !important;
 }
 
 .buttons {
@@ -102,6 +97,7 @@ getNotes();
   gap: 1rem;
   padding: 2;
   width: 20%;
+  will-change: auto !important;
 }
 
 .action-button {

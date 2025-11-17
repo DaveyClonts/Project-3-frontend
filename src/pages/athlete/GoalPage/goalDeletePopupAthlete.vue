@@ -4,11 +4,11 @@
             <v-card class="modal">
                 <h3>Are you sure you wish to delete goal {{ goal.name }}</h3>
                 <div class="buttons">
-                    <v-btn class="action-button">
-                        <button @click="confirmDelete">Delete</button>
+                    <v-btn class="action-button" @click="confirmDelete">
+                        Delete
                     </v-btn>
-                    <v-btn class="action-button">
-                        <button @click="closeDialog">Cancel</button>
+                    <v-btn class="action-button" @click="closeDialog">
+                        Cancel
                     </v-btn>
                 </div>
             </v-card>

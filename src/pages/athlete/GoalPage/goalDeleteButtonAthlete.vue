@@ -1,6 +1,6 @@
 <template>
   <div>
-    <button @click="showDeleteGoalPopup = true">Delete</button>
+    <v-btn @click="showDeleteGoalPopup = true">Delete</v-btn>
 
     <DeleteGoalPopup
       v-model:show="showDeleteGoalPopup"

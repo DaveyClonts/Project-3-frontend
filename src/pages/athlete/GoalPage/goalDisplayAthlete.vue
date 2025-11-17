@@ -7,7 +7,7 @@
     <GoalViewPopup
         v-model:show="showGoalViewPopup"
         :goal="props.goal"
-        :getGoals="props.refresh"
+        :refresh="refresh"
     />
 </template>
 

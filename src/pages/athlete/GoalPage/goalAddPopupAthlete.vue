@@ -46,6 +46,7 @@ import store from "../../../store/store";
 
 const props = defineProps({
     show: Boolean,
+    refresh: Function,
 });
 const emit = defineEmits(["update:show"]);
 
@@ -55,6 +56,9 @@ const description = ref("");
 const date = ref("");
 
 function closeDialog() {
+    name.value = "";
+    description.value = "";
+    date.value = "";
     emit("update:show", false);
 }
 
@@ -72,6 +76,7 @@ function submitGoal() {
     };
     goalServices.create(goal).then(() =>{
         console.log("Submitted Goal:", goal);
+        if (props.refresh) props.refresh();
     })
     .catch((err) => {
         console.log(err);
@@ -88,7 +93,6 @@ function submitGoal() {
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(8px);
     background-color: rgba(0, 0, 0, 0.4);
 }
 

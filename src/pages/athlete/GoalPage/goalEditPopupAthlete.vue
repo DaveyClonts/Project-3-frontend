@@ -47,7 +47,8 @@ import goalServices from "../../../services/goalServices.js";
 
 const props = defineProps({
     show: Boolean,
-    goal: Object
+    goal: Object,
+    refresh: Function
 });
 const emit = defineEmits(["update:show"]);
 
@@ -70,10 +71,12 @@ function closeDialog() {
     emit("update:show", false);
 }
 
+
 function submitGoal() {
     const newGoal = new Goal(name.value, description.value, date.value, store.getUser().id, goal.value.goalID);
     goalServices.update(newGoal).then(() =>{
         console.log("Updated Goal:", newGoal);
+        if (props.refresh) props.refresh();
     })
     .catch((err) => {
         console.log(err);
@@ -91,6 +94,7 @@ function submitGoal() {
     justify-content: center;
     background-color: rgba(0, 0, 0, 0.4);
     z-index: 10;
+    will-change: auto !important;
 }
 
 .modal {
@@ -100,6 +104,7 @@ function submitGoal() {
     width: 80%;
     max-width: 90%;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+    will-change: auto !important;
 }
 
 .name-input {
@@ -114,6 +119,7 @@ function submitGoal() {
     width: 20%;
     margin-bottom: 1rem;
     z-index: 1;
+    will-change: auto !important;
 }
 
 .buttons {
@@ -122,9 +128,11 @@ function submitGoal() {
     gap: 1rem;
     padding: 2;
     width: 20%;
+    will-change: auto !important;
 }
 
 .action-button {
     flex: 1;
+    will-change: auto !important;
 }
 </style>

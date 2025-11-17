@@ -52,10 +52,12 @@ async function handleCredentialResponse(response) {
     authServices
         .loginUser(token)
         .then((response) => {
+            console.log(JSON.stringify(response));
+
             user.value = new User(
                 response.data.firstName,
                 response.data.lastName,
-                token,
+                response.data.sessionToken,
                 response.data.id
             );
 

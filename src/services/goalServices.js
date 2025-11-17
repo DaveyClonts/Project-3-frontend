@@ -1,5 +1,6 @@
 import apiClient from "./services.js";
 import Goal from "../classes/Goal.js";
+import store from "../store/store.js";
 
 const API_ROOT = "goals";
 
@@ -39,6 +40,7 @@ export default {
       .get(`${API_ROOT}/${id}`)
       .then((response) => {
         console.log("Got");
+        console.log(response.body);
       })
       .catch((err) => {
         console.log("Error: " + err);
@@ -49,14 +51,19 @@ export default {
    * @returns {Promise<Goal>}
    */
   async getAll() {
-    console.log("Retrieving");
-    await apiClient
-      .get(API_ROOT)
-      .then((response) => {
-        console.log("Got");
-      })
-      .catch((err) => {
-        console.log("Error: " + err);
-      });
-  },
+    try {
+        const userId = store.getUser().id;
+        console.log("Retrieving goals for user", userId);
+        const response = await apiClient.get(`${API_ROOT}/${userId}`);
+        console.log("Got goals:", response.data);
+
+        return response.data.map((goalObject) => {
+            const { name, description, date } = goalObject; // match backend
+            return new Goal(name, description, date);
+        });
+    } catch (err) {
+        console.error("Error fetching goals:", err);
+        return [];
+    }
+}
 };

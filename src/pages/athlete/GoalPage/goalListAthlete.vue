@@ -14,16 +14,11 @@ import Note from "../../../classes/Note.js";
 const goals = ref([]);
 
 async function getGoals() {
-  // try {
-  //   goals.value = await goalServices.getAll();
-  // } catch (err) {
-  //   console.error("Error fetching goals:", err);
-  // }
   nextTick(async () => {
-  await goalServices.get(1).then(goal => {
-    console.log(goal);
-    goals.value = goal;
-  })
+    await goalServices.getAll().then((goal) => {
+      console.log(JSON.stringify(goal));
+      goals.value = goal;
+    });
   });
 }
 

@@ -52,18 +52,42 @@ export default {
    */
   async getAll() {
     try {
-        const userId = store.getUser().id;
-        console.log("Retrieving goals for user", userId);
-        const response = await apiClient.get(`${API_ROOT}/${userId}`);
+        const userID = store.getUser().id;
+        console.log("Retrieving goals for user", userID);
+        const response = await apiClient.get(`${API_ROOT}/${userID}`);
         console.log("Got goals:", response.data);
 
         return response.data.map((goalObject) => {
-            const { name, description, date } = goalObject; // match backend
-            return new Goal(name, description, date);
+            const { name, description, date, userID, goalID } = goalObject; // match backend
+            return new Goal(name, description, date, userID, goalID);
         });
     } catch (err) {
         console.error("Error fetching goals:", err);
         return [];
+    }
+},
+
+/**
+   * @returns {Promise<Goal>}
+   */
+  async delete(goalID) {
+    try {
+      return apiClient.delete(`${API_ROOT}/${goalID}`);
+    } catch (error) {
+      console.error("Error creating course:", error);
+      return null;
+    }
+},
+
+/**
+   * @returns {Promise<Goal>}
+   */
+  async update(goal) {
+    try {
+      return apiClient.put(`${API_ROOT}/${goal.goalID}`, goal);
+    } catch (error) {
+      console.error("Error creating course:", error);
+      return null;
     }
 }
 };

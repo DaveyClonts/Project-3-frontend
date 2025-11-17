@@ -41,50 +41,43 @@
 <script setup>
 import { VDateInput } from "vuetify/labs/VDateInput";
 import Goal from "../../../classes/Goal.js"
-import { ref } from "vue";
+import { ref, toRef } from "vue";
+import store from "../../../store/store.js";
+import goalServices from "../../../services/goalServices.js";
 
 const props = defineProps({
     show: Boolean,
-    goalID:{
-        type: Number,
-    }
+    goal: Object
 });
 const emit = defineEmits(["update:show"]);
 
+const goal = toRef(props, "goal");
 const valid = ref(true);
 const name = ref("");
 const description = ref("");
 const date = ref("");
 
 
-//FIX THIS WHEN BACKEND
-function generateTextFields(goalID){
-    const newGoal = new Goal("New", "New", "New");
-    const goal = newGoal;
-    name.value = goal.name;
-    description.value = goal.description;
-    date.value = goal.date;
+function generateTextFields(goal){
+    name.value = goal.value.name;
+    description.value = goal.value.description;
+    date.value = goal.value.date;
 }
 
-generateTextFields(props.goalID);
+generateTextFields(goal);
 
 function closeDialog() {
     emit("update:show", false);
 }
 
 function submitGoal() {
-    if (!name.value || !date.value) {
-        alert("Please fill in Name and Due Date.");
-        return;
-    }
-
-    const goal = {
-        name: name.value,
-        description: description.value,
-        dueDate: date.value,
-    };
-
-    console.log("Submitted Goal:", goal);
+    const newGoal = new Goal(name.value, description.value, date.value, store.getUser().id, goal.value.goalID);
+    goalServices.update(newGoal).then(() =>{
+        console.log("Updated Goal:", newGoal);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
     closeDialog();
 }
 </script>
@@ -96,9 +89,8 @@ function submitGoal() {
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(8px);
-    background-color: rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 10;
 }
 
 .modal {

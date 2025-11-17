@@ -2,7 +2,7 @@
     <div>
         <div v-if="showDialog" class="modal-overlay" @click.self="closeDialog">
             <v-card class="modal">
-                <h3>Are you sure you wish to delete goal {{ goal }}</h3>
+                <h3>Are you sure you wish to delete goal {{ goal.name }}</h3>
                 <div class="buttons">
                     <v-btn class="action-button">
                         <button @click="confirmDelete">Delete</button>
@@ -18,27 +18,35 @@
 
 <script setup>
 import { toRef } from "vue";
-//import goalServices from "../services/goalServices.js";
+import goalServices from "../../../services/goalServices";
 
 const props = defineProps({
     show: Boolean,
-    goal: {
-        type: Number,
-    },
+    goal: Object,
+    refresh: Function
 });
 
-const emit = defineEmits(["update:show", "goal"]);
+const goal = toRef(props, "goal");
+
+const emit = defineEmits(["update:show", "goal", "closeParentPopup"]);
 
 const showDialog = toRef(props, "show");
 
 function closeDialog() {
-    emit("update:show");
-    location.reload();
+    if (props.refresh) props.refresh();
+    emit("update:show", false);
+    emit("closeParentPopup");
 }
 
 function confirmDelete() {
-    //goalServices.delete(props.goal);
-    closeDialog();
+    console.log(goal.value.goalID);
+    goalServices.delete(goal.value.goalID).then(() =>{
+        console.log("Deleted Goal:", goal);
+        closeDialog();
+    })
+    .catch((err) => {
+        console.log(err);
+    })
 }
 </script>
 
@@ -49,9 +57,8 @@ function confirmDelete() {
     display: flex;
     align-items: center;
     justify-content: center;
-    backdrop-filter: blur(8px);
-    background-color: rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 2;
 }
 
 .modal {

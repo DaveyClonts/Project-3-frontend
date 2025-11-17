@@ -2,7 +2,7 @@
     <div>
         <button @click="showGoalEditPopup = true">Edit</button>
 
-        <GoalEditPopup v-model:show="showGoalEditPopup" :goalID="props.goal" />
+        <GoalEditPopup v-model:show="showGoalEditPopup" :goal="goal" />
     </div>
 </template>
 
@@ -13,9 +13,7 @@ import GoalEditPopup from "./goalEditPopupAthlete.vue";
 const showGoalEditPopup = ref(false);
 
 const props = defineProps({
-    goal: {
-        type: String,
-    },
+    goal: Object
 });
 </script>
 

@@ -41,6 +41,8 @@
 <script setup>
 import { VDateInput } from "vuetify/labs/VDateInput";
 import { ref } from "vue";
+import goalServices from "../../../services/goalServices";
+import store from "../../../store/store";
 
 const props = defineProps({
     show: Boolean,
@@ -65,10 +67,16 @@ function submitGoal() {
     const goal = {
         name: name.value,
         description: description.value,
-        dueDate: date.value,
+        date: date.value,
+        userID: store.getUser().id
     };
-
-    console.log("Submitted Goal:", goal);
+    goalServices.create(goal).then(() =>{
+        console.log("Submitted Goal:", goal);
+    })
+    .catch((err) => {
+        console.log(err);
+    })
+    
     closeDialog();
 }
 </script>
@@ -81,8 +89,7 @@ function submitGoal() {
     align-items: center;
     justify-content: center;
     backdrop-filter: blur(8px);
-    background-color: rgba(0, 0, 0, 0.2);
-    z-index: 1000;
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
 .modal {

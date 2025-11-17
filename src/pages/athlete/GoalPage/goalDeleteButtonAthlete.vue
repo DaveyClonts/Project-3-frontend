@@ -4,7 +4,9 @@
 
     <DeleteGoalPopup
       v-model:show="showDeleteGoalPopup"
-      :course="course"
+      :goal="goal"
+      :refresh="refresh"
+      @closeParentPopup="$emit('closeParentPopup')"
     />
   </div>
 </template>
@@ -16,10 +18,11 @@ import DeleteGoalPopup from './goalDeletePopupAthlete.vue';
 const showDeleteGoalPopup = ref(false)
 
 const props = defineProps({
-  goalID: {
-    type: Number,
-  }
+  goal: Object,
+  refresh: Function
 });
+
+const emit = defineEmits(["closeParentPopup"]);
 
 </script>
 

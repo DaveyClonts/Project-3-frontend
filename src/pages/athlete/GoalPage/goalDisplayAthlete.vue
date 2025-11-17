@@ -7,6 +7,7 @@
     <GoalViewPopup
         v-model:show="showGoalViewPopup"
         :goal="props.goal"
+        :getGoals="props.refresh"
     />
 </template>
 
@@ -14,7 +15,10 @@
 import { ref } from "vue";
 import GoalViewPopup from "./goalViewPopup.vue";
 
-const props = defineProps(["goal"]);
+const props = defineProps({
+    goal: Object,
+    refresh: Function,
+});
 const showGoalViewPopup = ref(false);
 
 console.log(props.goal);

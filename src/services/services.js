@@ -32,7 +32,7 @@ const apiClient = axios.create({
 
         if (data === null)
             data = {};
-        console.log(data);
+        
         return JSON.stringify(data);
     },
     transformResponse: (data) => {

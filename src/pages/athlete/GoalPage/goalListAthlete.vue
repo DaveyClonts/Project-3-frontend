@@ -1,34 +1,30 @@
 <template>
   <div class="grid-container goal-list">
-
-    <GoalDisplay
-      v-for="goal in goals"
-      :key="goal.goalID"
-      :goal="goal"
-      @deletedGoal="getGoals()"
-    />
+    <GoalDisplay v-for="goal in goals" :key="goal.goalID" :goal="goal" />
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from "vue";
-import goalService from "../../../services/goalServices.js";
+import { ref, computed, nextTick } from "vue";
+import goalServices from "../../../services/goalServices.js";
 import GoalDisplay from "./goalDisplayAthlete.vue";
 import Goal from "../../../classes/Goal.js";
 import Note from "../../../classes/Note.js";
 
 const goals = ref([]);
 
-
-
-function getGoals() {
-    const note1 = new Note("Note1");
-    const note2 = new Note("Note1");
-    const goal = new Goal("test", "test", "1111-11-11");
-    goal.notes = [note1, note2];
-    goal.goalID = 1;
-    goals.value = ([goal]);
-    return goal;
+async function getGoals() {
+  // try {
+  //   goals.value = await goalServices.getAll();
+  // } catch (err) {
+  //   console.error("Error fetching goals:", err);
+  // }
+  nextTick(async () => {
+  await goalServices.get(1).then(goal => {
+    console.log(goal);
+    goals.value = goal;
+  })
+  });
 }
 
 getGoals();

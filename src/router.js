@@ -1,9 +1,11 @@
+import { createRouter, createWebHistory } from "vue-router";
 import login from "./pages/login.vue";
 import dashboardCoach from "./pages/coach/dashboard-coach.vue";
 import workoutsCoach from "./pages/coach/workouts-coach.vue";
 import exercisesCoach from "./pages/coach/exercises-coach.vue";
 import athletesCoach from "./pages/coach/athletes-coach.vue";
-import { createRouter, createWebHistory } from "vue-router";
+import goalAthlete from "./pages/athlete/GoalPage/goalAthlete.vue";
+import dashboardAthlete from "./pages/athlete/dashboard-athlete.vue";
 import store from "./store/store.js";
 import authServices from "./services/authServices.js";
 
@@ -48,6 +50,18 @@ const router = createRouter({
             path: "/athletesCoach",
             name: "athletesCoach",
             component: athletesCoach,
+            meta: { requiresAuth: true },
+        },
+        {
+            path: "/goalAthlete",
+            name: "goalAthlete",
+            component: goalAthlete,
+            meta: { requiresAuth: true },
+        },
+        {
+            path: "/dashboardAthlete",
+            name: "dashboardAthlete",
+            component: dashboardAthlete,
             meta: { requiresAuth: true },
         },
     ],

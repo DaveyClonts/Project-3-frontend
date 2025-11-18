@@ -3,7 +3,10 @@
         <div class="subcontainer">
             <div class="title">Workouts</div>
             <div v-for="workout in workouts">
-                <workout-selector :workout=workout />
+                <workout-selector
+                    :workout="workout"
+                    @workout-selected="onWorkoutSelected"
+                />
             </div>
         </div>
     </v-card>
@@ -60,4 +63,8 @@ const workouts = [
     new Workout("Workout #2", "11/17/26", 2),
     new Workout("Workout #3", "11/17/27", 3),
 ];
+
+function onWorkoutSelected(id) {
+    console.log("Selected workout: " + id);
+}
 </script>

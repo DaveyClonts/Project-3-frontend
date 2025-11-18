@@ -9,7 +9,7 @@
                 class="select-button rounded-xl"
                 variant="text"
                 :ripple="{ class: 'text-white' }"
-                @click="editWorkout"
+                @click="$emit('workout-selected', workout.id)"
                 >Edit</v-btn
             >
         </div>
@@ -64,8 +64,4 @@
 
 <script setup>
 const props = defineProps(["workout"]);
-
-function editWorkout() {
-
-}
 </script>

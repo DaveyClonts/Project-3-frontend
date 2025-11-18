@@ -9,12 +9,10 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import authServices from "../services/authServices";
-import Utils from "../config/utils";
 import User from "../classes/User";
+import store from "../store/store.js";
 import { useRouter } from "vue-router";
 
-const firstName = ref("");
-const lastName = ref("");
 const user = ref({});
 const router = useRouter();
 
@@ -24,25 +22,24 @@ onMounted(() => {
 
 async function loginWithGoogle() {
     const client = import.meta.env.VITE_APP_CLIENT_ID;
-    console.log(`Client: ${client}`);
 
-    global.handleCredentialResponse = handleCredentialResponse;
-
-    global.google.accounts.id.initialize({
+    window.handleCredentialResponse = handleCredentialResponse;
+    window.google.accounts.id.initialize({
         client_id: client,
         cancel_on_tap_outside: false,
         auto_select: true,
-        callback: global.handleCredentialResponse,
+        callback: window.handleCredentialResponse,
     });
 
-    global.google.accounts.id.renderButton(
+    window.google.accounts.id.renderButton(
         document.getElementById("parent_id"),
         {
             type: "standard",
             theme: "outline",
             size: "large",
             text: "signup_with",
-            width: 400,
+            width: 300,
+            height: 200
         }
     );
 }
@@ -55,16 +52,18 @@ async function handleCredentialResponse(response) {
     authServices
         .loginUser(token)
         .then((response) => {
+            console.log(JSON.stringify(response));
+
             user.value = new User(
                 response.data.firstName,
-                response.data.lastName
+                response.data.lastName,
+                response.data.sessionToken,
+                response.data.id
             );
-            firstName.value = user.firstName;
-            lastName.value = user.lastName;
 
-            Utils.setStore("user", user);
-
-            router.push("/dashboardCoach");
+            console.log("Successfully logged in.");
+            store.setUser(user.value);
+            router.push({ name: "dashboardCoach" });
         })
         .catch((err) => {
             console.error(`Error with authentication: ${err}.`);

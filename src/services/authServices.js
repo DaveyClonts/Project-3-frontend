@@ -4,8 +4,8 @@ export default {
     loginUser(user) {
         return apiClient.post("login", user);
     },
-    authorizeUser(code) {
-        return apiClient.post("authorize", code);
+    authorizeUser(user) {
+        return apiClient.post("authorize", user);
     },
     logoutUser(token) {
         return apiClient.post("logout", token);

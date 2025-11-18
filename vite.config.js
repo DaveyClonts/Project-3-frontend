@@ -4,13 +4,25 @@ import vuetify from "vite-plugin-vuetify";
 import dns from "dns";
 
 dns.setDefaultResultOrder("verbatim");
-
 export default () => {
-    return defineConfig({
-        plugins: [vue(), vuetify({ autoImport: true })],
-        server: {
-            host: "localhost",
-            port: 8081,
+  const baseURL =
+    process.env.APP_ENV === "development" ? "/" : "/seiv2025/p3/t6";
+
+  return defineConfig({
+    plugins: [
+      vue({
+        template: {
+          compilerOptions: {
+            isCustomElement: (tag) => ["v-list-item-content"].includes(tag),
+          },
         },
-    });
+      }),
+      vuetify({ autoImport: true }),
+    ],
+    server: {
+      host: "localhost",
+      port: 8081,
+    },
+    base: baseURL,
+  });
 };

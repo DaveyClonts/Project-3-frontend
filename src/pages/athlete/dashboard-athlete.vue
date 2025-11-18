@@ -4,7 +4,7 @@
             <v-col class="fill-height flex-grow-0" style="width: 65vw; margin-left: 15px;">
                 <v-row>
                     <div class="title-text">
-                        Welcome, Coach Jones
+                        Welcome, Lebron James
                     </div>
                 </v-row>
                 <v-row>
@@ -15,7 +15,7 @@
                 </v-row>
             </v-col>
             <v-col>
-                 <athletesCard/>
+                <v-card class="athletes-card">Test</v-card>
             </v-col>
         </v-row>
     </div>
@@ -43,12 +43,18 @@
 }
 
 .exercises-card {
-    height: 45vh;
+    height: 40vh;
     width: 65vw;
+    border-radius: 20px;
+}
+
+.athletes-card {
+    width: 22vw;
+    height: 78vh;
     border-radius: 20px;
 }
 </style>
 
 <script setup>
-    import athletesCard from './athletes-card.vue';
+    
 </script>

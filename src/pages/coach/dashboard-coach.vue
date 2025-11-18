@@ -22,7 +22,6 @@
 </template>
 
 <style scoped>
-
 .page-margins {
     Padding: 40px;
     height: 100vh;

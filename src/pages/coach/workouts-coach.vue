@@ -1,5 +1,5 @@
 <template>
-    <v-card class="workout-container">
+    <v-card class="builder-container">
         <div class="subcontainer">
             <div class="title">Workouts</div>
             <div v-for="workout in workouts">
@@ -14,9 +14,8 @@
 
 <style scoped>
 .builder-container {
-    margin-left: 25%;
-    margin-right: 25%;
-    min-width: 650px;
+    margin-top: 8px;
+    min-width: 450px;
     padding: 20px;
     height: 80vh;
     background-color: #d0d0d0;

@@ -65,4 +65,6 @@
 
 <script setup>
 import exerciseSelector from "./exerciseSelector.vue";
+
+const props = defineProps(["workout"]);
 </script>

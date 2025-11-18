@@ -2,11 +2,13 @@
     <v-card class="top-container">
         <div class="top-subcontainer">
             <div class="title">Workouts</div>
-            <div v-for="workout in workouts">
-                <workout-selector
-                    :workout="workout"
-                    @workout-selected="onWorkoutSelected"
-                />
+            <div class="top-element-container">
+                <div v-for="workout in workouts">
+                    <workout-selector
+                        :workout="workout"
+                        @workout-selected="onWorkoutSelected"
+                    />
+                </div>
             </div>
         </div>
     </v-card>
@@ -24,7 +26,7 @@
 <style scoped>
 .top-container {
     margin-top: 8px;
-    min-width: 450px;
+    min-width: 500px;
     padding: 20px;
     height: 80vh;
     background-color: #d0d0d0;
@@ -36,9 +38,17 @@
 
 .top-subcontainer {
     width: 100%;
-    gap: 12px;
     display: flex;
     flex-direction: column;
+}
+
+.top-element-container {
+    width: 100%;
+    height: 100%;
+    margin-top: 8px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     align-items: center;
     overflow: auto scroll;
     overflow-y: auto;
@@ -83,6 +93,12 @@ const workouts = [
     new Workout("Workout #1", "11/17/25", 1),
     new Workout("Workout #2", "11/17/26", 2),
     new Workout("Workout #3", "11/17/27", 3),
+    new Workout("Workout #1", "11/17/25", 4),
+    new Workout("Workout #2", "11/17/26", 5),
+    new Workout("Workout #3", "11/17/27", 6),
+    new Workout("Workout #1", "11/17/25", 7),
+    new Workout("Workout #2", "11/17/26", 8),
+    new Workout("Workout #3", "11/17/27", 9),
 ];
 
 function save() {

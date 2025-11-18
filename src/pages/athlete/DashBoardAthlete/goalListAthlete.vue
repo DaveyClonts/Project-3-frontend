@@ -2,43 +2,47 @@
   <v-card class="builder-container rounded-xl">
     <div class="subcontainer right-outline">
       <div class="title">Goal List</div>
-      <GoalDisplay v-for="goal in goals" :key="goal.goalID" :goal="goal" />
-      <AddGoalButtonAthlete :refresh="refresh" />
+      <GoalDisplay
+        v-for="goal in goals"
+        :key="goal.goalID"
+        :goal="goal"
+      />
     </div>
   </v-card>
 </template>
 
 <script setup>
 import GoalDisplay from "./goalDisplayAthlete.vue";
-import AddGoalButtonAthlete from "./goalAddButtonAthlete.vue";
+
+
 
 const props = defineProps({
   goals: {
     type: Array,
     default: () => [],
   },
-  refresh: Function
 });
 </script>
 
-<style scoped>
+<style>
 .builder-container {
-  height: 80vh;
-  width: 50%;
+  height: 100%;
+  width: 100%;
   background-color: #d0d0d0;
   display: flex;
+  flex-direction: row;
   justify-content: center;
-  margin: 0 auto;
+  justify-self: center;
 }
 
 .subcontainer {
-  width: 80%;
-  gap: 12px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: auto scroll;
-  overflow-y: auto;
+    width: 80%;
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto scroll;
+    overflow-y: auto;
 }
 
 .title {
@@ -51,5 +55,4 @@ const props = defineProps({
   padding-bottom: 12px;
   width: 100%;
 }
-
 </style>

@@ -1,5 +1,5 @@
 <template>
-  <v-card class="goal-container rounded-xl" @click="handleClick">
+  <v-card class="goal-container rounded-xl">
     <div class="goal-subcontainer">
       <div>
         <div class="goal-title">{{ props.goal.name }}</div>
@@ -7,35 +7,22 @@
       </div>
     </div>
   </v-card>
-  <GoalViewPopup
-        v-model:show="showGoalViewPopup"
-        :goal="props.goal"
-        :refresh="refresh"
-      />
 </template>
 
 <script setup>
-import { ref } from "vue";
-import GoalViewPopup from "./goalViewPopup.vue";
 
 const props = defineProps({
   goal: Object,
-  refresh: Function,
 });
-const showGoalViewPopup = ref(false);
 
-console.log(props.goal);
 
-const handleClick = () => {
-  showGoalViewPopup.value = true;
-};
 </script>
 
 <style scoped>
 .goal-container {
   background-color: #848484;
   height: 80px;
-  width: 80%;
+  width: 380px;
   padding: 12px 24px 8px 24px;
   flex: 0 0 auto;
 }

@@ -21,7 +21,7 @@
     </v-card>
 </template>
 
-<style>
+<style scoped>
 .builder-container {
     margin-left: 25%;
     margin-right: 25%;

@@ -17,16 +17,18 @@
     "dotenv": "^17.2.2",
     "express": "^5.1.0",
     "mysql2": "^3.15.0",
+    "sass": "^1.94.1",
+    "sass-loader": "^16.0.6",
     "sequelize": "^6.37.7",
     "vite-plugin-vuetify": "^2.1.2",
-    "vue": "3.5.18",
+    "vue": "^3.5.24",
     "vue-router": "^4.6.3",
-    "vuetify": "^3.10.2",
+    "vuetify": "^3.10.11",
     "vuex": "^4.1.0"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^6.0.1",
-    "vite": "^7.1.2",
-    "cross-env": "^7.0.3"
+    "cross-env": "^7.0.3",
+    "vite": "^7.1.2"
   }
 }

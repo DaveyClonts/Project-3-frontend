@@ -4,22 +4,47 @@
             <v-col class="fill-height flex-grow-0" style="width: 65vw; margin-left: 15px;">
                 <v-row>
                     <div class="title-text">
-                        Welcome, Lebron James
+                        Welcome, {{ store.user.firstName}} {{ store.user.lastName }}
                     </div>
                 </v-row>
                 <v-row>
                     <v-card class="workouts-card">Test</v-card>
                 </v-row>
                 <v-row>
-                    <v-card class="exercises-card">Test</v-card>
+                    <v-card class="exercises-card">
+                        <GoalCalendarAthlete 
+                            :goals="goals"/>
+                    </v-card>
                 </v-row>
             </v-col>
             <v-col>
-                <v-card class="athletes-card">Test</v-card>
+                <v-card class="athletes-card">
+                    <GoalListAthlete 
+                        :getGoal="getGoals"
+                        :goals="goals"/>
+                </v-card>
             </v-col>
         </v-row>
     </div>
 </template>
+
+<script setup>
+import store from '../../../store/store';
+import GoalListAthlete from './goalListAthlete.vue';
+import GoalCalendarAthlete from './goalCalendarAthlete.vue';
+import goalServices from "../../../services/goalServices";
+import { ref } from "vue";
+
+const goals = ref([]);
+
+async function getGoals() {
+  const data = await goalServices.getAll();
+  goals.value = data;
+  return data;
+}
+
+getGoals();
+</script>
 
 <style scoped>
 
@@ -52,9 +77,6 @@
     width: 22vw;
     height: 78vh;
     border-radius: 20px;
+
 }
 </style>
-
-<script setup>
-    
-</script>

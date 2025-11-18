@@ -2,18 +2,20 @@
     <v-card class="builder-container rounded-xl">
         <div class="subcontainer right-outline">
             <div class="title">Exercise List</div>
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
+            <div class="element-container">
+                <exerciseSelector />
+                <exerciseSelector />
+                <exerciseSelector />
+                <exerciseSelector />
+                <exerciseSelector />
+                <exerciseSelector />
+                <exerciseSelector />
+                <exerciseSelector />
+                <exerciseSelector />
+                <exerciseSelector />
+                <exerciseSelector />
+                <exerciseSelector />
+            </div>
         </div>
         <div class="subcontainer">
             <div class="title">Selected Exercises</div>
@@ -25,6 +27,7 @@
 .builder-container {
     margin-left: 25%;
     margin-right: 25%;
+    margin-bottom: 16px;
     min-width: 850px;
     padding: 20px;
     height: 80vh;
@@ -33,10 +36,19 @@
     flex-direction: row;
     justify-content: center;
     justify-self: center;
+    align-self: center;
 }
 
 .subcontainer {
     width: 50%;
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+}
+
+.element-container {
+    width: 100%;
+    height: 100%;
     gap: 12px;
     display: flex;
     flex-direction: column;

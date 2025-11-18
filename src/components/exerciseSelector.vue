@@ -9,7 +9,7 @@
                 class="select-button rounded-xl"
                 variant="text"
                 :ripple="{ class: 'text-white' }"
-                >></v-btn
+                >+</v-btn
             >
         </div>
     </v-card>
@@ -38,6 +38,7 @@
     margin-right: -24px;
     align-self: center;
     color: white;
+    font-size: 24px;
 }
 
 .selector-title {

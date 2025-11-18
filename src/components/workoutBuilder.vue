@@ -64,5 +64,5 @@
 </style>
 
 <script setup>
-import exerciseSelector from "../../components/exerciseSelector.vue";
+import exerciseSelector from "./exerciseSelector.vue";
 </script>

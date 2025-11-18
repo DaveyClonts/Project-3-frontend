@@ -1,22 +1,10 @@
 <template>
-    <v-card class="builder-container rounded-xl">
-        <div class="subcontainer right-outline">
-            <div class="title">Exercise List</div>
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-            <exerciseSelector />
-        </div>
+    <v-card class="workout-container">
         <div class="subcontainer">
-            <div class="title">Selected Exercises</div>
+            <div class="title">Workouts</div>
+            <div v-for="workout in workouts">
+                <workout-selector :workout=workout />
+            </div>
         </div>
     </v-card>
 </template>
@@ -25,7 +13,7 @@
 .builder-container {
     margin-left: 25%;
     margin-right: 25%;
-    min-width: 850px;
+    min-width: 650px;
     padding: 20px;
     height: 80vh;
     background-color: #d0d0d0;
@@ -36,7 +24,7 @@
 }
 
 .subcontainer {
-    width: 50%;
+    width: 100%;
     gap: 12px;
     display: flex;
     flex-direction: column;
@@ -45,10 +33,8 @@
     overflow-y: auto;
 }
 
-.right-outline {
-    border-width: 0px 2px 0px 0px;
-    border-color: rgb(82, 82, 82);
-    border-style: solid;
+.workout-list {
+    width: 100%;
 }
 
 .title {
@@ -64,5 +50,14 @@
 </style>
 
 <script setup>
-import exerciseSelector from "../../components/exerciseSelector.vue";
+import workoutBuilder from "../../components/workoutBuilder.vue";
+import workoutSelector from "../../components/workoutSelector.vue";
+import Workout from "../../classes/Workout.js";
+
+// load all workouts
+const workouts = [
+    new Workout("Workout #1", "11/17/25", 1),
+    new Workout("Workout #2", "11/17/26", 2),
+    new Workout("Workout #3", "11/17/27", 3),
+];
 </script>

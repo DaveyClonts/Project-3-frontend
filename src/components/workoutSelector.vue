@@ -2,14 +2,15 @@
     <v-card class="selector-container rounded-xl">
         <div class="selector-subcontainer">
             <div>
-                <div class="selector-title">Exercise Title</div>
-                <div class="selector-subtitle">Group 1, Group 2</div>
+                <div class="selector-title">{{ $props.workout.name }}</div>
+                <div class="selector-subtitle">{{ $props.workout.date }}</div>
             </div>
             <v-btn
                 class="select-button rounded-xl"
                 variant="text"
                 :ripple="{ class: 'text-white' }"
-                >+</v-btn
+                @click="editWorkout"
+                >Edit</v-btn
             >
         </div>
     </v-card>
@@ -36,9 +37,10 @@
     width: 40px;
     margin-left: auto;
     margin-right: -24px;
+    padding-left: 8px;
     align-self: center;
     color: white;
-    font-size: 24px;
+    font-size: 16px;
 }
 
 .selector-title {
@@ -59,3 +61,11 @@
     text-overflow: ellipsis;
 }
 </style>
+
+<script setup>
+const props = defineProps(["workout"]);
+
+function editWorkout() {
+
+}
+</script>

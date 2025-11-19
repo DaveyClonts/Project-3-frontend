@@ -6,6 +6,7 @@ on:
     types: [closed]
     branches:
       - dev
+  workflow_dispatch:
 
 jobs:
   aws-deploy:

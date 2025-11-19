@@ -1,5 +1,5 @@
 <template>
-    <v-card class="top-container">
+    <v-card class="top-container rounded-xl">
         <div class="top-subcontainer">
             <div class="title">Workouts</div>
             <div class="top-element-container">

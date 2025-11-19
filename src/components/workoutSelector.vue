@@ -5,13 +5,22 @@
                 <div class="selector-title">{{ $props.workout.name }}</div>
                 <div class="selector-subtitle">{{ $props.workout.date }}</div>
             </div>
-            <v-btn
-                class="select-button rounded-xl"
-                variant="text"
-                :ripple="{ class: 'text-white' }"
-                @click="$emit('workout-selected', workout.id)"
-                >Edit</v-btn
-            >
+            <div class="selector-button-container">
+                <v-btn
+                    class="select-button"
+                    variant="text"
+                    :ripple="{ class: 'text-white' }"
+                    @click="$emit('workout-selected', workout.id)"
+                    >Edit</v-btn
+                >
+                <v-btn
+                    class="delete-button"
+                    variant="text"
+                    :ripple="{ class: 'text-white' }"
+                    @click="$emit('workout-selected', workout.id)"
+                    >Delete</v-btn
+                >
+            </div>
         </div>
     </v-card>
 </template>
@@ -32,14 +41,31 @@
     height: 100%;
 }
 
-.select-button {
-    height: 150% !important;
-    width: 40px;
+.selector-button-container {
+    height: 150%;
+    width: 80px;
+    min-width: 64px;
     margin-left: auto;
-    margin-right: -24px;
+    margin-right: -8px;
     padding-left: 8px;
     align-self: center;
-    color: white;
+    justify-content: center;
+    align-content: center;
+}
+
+.delete-button {
+    height: 40% !important;
+    width: 100%;
+    min-width: 100%;
+    color: rgb(214, 214, 214);
+    font-size: 16px;
+}
+
+.select-button {
+    height: 40% !important;
+    width: 100%;
+    min-width: 100%;
+    color: rgb(214, 214, 214);
     font-size: 16px;
 }
 

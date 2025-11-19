@@ -1,7 +1,14 @@
 <template>
     <v-card class="top-container rounded-xl">
         <div class="top-subcontainer">
-            <div class="title">Workouts</div>
+            <div class="title-container">
+                <div class="title">Workouts</div>
+                <v-btn
+                    class="add-workout-button"
+                    :ripple="{ class: 'text-white' }"
+                    >+</v-btn
+                >
+            </div>
             <div class="top-element-container">
                 <div v-for="workout in workouts">
                     <workout-selector
@@ -42,6 +49,25 @@
     flex-direction: column;
 }
 
+.title-container {
+    display: flex;
+    flex-direction: row;
+    border-width: 0px 0px 2px 0px;
+    border-color: rgb(82, 82, 82);
+    border-style: solid;
+    align-items: center;
+    justify-items: center;
+}
+
+.add-workout-button {
+    background-color: #848484;
+    color: white;
+    height: 32px;
+    width: 32px;
+    min-width: 32px !important;
+    margin-bottom: 8px;
+}
+
 .top-element-container {
     width: 100%;
     height: 100%;
@@ -59,9 +85,6 @@
 }
 
 .title {
-    border-width: 0px 0px 2px 0px;
-    border-color: rgb(82, 82, 82);
-    border-style: solid;
     font-size: 20px;
     text-align: center;
     margin-top: 6px;
@@ -93,12 +116,12 @@ const workouts = [
     new Workout("Workout #1", "11/17/25", 1),
     new Workout("Workout #2", "11/17/26", 2),
     new Workout("Workout #3", "11/17/27", 3),
-    new Workout("Workout #1", "11/17/25", 4),
-    new Workout("Workout #2", "11/17/26", 5),
-    new Workout("Workout #3", "11/17/27", 6),
-    new Workout("Workout #1", "11/17/25", 7),
-    new Workout("Workout #2", "11/17/26", 8),
-    new Workout("Workout #3", "11/17/27", 9),
+    new Workout("Workout #4", "11/17/25", 4),
+    new Workout("Workout #5", "11/17/26", 5),
+    new Workout("Workout #6", "11/17/27", 6),
+    new Workout("Workout #7", "11/17/25", 7),
+    new Workout("Workout #8", "11/17/26", 8),
+    new Workout("Workout #9", "11/17/27", 9),
 ];
 
 function save() {

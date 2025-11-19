@@ -15,12 +15,6 @@
     text-align: center;
     gap: 20px;
 }
-
-.athlete-name {
-    font-size: 24px;
-    font-weight: 600;
-    padding: 10px;
-}
 </style>
 
 <script setup>

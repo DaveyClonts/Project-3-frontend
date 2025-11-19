@@ -26,8 +26,6 @@
     import User from "../../classes/User.js";
     import store from "../../store/store.js";
 
-    console.log(store.getUser.lastName);
-
     const user = new User(
         store.getUser().firstName, 
         store.getUser().lastName,

@@ -5,4 +5,11 @@ export default class User {
         this.lastName = lastName;
         this.token = token;
     }
+
+    getFullName() {
+        const fullName = this.firstName + " " + this.lastName;
+        console.log(this.firstName);
+        console.log(this.lastName);
+        return fullName;
+    }
 }

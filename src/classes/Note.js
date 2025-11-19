@@ -1,7 +1,8 @@
 export default class Note {
-    constructor(note, date = new Date().toISOString().split("T")[0], noteID = null) {
-        this.noteID = noteID
+    constructor(note, goalID, date = new Date().toISOString().replace("T", " ").substring(0, 16), id = null) {
+        this.id = id;
         this.note = note;
         this.date = date;
+        this.goalID = goalID
     }
 }

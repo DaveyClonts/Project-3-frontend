@@ -35,7 +35,7 @@ const handleClick = () => {
 .goal-container {
   background-color: #848484;
   height: 80px;
-  width: 80%;
+  width: 100%;
   padding: 12px 24px 8px 24px;
   flex: 0 0 auto;
 }

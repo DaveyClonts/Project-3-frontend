@@ -32,7 +32,7 @@ const apiClient = axios.create({
 
         if (data === null)
             data = {};
-
+        
         return JSON.stringify(data);
     },
     transformResponse: (data) => {
@@ -54,7 +54,6 @@ const apiClient = axios.create({
                     console.log("Error: " + err);
                 });
         }
-
         return data;
     },
 });

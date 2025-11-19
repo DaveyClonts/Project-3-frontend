@@ -17,12 +17,6 @@
 </template>
 
 <style>
-.navbar-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 12vh;
-}
 
 .navbar {
     height: 50px;

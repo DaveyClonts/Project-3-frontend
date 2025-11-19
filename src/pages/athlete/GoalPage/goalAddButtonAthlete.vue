@@ -17,3 +17,24 @@ const props = defineProps({
 
 const showAddGoalPopup = ref(false);
 </script>
+
+<style scoped>
+.button {
+  background-color: #848484;
+  height: 100%;
+  width: 100%;
+  flex: 0 0 auto;
+  font-size: 20px;
+  color: white;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.goal-container {
+  background-color: #848484;
+  height: 80px;
+  width: 100%;
+  flex: 0 0 auto;
+}
+</style>

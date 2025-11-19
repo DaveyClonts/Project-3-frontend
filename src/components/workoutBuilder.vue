@@ -28,7 +28,8 @@
     margin-left: 25%;
     margin-right: 25%;
     margin-bottom: 16px;
-    min-width: 850px;
+    width: 90%;
+    min-width: 450px;
     padding: 20px;
     height: 80vh;
     background-color: #d0d0d0;

@@ -94,6 +94,8 @@
 
 .dialog {
     max-width: 950px;
+    min-width: 450px;
+    display: flex;
 }
 
 .button-container {

@@ -8,12 +8,26 @@
     <v-dialog v-model="toggled" width="30vw" height="30vh" >
         <v-card class="popup">
             <div class="centered-column">
-                <div class="popup-title">Coach Jones</div>
+                <div class="popup-title">{{ user.getFullName() }}</div>
                 <v-btn class="logout-button" variant="tonal">Logout</v-btn>
             </div>
         </v-card>
     </v-dialog>
 </template>
+
+<script setup>
+import { ref } from "vue";
+import User from "../classes/User";
+import store from "../store/store";
+const toggled = ref(false);
+
+const user = new User( 
+    store.getUser().firstName,
+    store.getUser().lastName,
+    store.getUser().token,
+);
+
+</script>
 
 <style scoped>
 .profile-icon {
@@ -41,9 +55,3 @@
     font-weight: 600;
 }
 </style>
-
-<script setup>
-import { ref } from "vue";
-const toggled = ref(false);
-
-</script>

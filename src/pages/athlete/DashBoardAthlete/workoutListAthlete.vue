@@ -1,7 +1,7 @@
 <template>
   <v-card class="builder-container rounded-xl">
     <div class="subcontainer right-outline">
-      <div class="title">Workout List</div>
+      <div class="title">Workout Today</div>
       <WorkoutDisplay
         v-for="workout in workouts"
         :key="workout.workoutID"
@@ -17,7 +17,7 @@ import WorkoutDisplay from "./goalDisplayAthlete.vue";
 
 
 const props = defineProps({
-  goals: {
+  workouts: {
     type: Array,
     default: () => [],
   },
@@ -50,6 +50,8 @@ const props = defineProps({
   border-color: rgb(82, 82, 82);
   border-style: solid;
   font-size: 20px;
+  padding-top: 20px;
+  padding-bottom: 20px;
   text-align: center;
   height: 80%;
   width: 100%;

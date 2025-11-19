@@ -28,7 +28,7 @@ const events = computed(() =>
     start: goal.date,
     end: goal.date,
     color: goal.color || "blue",
-  }))
+  })) 
 );
 console.log(events);
 </script>

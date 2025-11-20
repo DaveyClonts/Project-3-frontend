@@ -24,11 +24,17 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const toggled = ref(false);
+try {
 const user = new User( 
     store.getUser().firstName,
     store.getUser().lastName,
     store.getUser().token,
 );
+
+} catch (error) {
+    console.log("Error retrieving user from store:", error);
+    router.push({ name: "login" });
+}
 
 function logout() {
     console.log("Log out.");

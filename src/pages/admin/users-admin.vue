@@ -13,7 +13,6 @@
 							:items="users"
 							:loading="loading"
 							item-key="id"
-							class="elevation-1"
 							:items-per-page="10"
 							:sort-by="[{ key: 'id', order: 'desc' }]"
 						>
@@ -39,7 +38,7 @@
 							<template #item.actions="{ item }">
 								<v-btn 
 									icon="mdi-delete" 
-									color="error" 
+									color="--btn-primary" 
 									size="small" 
 									:disabled="item.role === 'Admin'"
 									@click="promptDelete(item)"
@@ -99,16 +98,11 @@ const headers = [
 	{ title: "Last Name", key: "lastName", sortable: true },
 	{ title: "Email", key: "email", sortable: true },
 	{ title: "Role", key: "role" },
-	{ title: "Created", key: "createdAt", sortable: true },
-	{ title: "Last Updated", key: "updatedAt", sortable: true },
 	{ title: "Actions", key: "actions", sortable: false },
 ];
 
 function mapUser(u) {
 	console.log("Mapping user:", u);
-	
-	// Use role enum from backend (admin, coach, athlete)
-	// Capitalize first letter for display consistency
 	const role = u.role ? u.role.charAt(0).toUpperCase() + u.role.slice(1).toLowerCase() : "N/A";
 	
 	// Format timestamps

@@ -1,5 +1,14 @@
 <template>
-    <v-card class="top-container rounded-xl">
+    <div class="athlete-selector-container">
+        <v-autocomplete
+            class="athlete-selector"
+            label="Athlete"
+            v-model="athlete"
+            @update:model-value="onAthleteSelected"
+            :items="athletes"
+        ></v-autocomplete>
+    </div>
+    <v-card v-if="athlete != null" class="top-container rounded-xl">
         <div class="top-subcontainer">
             <div class="title-container">
                 <div class="title">Workouts</div>
@@ -31,6 +40,17 @@
 </template>
 
 <style scoped>
+.athlete-selector-container {
+    width: 500px;
+    height: 55px;
+    background-color: var(--color-primary);
+    justify-self: center;
+}
+
+.athlete-selector {
+    width: 100%;
+}
+
 .top-container {
     margin-top: 8px;
     min-width: 500px;
@@ -130,8 +150,11 @@ import workoutBuilder from "../../components/workouts/workoutBuilder.vue";
 import workoutSelector from "../../components/workouts/workoutSelector.vue";
 import Workout from "../../classes/Workout.js";
 
+const athlete = ref(null);
 const isDialogVisible = ref(false);
 const selectedWorkout = ref(null);
+
+const athletes = ["Reagan Cheatham"];
 
 // load all workouts
 const workouts = [
@@ -171,5 +194,13 @@ function onWorkoutSelected(workout) {
 
 function onWorkoutDeleted(workout) {
     console.log("Delete requested for workout: " + workout.name);
+}
+
+function loadAthletes() {
+    // get all users who are athletes
+}
+
+function onAthleteSelected() {
+    console.log("Athlete selected.");
 }
 </script>

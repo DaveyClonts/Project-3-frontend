@@ -10,7 +10,7 @@ export default {
         await apiClient
             .get(`${API_ROOT}/roles/${role}`)
             .then((roleUsers) => {
-                users = roleUsers.map(
+                users = roleUsers.data.map(
                     (ru) =>
                         new User(
                             ru.firstName,

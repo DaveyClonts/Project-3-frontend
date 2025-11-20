@@ -1,11 +1,13 @@
 <template>
-    <div class="athlete-selector-container">
+    <div class="athlete-selector-container rounded">
         <v-autocomplete
             class="athlete-selector"
             label="Athlete"
             v-model="athlete"
-            @update:model-value="onAthleteSelected"
             :items="athletes"
+            :item-title="a => `${a.firstName} ${a.lastName}`"
+            return-object
+            @update:model-value="onAthleteSelected"
         ></v-autocomplete>
     </div>
     <v-card v-if="athlete != null" class="top-container rounded-xl">
@@ -41,6 +43,7 @@
 
 <style scoped>
 .athlete-selector-container {
+    margin-top: 8px;
     width: 500px;
     height: 55px;
     background-color: var(--color-primary);
@@ -149,12 +152,13 @@ import { ref } from "vue";
 import workoutBuilder from "../../components/workouts/workoutBuilder.vue";
 import workoutSelector from "../../components/workouts/workoutSelector.vue";
 import Workout from "../../classes/Workout.js";
+import userServices from "../../services/userServices.js";
+import UserRole from "../../classes/userRole.js";
 
+const athletes = ref([]);
 const athlete = ref(null);
 const isDialogVisible = ref(false);
 const selectedWorkout = ref(null);
-
-const athletes = ["Reagan Cheatham"];
 
 // load all workouts
 const workouts = [
@@ -168,6 +172,8 @@ const workouts = [
     new Workout("Workout #8", "11/17/26", 8),
     new Workout("Workout #9", "11/17/27", 9),
 ];
+
+loadAthletes();
 
 function save() {
     closeDialog();
@@ -197,10 +203,23 @@ function onWorkoutDeleted(workout) {
 }
 
 function loadAthletes() {
-    // get all users who are athletes
+    userServices
+        .getAllWithRole(UserRole.Athlete)
+        .then((databaseAthletes) => {
+            athletes.value = databaseAthletes.map((da) => {
+                return {
+                    id: da.id,
+                    firstName: da.firstName,
+                    lastName: da.lastName,
+                };
+            });
+        })
+        .catch((err) => {
+            console.error("Error retrieving athletes: " + err);
+        });
 }
 
-function onAthleteSelected() {
-    console.log("Athlete selected.");
+function onAthleteSelected(athlete) {
+    console.log("Athlete selected: " + JSON.stringify(athlete));
 }
 </script>

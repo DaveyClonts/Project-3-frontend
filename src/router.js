@@ -6,6 +6,7 @@ import exercisesCoach from "./pages/coach/exercises-coach.vue";
 import athletesCoach from "./pages/coach/athletes-coach.vue";
 import goalAthlete from "./pages/athlete/GoalPage/goalAthlete.vue";
 import dashboardAthlete from "./pages/athlete/DashBoardAthlete/dashboardAthlete.vue";
+import workoutAthlete from "./pages/athlete/WorkoutPage/workoutAthlete.vue";
 import store from "./store/store.js";
 import authServices from "./services/authServices.js";
 import roleSelect from "./pages/roleSelect.vue";
@@ -70,6 +71,12 @@ const router = createRouter({
             path: "/dashboardAthlete",
             name: "dashboardAthlete",
             component: dashboardAthlete,
+            meta: { requiresAuth: true },
+        },
+        {
+            path: "/workoutAthlete",
+            name: "workoutAthlete",
+            component: workoutAthlete,
             meta: { requiresAuth: true },
         },
     ],

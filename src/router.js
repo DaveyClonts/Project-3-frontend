@@ -90,18 +90,20 @@ router.beforeEach((to, from, next) => {
 
     const user = store.getUser();
 
-    if (user == null) {
+    if (user === null) {
         next({ name: "login" });
-        return;
-    } else if (user.role == null) {
-        next({ name: "roleSelect" });
         return;
     }
 
     authServices
         .authorizeUser(user)
         .then(() => {
-            next();
+            if (user.role === null) {
+                next({ name: "roleSelect" });
+                return;
+            }
+            else
+                next();
         })
         .catch((err) => {
             console.log(`Error authorizing user: ${err}`);

@@ -13,4 +13,9 @@ body,
   --color-secondary: #253deb;
   --color-text: #000000;
   --color-text-secondary: #9496a5;
+  
+  --btn-primary: #253deb;
+  --btn-primary-text: #ffffff;
+  --btn-secondary: #e9ebfc;
+  --btn-secondary-text: #253deb;
 }

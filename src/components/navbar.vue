@@ -40,6 +40,7 @@
     padding: 0px 25px;
     cursor: pointer;
     color: var(--color-text-secondary);
+    user-select: none; /* prevents highlighting navbar */
 }
 
 .nav-item.active {

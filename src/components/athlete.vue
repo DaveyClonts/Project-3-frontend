@@ -12,7 +12,7 @@
 
 <style scoped>
 .item {
-    background-color: grey;
+    background-color: var(--color-bg);
     width: 20vw;
     height: 5vh;
     border-radius: 30px;
@@ -26,13 +26,8 @@
     flex-direction: row;
 }
 
-/* .column {
-    display: flex;
-    flex-direction: column;
-} */
-
 .profile-icon {
-    background-color: #d0d0d0;
+    background-color: var(--color-primary);
     width: 2.75vw;
     height: 4vh;
     border-radius: 40px;
@@ -42,7 +37,7 @@
 }
 
 .name {
-    color: #d0d0d0;
+    color: var(--color-text-primary);
     padding-left: 2vw;
     font-size: 18px;
     font-weight: 600;

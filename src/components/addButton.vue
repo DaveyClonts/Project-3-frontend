@@ -10,7 +10,8 @@
 
 <style scoped>
 .add-button {
-    background-color: grey;
+    background-color: var(--btn-secondary);
+    color: var(--btn-secondary-text);
     border-radius: 40px;
     min-width: 5vh;
     height: 5vh;

@@ -20,7 +20,7 @@
         </div>
     </v-card>
     <v-dialog class="dialog" v-model="isDialogVisible">
-        <v-card>
+        <v-card class="dialog-card">
             <workout-builder :workout="selectedWorkout" />
             <div class="button-container">
                 <v-btn class="save-button" @click="save()">Save</v-btn>
@@ -97,6 +97,10 @@
 .dialog {
     max-width: 950px;
     min-width: 450px;
+}
+
+.dialog-card {
+    background-color: var(--color-bg);
 }
 
 .button-container {

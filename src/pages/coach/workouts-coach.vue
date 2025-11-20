@@ -1,5 +1,14 @@
 <template>
-    <v-card class="top-container rounded-xl">
+    <div class="athlete-selector-container">
+        <v-autocomplete
+            class="athlete-selector"
+            label="Athlete"
+            v-model="athlete"
+            @update:model-value="onAthleteSelected"
+            :items="athletes"
+        ></v-autocomplete>
+    </div>
+    <v-card v-if="athlete != null" class="top-container rounded-xl">
         <div class="top-subcontainer">
             <div class="title-container">
                 <div class="title">Workouts</div>
@@ -10,34 +19,44 @@
                 >
             </div>
             <div class="top-element-container">
-                <div v-for="workout in workouts">
-                    <workout-selector
-                        :workout="workout"
-                        @workout-selected="onWorkoutSelected"
-                        @workout-deleted="onWorkoutDeleted"
-                    />
-                </div>
+                <workout-selector
+                    v-for="workout in workouts"
+                    :workout="workout"
+                    @workout-selected="onWorkoutSelected"
+                    @workout-deleted="onWorkoutDeleted"
+                />
             </div>
         </div>
     </v-card>
     <v-dialog class="dialog" v-model="isDialogVisible">
-        <v-card>
+        <v-card class="dialog-card">
             <workout-builder :workout="selectedWorkout" />
             <div class="button-container">
-                <v-btn @click="save()">Save</v-btn>
-                <v-btn @click="cancel()">Cancel</v-btn>
+                <v-btn class="save-button" @click="save()">Save</v-btn>
+                <v-btn class="cancel-button" @click="cancel()">Cancel</v-btn>
             </div>
         </v-card>
     </v-dialog>
 </template>
 
 <style scoped>
+.athlete-selector-container {
+    width: 500px;
+    height: 55px;
+    background-color: var(--color-primary);
+    justify-self: center;
+}
+
+.athlete-selector {
+    width: 100%;
+}
+
 .top-container {
     margin-top: 8px;
     min-width: 500px;
     padding: 20px;
     height: 80vh;
-    background-color: #d0d0d0;
+    background-color: var(--color-primary);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -54,15 +73,15 @@
     display: flex;
     flex-direction: row;
     border-width: 0px 0px 2px 0px;
-    border-color: rgb(82, 82, 82);
+    border-color: var(--color-secondary);
     border-style: solid;
     align-items: center;
     justify-items: center;
 }
 
 .add-workout-button {
-    background-color: #848484;
-    color: white;
+    background-color: var(--btn-secondary);
+    color: var(--btn-secondary-text);
     height: 32px;
     width: 32px;
     min-width: 32px !important;
@@ -72,13 +91,15 @@
 .top-element-container {
     width: 100%;
     height: 100%;
-    margin-top: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     display: flex;
     flex-direction: column;
     gap: 12px;
     align-items: center;
     overflow: auto scroll;
     overflow-y: auto;
+    scrollbar-color: var(--color-text-secondary) transparent;
 }
 
 .workout-list {
@@ -98,10 +119,28 @@
     min-width: 450px;
 }
 
+.dialog-card {
+    background-color: var(--color-bg);
+}
+
 .button-container {
     margin: 0 12px 12px auto;
     display: flex;
     gap: 16px;
+}
+
+.builder-card {
+    background-color: var(--color-bg);
+}
+
+.save-button {
+    background-color: var(--btn-primary);
+    color: var(--btn-primary-text);
+}
+
+.cancel-button {
+    background-color: var(--color-text-secondary);
+    color: var(--btn-primary-text);
 }
 </style>
 
@@ -111,8 +150,11 @@ import workoutBuilder from "../../components/workouts/workoutBuilder.vue";
 import workoutSelector from "../../components/workouts/workoutSelector.vue";
 import Workout from "../../classes/Workout.js";
 
+const athlete = ref(null);
 const isDialogVisible = ref(false);
 const selectedWorkout = ref(null);
+
+const athletes = ["Reagan Cheatham"];
 
 // load all workouts
 const workouts = [
@@ -152,5 +194,13 @@ function onWorkoutSelected(workout) {
 
 function onWorkoutDeleted(workout) {
     console.log("Delete requested for workout: " + workout.name);
+}
+
+function loadAthletes() {
+    // get all users who are athletes
+}
+
+function onAthleteSelected() {
+    console.log("Athlete selected.");
 }
 </script>

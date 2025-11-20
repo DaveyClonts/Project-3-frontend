@@ -1,8 +1,8 @@
 <template>
     <v-app>
-        <topbar>
-            <navbar tab="/dashboardCoach" v-if="route.path != '/login'" />
-            <profileIcon v-if="route.path != '/login'" />
+        <topbar v-if="!route.meta.noNavigation">
+            <navbar tab="/dashboardCoach" />
+            <profileIcon />
         </topbar>
         <v-main>
             <router-view />

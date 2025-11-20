@@ -2,15 +2,14 @@
     <v-card class="selector-container rounded-xl">
         <div class="selector-subcontainer">
             <div>
-                <div class="selector-title">{{ $props.workout.name }}</div>
-                <div class="selector-subtitle">{{ $props.workout.date }}</div>
+                <div class="selector-title">{{ exercise.name }}</div>
+                <div class="selector-subtitle">{{ exercise.type }}</div>
             </div>
             <v-btn
                 class="select-button rounded-xl"
                 variant="text"
-                :ripple="{ class: 'text-white' }"
-                @click="editWorkout"
-                >Edit</v-btn
+                @click="$emit('exercise-selected', exercise)"
+                >+</v-btn
             >
         </div>
     </v-card>
@@ -18,9 +17,9 @@
 
 <style scoped>
 .selector-container {
-    background-color: #848484;
+    background-color: var(--btn-secondary);
     height: 80px;
-    width: 380px;
+    width: 100%;
     padding: 12px 24px 8px 24px;
     flex: 0 0 auto;
 }
@@ -37,15 +36,14 @@
     width: 40px;
     margin-left: auto;
     margin-right: -24px;
-    padding-left: 8px;
     align-self: center;
-    color: white;
-    font-size: 16px;
+    color: var(--btn-secondary-text);
+    font-size: 24px;
 }
 
 .selector-title {
     font-size: 20px;
-    color: white;
+    color: var(--color-text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -53,7 +51,7 @@
 
 .selector-subtitle {
     font-size: 16px;
-    color: whitesmoke;
+    color: var(--color-text-secondary);
     margin-top: -2px;
     margin-left: 12px;
     white-space: nowrap;
@@ -63,9 +61,5 @@
 </style>
 
 <script setup>
-const props = defineProps(["workout"]);
-
-function editWorkout() {
-
-}
+const props = defineProps(["exercise"]);
 </script>

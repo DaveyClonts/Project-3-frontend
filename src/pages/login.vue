@@ -7,7 +7,6 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 onMounted(() => {
-    console.log("Component has been mounted!");
     let user = store.getUser();
 
     if (user != null && user.token != null && user.token != "")

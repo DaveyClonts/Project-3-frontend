@@ -19,7 +19,7 @@
 
 <script setup>
 import navbar from "./components/navbar.vue";
-import logout from "./components/logout.vue";
+import logout from "./components/login/logout.vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();

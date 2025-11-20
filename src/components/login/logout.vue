@@ -9,8 +9,8 @@
 </style>
 
 <script setup>
-import authServices from "../services/authServices.js";
-import store from "../store/store.js";
+import authServices from "../../services/authServices.js";
+import store from "../../store/store.js";
 import { useRouter } from 'vue-router';
 
 const router = useRouter();

@@ -14,14 +14,15 @@
                     <workout-selector
                         :workout="workout"
                         @workout-selected="onWorkoutSelected"
+                        @workout-deleted="onWorkoutDeleted"
                     />
                 </div>
             </div>
         </div>
     </v-card>
     <v-dialog class="dialog" v-model="isDialogVisible">
-        <v-card title="Workout Builder">
-            <workout-builder />
+        <v-card>
+            <workout-builder :workout="selectedWorkout" />
             <div class="button-container">
                 <v-btn @click="save()">Save</v-btn>
                 <v-btn @click="cancel()">Cancel</v-btn>
@@ -95,7 +96,6 @@
 .dialog {
     max-width: 950px;
     min-width: 450px;
-    display: flex;
 }
 
 .button-container {
@@ -107,18 +107,19 @@
 
 <script setup>
 import { ref } from "vue";
-import workoutBuilder from "../../components/workoutBuilder.vue";
-import workoutSelector from "../../components/workoutSelector.vue";
+import workoutBuilder from "../../components/workouts/workoutBuilder.vue";
+import workoutSelector from "../../components/workouts/workoutSelector.vue";
 import Workout from "../../classes/Workout.js";
 
 const isDialogVisible = ref(false);
+const selectedWorkout = ref(null);
 
 // load all workouts
 const workouts = [
-    new Workout("Workout #1", "11/17/25", 1),
-    new Workout("Workout #2", "11/17/26", 2),
-    new Workout("Workout #3", "11/17/27", 3),
-    new Workout("Workout #4", "11/17/25", 4),
+    new Workout("Chest, Triceps, Shoulders", "11/17/25", 1),
+    new Workout("Back, Biceps", "11/17/26", 2),
+    new Workout("Legs", "11/17/27", 3),
+    new Workout("Cardio", "11/17/25", 4),
     new Workout("Workout #5", "11/17/26", 5),
     new Workout("Workout #6", "11/17/27", 6),
     new Workout("Workout #7", "11/17/25", 7),
@@ -134,16 +135,22 @@ function cancel() {
     closeDialog();
 }
 
-function openDialog() {
+function openDialog(workout) {
+    selectedWorkout.value = workout;
     isDialogVisible.value = true;
 }
 
 function closeDialog() {
+    selectedWorkout.value = null;
     isDialogVisible.value = false;
 }
 
-function onWorkoutSelected(id) {
-    console.log("Selected workout: " + id);
-    openDialog();
+function onWorkoutSelected(workout) {
+    console.log("Selected workout: " + workout.name);
+    openDialog(workout);
+}
+
+function onWorkoutDeleted(workout) {
+    console.log("Delete requested for workout: " + workout.name);
 }
 </script>

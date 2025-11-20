@@ -1,23 +1,23 @@
 <template>
     <v-card class="selector-container rounded-xl">
         <div class="selector-subcontainer">
-            <div>
-                <div class="selector-title">{{ $props.workout.name }}</div>
-                <div class="selector-subtitle">{{ $props.workout.date }}</div>
+            <div v-if="workoutExercise != null">
+                <div class="selector-title">{{ workoutExercise.exerciseID }}</div>
+                <div class="selector-subtitle">{{ workoutExercise.workoutID }}</div>
             </div>
             <div class="selector-button-container">
                 <v-btn
                     class="select-button"
                     variant="text"
                     :ripple="{ class: 'text-white' }"
-                    @click="$emit('workout-selected', workout.id)"
+                    @click="$emit('workout-selected', workout)"
                     >Edit</v-btn
                 >
                 <v-btn
                     class="delete-button"
                     variant="text"
                     :ripple="{ class: 'text-white' }"
-                    @click="$emit('workout-selected', workout.id)"
+                    @click="$emit('workout-deleted', workout)"
                     >Delete</v-btn
                 >
             </div>
@@ -29,7 +29,7 @@
 .selector-container {
     background-color: #848484;
     height: 80px;
-    width: 380px;
+    width: 100%;
     padding: 12px 24px 8px 24px;
     flex: 0 0 auto;
 }
@@ -39,6 +39,24 @@
     flex-direction: row;
     width: 100%;
     height: 100%;
+}
+
+.selector-title {
+    font-size: 20px;
+    color: white;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.selector-subtitle {
+    font-size: 16px;
+    color: whitesmoke;
+    margin-top: -2px;
+    margin-left: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .selector-button-container {
@@ -68,26 +86,8 @@
     color: rgb(214, 214, 214);
     font-size: 16px;
 }
-
-.selector-title {
-    font-size: 20px;
-    color: white;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.selector-subtitle {
-    font-size: 16px;
-    color: whitesmoke;
-    margin-top: -2px;
-    margin-left: 12px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
 </style>
 
 <script setup>
-const props = defineProps(["workout"]);
+const props = defineProps(["workoutExercise"]);
 </script>

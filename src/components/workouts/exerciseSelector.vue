@@ -2,13 +2,14 @@
     <v-card class="selector-container rounded-xl">
         <div class="selector-subcontainer">
             <div>
-                <div class="selector-title">Exercise Title</div>
-                <div class="selector-subtitle">Group 1, Group 2</div>
+                <div class="selector-title">{{ exercise.name }}</div>
+                <div class="selector-subtitle">{{ exercise.type }}</div>
             </div>
             <v-btn
                 class="select-button rounded-xl"
                 variant="text"
                 :ripple="{ class: 'text-white' }"
+                @click="$emit('exercise-selected', exercise)"
                 >+</v-btn
             >
         </div>
@@ -19,7 +20,7 @@
 .selector-container {
     background-color: #848484;
     height: 80px;
-    width: 90%;
+    width: 100%;
     padding: 12px 24px 8px 24px;
     flex: 0 0 auto;
 }
@@ -59,3 +60,7 @@
     text-overflow: ellipsis;
 }
 </style>
+
+<script setup>
+const props = defineProps(["exercise"]);
+</script>

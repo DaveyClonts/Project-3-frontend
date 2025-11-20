@@ -150,8 +150,8 @@
 import { ref } from "vue";
 import workoutBuilder from "../../components/workouts/workoutBuilder.vue";
 import workoutSelector from "../../components/workouts/workoutSelector.vue";
-import Workout from "../../classes/Workout.js";
 import userServices from "../../services/userServices.js";
+import workoutServices from "../../services/workoutServices.js";
 import UserRole from "../../classes/userRole.js";
 
 const athletes = ref([]);
@@ -160,17 +160,7 @@ const isDialogVisible = ref(false);
 const selectedWorkout = ref(null);
 
 // load all workouts
-const workouts = [
-    new Workout("Chest, Triceps, Shoulders", "11/17/25", 1),
-    new Workout("Back, Biceps", "11/17/26", 2),
-    new Workout("Legs", "11/17/27", 3),
-    new Workout("Cardio", "11/17/25", 4),
-    new Workout("Workout #5", "11/17/26", 5),
-    new Workout("Workout #6", "11/17/27", 6),
-    new Workout("Workout #7", "11/17/25", 7),
-    new Workout("Workout #8", "11/17/26", 8),
-    new Workout("Workout #9", "11/17/27", 9),
-];
+const workouts = [];
 
 loadAthletes();
 
@@ -220,5 +210,11 @@ function loadAthletes() {
 
 function onAthleteSelected(athlete) {
     console.log("Athlete selected: " + JSON.stringify(athlete));
+    loadWorkouts();
+}
+
+function loadWorkouts() {
+    workoutServices
+        .getAllForCoachAndAthlete()
 }
 </script>

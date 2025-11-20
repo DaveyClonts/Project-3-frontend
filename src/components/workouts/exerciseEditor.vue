@@ -90,4 +90,6 @@
 
 <script setup>
 const props = defineProps(["workoutExercise"]);
+
+// load the workout as well
 </script>

@@ -2,7 +2,11 @@
   <v-card class="builder-container rounded-xl">
     <div class="subcontainer right-outline">
       <div class="title">Workout List</div>
-      <WorkoutDisplay v-for="workout in workouts" :key="workout.id" :workout="workout" />
+      <WorkoutDisplay
+        v-for="workout in workouts"
+        :key="workout.id"
+        :workout="workout"
+      />
     </div>
   </v-card>
 </template>
@@ -15,18 +19,16 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
-  getWorkouts: Function
+  getWorkouts: Function,
 });
 </script>
 
 <style scoped>
 .builder-container {
-  height: 80vh;
-  width: 30%;
-  background-color: #d0d0d0;
-  display: flex;
-  justify-content: center;
-  margin: 0 auto;
+  width: 500px;
+  height: 55px;
+  background-color: var(--color-primary);
+  justify-self: center;
 }
 
 .subcontainer {
@@ -49,5 +51,4 @@ const props = defineProps({
   padding-bottom: 12px;
   width: 100%;
 }
-
 </style>

@@ -5,10 +5,11 @@
             v-model="workout.name"
             placeholder="Workout"
             type="input"
+            class="workout-name"
         ></v-text-field>
         <v-card class="builder-container rounded-xl">
             <div class="subcontainer right-outline">
-                <v-label class="title">Exercise List</v-label>
+                <v-label class="title opacity-100">Exercise List</v-label>
                 <div class="element-container">
                     <exerciseSelector
                         v-for="exercise in exercises"
@@ -18,7 +19,7 @@
                 </div>
             </div>
             <div class="subcontainer">
-                <v-label class="title">Selected Exercises</v-label>
+                <v-label class="title opacity-100">Selected Exercises</v-label>
                 <div class="element-container">
                     <exerciseEditor
                         v-for="exercise in selectedExercises"
@@ -39,7 +40,7 @@
     min-width: 450px;
     padding: 20px;
     height: 70vh;
-    background-color: #d0d0d0;
+    background-color: var(--color-primary);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -73,13 +74,18 @@
 
 .right-outline {
     border-width: 0px 2px 0px 0px;
-    border-color: rgb(82, 82, 82);
+    border-color: var(--color-text-secondary);
     border-style: solid;
+}
+
+.workout-name ::v-deep .v-label {
+    color: var(--color-secondary) !important;
 }
 
 .title {
     border-width: 0px 0px 2px 0px;
-    border-color: rgb(82, 82, 82);
+    border-color: var(--color-text-secondary);
+    color: var(--color-text);
     border-style: solid;
     font-size: 20px;
     text-align: center;

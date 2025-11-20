@@ -21,11 +21,11 @@
         </div>
     </v-card>
     <v-dialog class="dialog" v-model="isDialogVisible">
-        <v-card>
+        <v-card class="builder-card">
             <workout-builder :workout="selectedWorkout" />
             <div class="button-container">
-                <v-btn @click="save()">Save</v-btn>
-                <v-btn @click="cancel()">Cancel</v-btn>
+                <v-btn class="save-button" @click="save()">Save</v-btn>
+                <v-btn class="cancel-button" @click="cancel()">Cancel</v-btn>
             </div>
         </v-card>
     </v-dialog>
@@ -37,7 +37,7 @@
     min-width: 500px;
     padding: 20px;
     height: 80vh;
-    background-color: #d0d0d0;
+    background-color: var(--color-primary);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -54,15 +54,15 @@
     display: flex;
     flex-direction: row;
     border-width: 0px 0px 2px 0px;
-    border-color: rgb(82, 82, 82);
+    border-color: var(--color-secondary);
     border-style: solid;
     align-items: center;
     justify-items: center;
 }
 
 .add-workout-button {
-    background-color: #848484;
-    color: white;
+    background-color: var(--btn-secondary);
+    color: var(--btn-secondary-text);
     height: 32px;
     width: 32px;
     min-width: 32px !important;
@@ -79,6 +79,7 @@
     align-items: center;
     overflow: auto scroll;
     overflow-y: auto;
+    scrollbar-color: var(--color-text-secondary) transparent;
 }
 
 .workout-list {
@@ -102,6 +103,20 @@
     margin: 0 12px 12px auto;
     display: flex;
     gap: 16px;
+}
+
+.builder-card {
+    background-color: var(--color-bg);
+}
+
+.save-button {
+    background-color: var(--btn-primary);
+    color: var(--btn-primary-text);
+}
+
+.cancel-button {
+    background-color: var(--color-text-secondary);
+    color: var(--btn-primary-text);
 }
 </style>
 

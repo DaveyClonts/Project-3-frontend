@@ -9,14 +9,12 @@
                 <v-btn
                     class="select-button"
                     variant="text"
-                    :ripple="{ class: 'text-white' }"
                     @click="$emit('workout-selected', workout)"
                     >Edit</v-btn
                 >
                 <v-btn
                     class="delete-button"
                     variant="text"
-                    :ripple="{ class: 'text-white' }"
                     @click="$emit('workout-deleted', workout)"
                     >Delete</v-btn
                 >
@@ -27,7 +25,7 @@
 
 <style scoped>
 .selector-container {
-    background-color: #848484;
+    background-color: var(--btn-secondary);
     height: 80px;
     width: 380px;
     padding: 12px 24px 8px 24px;
@@ -57,21 +55,21 @@
     height: 40% !important;
     width: 100%;
     min-width: 100%;
-    color: rgb(214, 214, 214);
+    color: var(--btn-primary);
     font-size: 16px;
 }
 
 .select-button {
     height: 40% !important;
     width: 100%;
+    color: var(--btn-primary);
     min-width: 100%;
-    color: rgb(214, 214, 214);
     font-size: 16px;
 }
 
 .selector-title {
     font-size: 20px;
-    color: white;
+    color: var(--color-text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -79,7 +77,7 @@
 
 .selector-subtitle {
     font-size: 16px;
-    color: whitesmoke;
+    color: var(--color-text-secondary);
     margin-top: -2px;
     margin-left: 12px;
     white-space: nowrap;

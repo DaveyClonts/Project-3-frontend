@@ -8,7 +8,6 @@
             <v-btn
                 class="select-button rounded-xl"
                 variant="text"
-                :ripple="{ class: 'text-white' }"
                 @click="$emit('exercise-selected', exercise)"
                 >+</v-btn
             >
@@ -18,7 +17,7 @@
 
 <style scoped>
 .selector-container {
-    background-color: #848484;
+    background-color: var(--btn-secondary);
     height: 80px;
     width: 100%;
     padding: 12px 24px 8px 24px;
@@ -38,13 +37,13 @@
     margin-left: auto;
     margin-right: -24px;
     align-self: center;
-    color: white;
+    color: var(--btn-secondary-text);
     font-size: 24px;
 }
 
 .selector-title {
     font-size: 20px;
-    color: white;
+    color: var(--color-text);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -52,7 +51,7 @@
 
 .selector-subtitle {
     font-size: 16px;
-    color: whitesmoke;
+    color: var(--color-text-secondary);
     margin-top: -2px;
     margin-left: 12px;
     white-space: nowrap;

@@ -56,7 +56,7 @@ async function handleCredentialResponse(response) {
                 response.data.firstName,
                 response.data.lastName,
                 response.data.role,
-                response.data.sessionToken,
+                response.data.token,
                 response.data.id
             );
 

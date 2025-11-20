@@ -98,6 +98,7 @@ router.beforeEach((to, from, next) => {
         })
         .catch((err) => {
             console.log(`Error authorizing user: ${err}`);
+            next({ name: "login" });
         });
 });
 

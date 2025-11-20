@@ -3,6 +3,19 @@ body,
 .v-application,
 .v-main {
   overflow: hidden;   /* Disable scrolling */
+  background-color: var(--color-bg);
 }
 
 /* Maybe vars for color when we get there */
+:root {
+  --color-bg: #e9ebfc;
+  --color-primary: #ffffff;
+  --color-secondary: #253deb;
+  --color-text: #000000;
+  --color-text-secondary: #9496a5;
+  
+  --btn-primary: #253deb;
+  --btn-primary-text: #ffffff;
+  --btn-secondary: #e9ebfc;
+  --btn-secondary-text: #253deb;
+}

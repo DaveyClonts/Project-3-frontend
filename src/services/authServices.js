@@ -8,6 +8,6 @@ export default {
         return apiClient.post("authorize", user);
     },
     logoutUser(token) {
-        return apiClient.post("logout", token);
+        return apiClient.post("logout", { token });
     },
 };

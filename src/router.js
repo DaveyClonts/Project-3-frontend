@@ -5,7 +5,7 @@ import workoutsCoach from "./pages/coach/workouts-coach.vue";
 import exercisesCoach from "./pages/coach/exercises-coach.vue";
 import athletesCoach from "./pages/coach/athletes-coach.vue";
 import goalAthlete from "./pages/athlete/GoalPage/goalAthlete.vue";
-import dashboardAthlete from "./pages/athlete/dashboard-athlete.vue";
+import dashboardAthlete from "./pages/athlete/DashBoardAthlete/dashboardAthlete.vue";
 import store from "./store/store.js";
 import authServices from "./services/authServices.js";
 

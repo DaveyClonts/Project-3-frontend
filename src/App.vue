@@ -1,11 +1,10 @@
 <template>
     <v-app>
         <topbar>
-      <navbar tab="/dashboardCoach" v-if="route.path != '/login'" />
-        <logout class="logout" v-if="route.path != '/login'" />
-          <profileIcon/>
-    </topbar>
-    <v-main>
+            <navbar tab="/dashboardCoach" v-if="route.path != '/login'" />
+            <profileIcon v-if="route.path != '/login'" />
+        </topbar>
+        <v-main>
             <router-view />
         </v-main>
     </v-app>
@@ -13,19 +12,18 @@
 
 <style>
 .logout {
-  position: absolute;
-  left: auto;
-  right: 40px;
-  top: 40px;
+    position: absolute;
+    left: auto;
+    right: 40px;
+    top: 40px;
 }
 </style>
 
 <script setup>
-  import topbar from './components/topbar.vue';
-  import navbar from './components/navbar.vue';
-  import profileIcon from './components/profileIcon.vue';
-  import logout from "./components/logout.vue"
-  import { useRoute } from 'vue-router';
+import navbar from "./components/navbar.vue";
+import topbar from "./components/topbar.vue";
+import profileIcon from "./components/profileIcon.vue";
+import { useRoute } from "vue-router";
 
 const route = useRoute();
 </script>

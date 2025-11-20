@@ -8,9 +8,9 @@
 
 <script setup>
 import { ref, onMounted } from "vue";
-import authServices from "../services/authServices";
-import User from "../classes/User";
-import store from "../store/store.js";
+import authServices from "../../services/authServices.js";
+import User from "../../classes/User.js";
+import store from "../../store/store.js";
 import { useRouter } from "vue-router";
 
 const user = ref({});
@@ -52,8 +52,6 @@ async function handleCredentialResponse(response) {
     authServices
         .loginUser(token)
         .then((response) => {
-            console.log(JSON.stringify(response));
-
             user.value = new User(
                 response.data.firstName,
                 response.data.lastName,

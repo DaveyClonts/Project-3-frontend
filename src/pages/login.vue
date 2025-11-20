@@ -1,5 +1,5 @@
 <script setup>
-import socialLogin from "../components/socialLogin.vue";
+import socialLogin from "../components/login/socialLogin.vue";
 import store from "../store/store.js";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";

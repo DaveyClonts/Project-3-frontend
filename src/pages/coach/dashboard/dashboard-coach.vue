@@ -24,8 +24,8 @@
 
 <script setup>
     import athletesCard from "./athletes-card.vue";
-    import User from "../../classes/User.js";
-    import store from "../../store/store.js";
+    import User from "../../../classes/User.js";
+    import store from "../../../store/store.js";
 
     const user = new User(
         store.getUser().firstName, 

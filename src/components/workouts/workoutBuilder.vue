@@ -108,8 +108,8 @@ const props = defineProps(["workout"]);
 const selectedExercises = ref([]);
 
 const exercises = [
-    new Exercise("Squat", ExerciseType.WEIGHTS, "my description yay", 1),
-    new Exercise("Run", ExerciseType.CARDIO, 2),
+    new Exercise("Squat", ExerciseType.WEIGHTS, "my description yay", 1, 1),
+    new Exercise("Run", ExerciseType.CARDIO, 1, 2),
 ];
 
 const workoutExercises = [

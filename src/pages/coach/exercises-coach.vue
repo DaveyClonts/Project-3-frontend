@@ -127,52 +127,68 @@ import exerciseEditor from "../../components/exercises/exerciseEditor.vue";
 import exerciseSelector from "../../components/exercises/exerciseSelector.vue";
 import Exercise from "../../classes/Exercise";
 import ExerciseType from "../../classes/ExerciseType";
+import exerciseServices from "../../services/exerciseServices";
+import store from "../../store/store";
 
 const dialogTitle = ref("");
 const isDialogVisible = ref(false);
 const selectedExercise = ref(null);
-const exercises = ref([
-    new Exercise("Squat", ExerciseType.WEIGHTS, "my description yay"),
-    new Exercise("Run", ExerciseType.CARDIO, "run yay"),
-]);
+const exercises = ref([]);
+
+loadExercises();
 
 function openAddExerciseDialog() {
     dialogTitle.value = "Add New Exercise";
-    openDialog(new Exercise("New Exercise", ExerciseType.WEIGHTS, ""));
+    selectedExercise.value = new Exercise("New Exercise", ExerciseType.WEIGHTS, "");
+    
+    isDialogVisible.value = true;
 }
 
 function openEditExerciseDialog(exercise) {
     dialogTitle.value = "Edit Exercise";
-    openDialog(exercise);
+    selectedExercise.value = new Exercise(
+        exercise.name,
+        exercise.type,
+        exercise.description,
+        exercise.coachID,
+        exercise.id
+    );
+
+    isDialogVisible.value = true;
 }
 
 function addExercise(exercise) {
-    // add to database, refresh array
-    exercises.value.push(exercise);
+    exercise.coachID = store.getUser().id;
+
+    console.log("Add exercise: " + JSON.stringify(exercise));
+
+    exerciseServices.create(exercise).then(() => {
+        closeDialog();
+        loadExercises();
+    });
 }
 
 function deleteExercise(exercise) {
-    const index = exercises.value.indexOf(exercise);
+    exerciseServices.delete(exercise.id).then(() => {
+        closeDialog();
+        loadExercises();
+    });
+}
 
-    if (index > -1)
-        exercises.value.splice(index, 1);
+function updateExercise(exercise) {
+    exerciseServices.update(exercise).then(() => {
+        closeDialog();
+        loadExercises();
+    });
 }
 
 function save() {
-    if (selectedExercise.value.id == null)
-        addExercise(selectedExercise.value);
-    // else update selected exercise
-
-    closeDialog();
+    if (selectedExercise.value.id == null) addExercise(selectedExercise.value);
+    else updateExercise(selectedExercise.value);
 }
 
 function cancel() {
     closeDialog();
-}
-
-function openDialog(exercise) {
-    isDialogVisible.value = true;
-    selectedExercise.value = exercise;
 }
 
 function closeDialog() {
@@ -191,5 +207,16 @@ function onExerciseSelected(exercise) {
 function onExerciseDeleted(exercise) {
     console.log("Delete requested for exercise: " + exercise.name);
     deleteExercise(exercise);
+}
+
+function loadExercises() {
+    exerciseServices
+        .getAllForUser()
+        .then((databaseExercises) => {
+            exercises.value = databaseExercises;
+        })
+        .catch((err) => {
+            console.error("Error loading exercises: " + err);
+        });
 }
 </script>

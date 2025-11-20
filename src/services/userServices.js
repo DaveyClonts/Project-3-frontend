@@ -1,94 +1,44 @@
 import apiClient from "./services.js";
-import Exercise from "../classes/Exercise.js";
-import store from "../store/store.js";
+import User from "../classes/User.js";
 
-const API_ROOT = "exercises";
+const API_ROOT = "users";
 
 export default {
     async getAllWithRole(role) {
+        let users = [];
 
-    },
-    /**
-     *
-     * @param {Exercise} exercise
-     */
-    async create(exercise) {
         await apiClient
-            .post(API_ROOT, exercise)
-            .then(() => {
-                console.log("Successfully created exercise.");
-            })
-            .catch((err) => {
-                console.error("Error creating exercise: " + err);
-            });
-    },
-
-    /**
-     * @returns {Promise<Exercise>}
-     */
-    async get(id) {
-        await apiClient
-            .get(`${API_ROOT}/${id}`)
-            .then((response) => {
-                console.log(
-                    `Successfully found exercise: ${JSON.stringify(
-                        response.body
-                    )}`
+            .get(`${API_ROOT}/roles/${role}`)
+            .then((roleUsers) => {
+                users = roleUsers.map(
+                    (ru) =>
+                        new User(
+                            ru.firstName,
+                            ru.lastName,
+                            ru.role,
+                            ru.token,
+                            ru.id
+                        )
                 );
             })
             .catch((err) => {
-                console.log("Could not find exercise: " + err);
+                console.error("Error getting users: " + err);
             });
+        
+        return users;
     },
-
-    /**
-     * @returns {Promise<Exercise[]>}
-     */
-    async getAllForUser() {
-        const userID = store.getUser().id;
-        let results = [];
-
-        await apiClient
-            .get(`${API_ROOT}/coachExercises/${userID}`)
-            .then((exerciseData) => {
-                results = exerciseData.data.map((e) => {
-                    return new Exercise(e.name, e.type, e.description, e.coachID, e.id);
-                });
-            })
-            .catch((err) => {
-                console.error("Error retrieving exercises: " + err);
-            });
-
-        return results;
-    },
-
-    /**
-     * 
-     * @param {Promise<void>} id 
-     */
-    async delete(id) {
-        await apiClient
-            .delete(`${API_ROOT}/${id}`)
-            .then(() => {
-                console.log("Successfully deleted exercise.");
-            })
-            .catch((err) => {
-                console.error("Error deleting exercise: " + err);
-            });
-    },
-
     /**
      *
-     * @param {Promise<void>} exercise
+     * @param {User} user
      */
-    async update(exercise) {
+    async update(user) {
         await apiClient
-            .put(`${API_ROOT}/${exercise.id}`, exercise)
+            .put(`${API_ROOT}/${user.id}`, user)
             .then(() => {
-                console.log("Successfully updated exercise.");
+                console.log("Successfully updated user.");
             })
             .catch((err) => {
-                console.error("Error updating exercise: " + err);
+                console.error("Error updating user: " + err);
             });
     },
 };

@@ -61,7 +61,7 @@ export default {
 
     /**
      * 
-     * @param {Promise<void>} id 
+     * @param {number} id 
      */
     async delete(id) {
         await apiClient
@@ -76,7 +76,7 @@ export default {
 
     /**
      *
-     * @param {Promise<void>} exercise
+     * @param {Exercise} exercise
      */
     async update(exercise) {
         await apiClient

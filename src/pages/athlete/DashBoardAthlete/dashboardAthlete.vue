@@ -32,7 +32,6 @@
 
 <script setup>
 import store from '../../../store/store';
-import User from "../../../classes/User.js";
 import GoalListAthlete from './goalListAthlete.vue';
 import CalendarAthlete from './calendarAthlete.vue';
 import WorkoutAthlete from './workoutListAthlete.vue';

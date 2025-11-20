@@ -35,6 +35,7 @@ import { toRef, ref } from "vue";
 import GoalDeleteButton from "./goalDeleteButtonAthlete.vue";
 import GoalEditButton from "./goalEditButtonAthlete.vue";
 import Note from "../../../classes/Note.js";
+import noteServices from "../../../services/noteServices.js";
 
 const props = defineProps({
   show: Boolean,
@@ -53,15 +54,15 @@ function closeDialog() {
   emit("update:show", false);
 }
 
-function addNote() {
+async function addNote() {
   if (!newNote.value.trim()) return;
-  props.goal.notes.push(new Note(newNote.value));
+  await noteServices.create(new Note(newNote.value, props.goal.goalID));
   newNote.value = "";
   getNotes();
 }
 
-function getNotes() {
-  notesList.value = props.goal.notes;
+async function getNotes() {
+  notesList.value = await noteServices.getAll(props.goal.goalID);
 }
 
 getNotes();

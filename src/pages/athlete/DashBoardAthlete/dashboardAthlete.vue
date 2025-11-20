@@ -4,7 +4,7 @@
             <v-col class="fill-height flex-grow-0" style="width: 65vw; margin-left: 15px;">
                 <v-row>
                     <div class="title-text">
-                        Welcome, {{ store.user.firstName}} {{ store.user.lastName }}
+                        Welcome, {{ user.getFullName() }}
                     </div>
                 </v-row>
                 <v-row>
@@ -32,11 +32,19 @@
 
 <script setup>
 import store from '../../../store/store';
+import User from "../../../classes/User.js";
 import GoalListAthlete from './goalListAthlete.vue';
 import CalendarAthlete from './calendarAthlete.vue';
 import WorkoutAthlete from './workoutListAthlete.vue';
 import goalServices from "../../../services/goalServices";
 import { ref } from "vue";
+
+
+const user = new User(
+    store.getUser().firstName, 
+    store.getUser().lastName,
+    store.getUser().token,
+);
 
 const goals = ref([]);
 

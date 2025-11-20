@@ -10,18 +10,17 @@
                 >
             </div>
             <div class="top-element-container">
-                <div v-for="workout in workouts">
-                    <workout-selector
-                        :workout="workout"
-                        @workout-selected="onWorkoutSelected"
-                        @workout-deleted="onWorkoutDeleted"
-                    />
-                </div>
+                <workout-selector
+                    v-for="workout in workouts"
+                    :workout="workout"
+                    @workout-selected="onWorkoutSelected"
+                    @workout-deleted="onWorkoutDeleted"
+                />
             </div>
         </div>
     </v-card>
     <v-dialog class="dialog" v-model="isDialogVisible">
-        <v-card class="builder-card">
+        <v-card>
             <workout-builder :workout="selectedWorkout" />
             <div class="button-container">
                 <v-btn class="save-button" @click="save()">Save</v-btn>
@@ -72,7 +71,8 @@
 .top-element-container {
     width: 100%;
     height: 100%;
-    margin-top: 8px;
+    padding-top: 8px;
+    padding-bottom: 8px;
     display: flex;
     flex-direction: column;
     gap: 12px;

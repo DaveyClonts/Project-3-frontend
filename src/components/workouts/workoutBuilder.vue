@@ -11,7 +11,7 @@
             <div class="subcontainer right-outline">
                 <v-label class="title opacity-100">Exercise List</v-label>
                 <div class="element-container">
-                    <exerciseSelector
+                    <workoutExerciseSelector
                         v-for="exercise in exercises"
                         :exercise="exercise"
                         @exercise-selected="addExercise"
@@ -21,7 +21,7 @@
             <div class="subcontainer">
                 <v-label class="title opacity-100">Selected Exercises</v-label>
                 <div class="element-container">
-                    <exerciseEditor
+                    <workoutExerciseEditor
                         v-for="exercise in selectedExercises"
                         :workoutExercise="exercise"
                     />
@@ -97,9 +97,9 @@
 </style>
 
 <script setup>
-import { ref, watch } from "vue";
-import exerciseSelector from "./exerciseSelector.vue";
-import exerciseEditor from "./exerciseEditor.vue";
+import { ref } from "vue";
+import workoutExerciseSelector from "./workoutExerciseSelector.vue";
+import workoutExerciseEditor from "./workoutExerciseEditor.vue";
 import Exercise from "../../classes/Exercise.js";
 import ExerciseType from "../../classes/ExerciseType.js";
 import WorkoutExercise from "../../classes/WorkoutExercise.js";

@@ -1,4 +1,6 @@
+export const exerciseTypeArray = ["Weights", "Cardio"];
+
 export default {
-    CARDIO: "Cardio",
-    WEIGHTS: "Weights",
+    Weights: "Weights",
+    Cardio: "Cardio",
 };

@@ -1,7 +1,10 @@
 <template>
-      <v-card class="goal-container rounded-xl">
-        <v-btn @click="showAddGoalPopup = true" class="button">Add Goal</v-btn>
-      </v-card>
+  <v-btn
+    class="add-workout-button"
+    :ripple="{ class: 'text-white' }"
+    @click="showAddGoalPopup = true"
+    >+</v-btn
+  >
 
   <AddGoalPopupAthlete v-model:show="showAddGoalPopup" :refresh="refresh" />
 </template>
@@ -18,16 +21,13 @@ const showAddGoalPopup = ref(false);
 </script>
 
 <style scoped>
-.button {
+.add-workout-button {
   background-color: #848484;
-  height: 100%;
-  width: 100%;
-  flex: 0 0 auto;
-  font-size: 20px;
   color: white;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  height: 32px;
+  width: 32px;
+  min-width: 32px !important;
+  margin-bottom: 8px;
 }
 
 .goal-container {

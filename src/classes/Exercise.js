@@ -8,7 +8,7 @@ export default class Exercise {
      */
     constructor(name, type, description, coachID = null, id = null) {
         this.name = name;
-        this.type = type;
+        this.type = `${type.charAt(0).toUpperCase()}${type.slice(1)}`;
         this.description = description;
         this.coachID = coachID;
         this.id = id;

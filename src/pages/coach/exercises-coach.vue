@@ -139,7 +139,7 @@ loadExercises();
 
 function openAddExerciseDialog() {
     dialogTitle.value = "Add New Exercise";
-    selectedExercise.value = new Exercise("New Exercise", ExerciseType.WEIGHTS, "");
+    selectedExercise.value = new Exercise("New Exercise", ExerciseType.Weights, "");
     
     isDialogVisible.value = true;
 }

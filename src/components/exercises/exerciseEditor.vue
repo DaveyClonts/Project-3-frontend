@@ -7,12 +7,12 @@
             type="input"
             class="exercise-name"
         ></v-text-field>
-        <v-autocomplete
+        <v-select
             label="Type"
             :items="exerciseTypeArray"
             v-model="exercise.type"
         >
-        </v-autocomplete>
+        </v-select>
     </div>
 </template>
 

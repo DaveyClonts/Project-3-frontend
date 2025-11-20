@@ -19,7 +19,7 @@
 .profile-icon {
     position: absolute;
     right: 3vw;
-    background-color: #d0d0d0;
+    background-color: var(--color-primary);
 }
 
 

@@ -21,7 +21,7 @@
 .navbar {
     height: 50px;
     border-radius: 50px;
-    background-color: #d0d0d0;
+    background-color: var(--color-primary);
     display: flex;
     align-items: center;
 }
@@ -39,10 +39,12 @@
     border-radius: 50px;
     padding: 0px 25px;
     cursor: pointer;
+    color: var(--color-text-secondary);
 }
 
 .nav-item.active {
-    background-color: #848484;
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
 }
 
 .nav-item:first-child {

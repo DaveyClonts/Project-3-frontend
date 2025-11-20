@@ -8,10 +8,10 @@
     </div>
   </v-card>
   <GoalViewPopup
-        v-model:show="showGoalViewPopup"
-        :goal="props.goal"
-        :refresh="refresh"
-      />
+    v-model:show="showGoalViewPopup"
+    :goal="props.goal"
+    :refresh="refresh"
+  />
 </template>
 
 <script setup>
@@ -33,9 +33,10 @@ const handleClick = () => {
 
 <style scoped>
 .goal-container {
-  background-color: #848484;
+  background-color: var(--btn-secondary);
   height: 80px;
-  width: 100%;
+  width: 95%;
+  margin-top: 20px;
   padding: 12px 24px 8px 24px;
   flex: 0 0 auto;
 }
@@ -49,7 +50,7 @@ const handleClick = () => {
 
 .goal-title {
   font-size: 20px;
-  color: white;
+  color: var(--color-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -57,7 +58,7 @@ const handleClick = () => {
 
 .goal-subtitle {
   font-size: 16px;
-  color: whitesmoke;
+  color: var(--color-text-secondary);
   margin-top: -2px;
   margin-left: 12px;
   white-space: nowrap;

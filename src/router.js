@@ -8,6 +8,7 @@ import goalAthlete from "./pages/athlete/GoalPage/goalAthlete.vue";
 import dashboardAthlete from "./pages/athlete/DashBoardAthlete/dashboardAthlete.vue";
 import store from "./store/store.js";
 import authServices from "./services/authServices.js";
+import roleSelect from "./pages/roleSelect.vue";
 
 const router = createRouter({
     //removes the # from the url
@@ -27,6 +28,13 @@ const router = createRouter({
             path: "/login",
             name: "login",
             component: login,
+            meta: { noNavigation: true },
+        },
+        {
+            path: "/roleSelect",
+            name: "roleSelect",
+            component: roleSelect,
+            meta: { noNavigation: true },
         },
         {
             path: "/dashboardCoach",
@@ -78,6 +86,9 @@ router.beforeEach((to, from, next) => {
     if (user == null) {
         next({ name: "login" });
         return;
+    } else if (user.role == null) {
+        next({ name: "roleSelect" });
+        return;
     }
 
     authServices
@@ -87,6 +98,7 @@ router.beforeEach((to, from, next) => {
         })
         .catch((err) => {
             console.log(`Error authorizing user: ${err}`);
+            next({ name: "login" });
         });
 });
 

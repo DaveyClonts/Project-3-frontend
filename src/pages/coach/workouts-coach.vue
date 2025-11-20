@@ -43,7 +43,6 @@
 
 <style scoped>
 .athlete-selector-container {
-    margin-top: 8px;
     width: 500px;
     height: 55px;
     background-color: var(--color-primary);
@@ -56,7 +55,7 @@
 
 .top-container {
     margin-top: 8px;
-    min-width: 500px;
+    width: 500px;
     padding: 20px;
     height: 80vh;
     background-color: var(--color-primary);

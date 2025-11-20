@@ -4,21 +4,23 @@
             <v-col class="fill-height flex-grow-0" style="width: 65vw; margin-left: 15px;">
                 <v-row>
                     <div class="title-text">
-                        Welcome, {{ store.user.firstName}} {{ store.user.lastName }}
+                        Welcome, {{ user.getFullName() }}
                     </div>
                 </v-row>
                 <v-row>
-                    <v-card class="workouts-card">Test</v-card>
+                    <v-card class="workouts-card">
+                        <WorkoutAthlete />
+                    </v-card>
                 </v-row>
                 <v-row>
                     <v-card class="exercises-card">
-                        <GoalCalendarAthlete 
+                        <CalendarAthlete 
                             :goals="goals"/>
                     </v-card>
                 </v-row>
             </v-col>
             <v-col>
-                <v-card class="athletes-card">
+                <v-card class="goal-card">
                     <GoalListAthlete 
                         :getGoal="getGoals"
                         :goals="goals"/>
@@ -30,10 +32,19 @@
 
 <script setup>
 import store from '../../../store/store';
+import User from "../../../classes/User.js";
 import GoalListAthlete from './goalListAthlete.vue';
-import GoalCalendarAthlete from './goalCalendarAthlete.vue';
+import CalendarAthlete from './calendarAthlete.vue';
+import WorkoutAthlete from './workoutListAthlete.vue';
 import goalServices from "../../../services/goalServices";
 import { ref } from "vue";
+
+
+const user = new User(
+    store.getUser().firstName, 
+    store.getUser().lastName,
+    store.getUser().token,
+);
 
 const goals = ref([]);
 
@@ -64,16 +75,16 @@ getGoals();
     margin-bottom: 50px;
     border-radius: 20px;
     width: 65vw;
-    height: 25vh;
+    height: 15vh;
 }
 
 .exercises-card {
-    height: 40vh;
+    height: 60vh;
     width: 65vw;
     border-radius: 20px;
 }
 
-.athletes-card {
+.goal-card {
     width: 22vw;
     height: 78vh;
     border-radius: 20px;

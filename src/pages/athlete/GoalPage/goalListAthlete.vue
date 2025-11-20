@@ -24,7 +24,7 @@ const props = defineProps({
 <style scoped>
 .builder-container {
   height: 80vh;
-  width: 50%;
+  width: 30%;
   background-color: #d0d0d0;
   display: flex;
   justify-content: center;

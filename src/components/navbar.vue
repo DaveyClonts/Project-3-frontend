@@ -1,24 +1,27 @@
 <template>
-    <div class="navbar">
-        <ul class="nav-list">
-            <li
-                v-for="item in navItems"
-                :key="item.name"
-                class="nav-item"
-                @click="navigate(item)"
-                :class="{ active: route.name === item.name }"
-            >
-                {{ item.label }}
-            </li>
-        </ul>
+    <div class="navbar-container">
+        <div class="navbar">
+            <ul class="nav-list">
+                <li
+                    v-for="item in navItems"
+                    :key="item.name"
+                    class="nav-item"
+                    @click="navigate(item)"
+                    :class="{ active: route.name === item.name }"
+                >
+                    {{ item.label }}
+                </li>
+            </ul>
+        </div>
     </div>
 </template>
 
 <style>
+
 .navbar {
     height: 50px;
     border-radius: 50px;
-    background-color: #d0d0d0;
+    background-color: var(--color-primary);
     display: flex;
     align-items: center;
 }
@@ -36,10 +39,13 @@
     border-radius: 50px;
     padding: 0px 25px;
     cursor: pointer;
+    color: var(--color-text-secondary);
+    user-select: none; /* prevents highlighting navbar */
 }
 
 .nav-item.active {
-    background-color: #848484;
+    background-color: var(--color-secondary);
+    color: var(--color-primary);
 }
 
 .nav-item:first-child {
@@ -52,7 +58,7 @@
 </style>
 
 <script setup>
-import { useRouter, useRoute } from "vue-router";
+import { useRouter, useRoute} from 'vue-router';
 const route = useRoute();
 const router = useRouter();
 

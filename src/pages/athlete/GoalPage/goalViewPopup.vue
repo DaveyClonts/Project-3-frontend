@@ -5,7 +5,7 @@
 
       <v-text-field :model-value="goal.name || 'N/A'" label="Goal Name" readonly />
       <v-text-field :model-value="goal.description || 'N/A'" label="Description" readonly />
-      <v-text-field :model-value="goal.dueDate || 'N/A'" label="Goal Date" readonly />
+      <v-text-field :model-value="goal.date || 'N/A'" label="Goal Date" readonly />
 
       <v-list>
         <v-list-item v-for="note in notesList" :key="note.id" class="note-item">

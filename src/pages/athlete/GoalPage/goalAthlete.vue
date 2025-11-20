@@ -1,11 +1,9 @@
 <template>
   <GoalListAthlete :goals="goals" :refresh="refresh" />
-  <AddGoalButtonAthlete :refresh="refresh" />
 </template>
 
 <script setup>
 import GoalListAthlete from "./goalListAthlete.vue";
-import AddGoalButtonAthlete from "./goalAddButtonAthlete.vue";
 import { ref } from "vue";
 import goalServices from "../../../services/goalServices";
 

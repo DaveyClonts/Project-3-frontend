@@ -2,8 +2,7 @@
     <v-app>
         <topbar>
             <navbar tab="/dashboardCoach" v-if="route.path != '/login'" />
-            <logout class="logout" v-if="route.path != '/login'" />
-            <profileIcon />
+            <profileIcon v-if="route.path != '/login'" />
         </topbar>
         <v-main>
             <router-view />
@@ -22,6 +21,8 @@
 
 <script setup>
 import navbar from "./components/navbar.vue";
+import topbar from "./components/topbar.vue";
+import profileIcon from "./components/profileIcon.vue";
 import { useRoute } from "vue-router";
 
 const route = useRoute();

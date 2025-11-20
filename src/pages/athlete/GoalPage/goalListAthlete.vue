@@ -1,9 +1,11 @@
 <template>
   <v-card class="builder-container rounded-xl">
-    <div class="subcontainer right-outline">
-      <div class="title">Goal List</div>
+    <div class="subcontainer">
+      <div class="title-container">
+        <div class="title">Goal List</div>
+        <AddGoalButtonAthlete :refresh="refresh" />
+      </div>
       <GoalDisplay v-for="goal in goals" :key="goal.goalID" :goal="goal" />
-      <AddGoalButtonAthlete :refresh="refresh" />
     </div>
   </v-card>
 </template>
@@ -17,7 +19,7 @@ const props = defineProps({
     type: Array,
     default: () => [],
   },
-  refresh: Function
+  refresh: Function,
 });
 </script>
 
@@ -32,7 +34,7 @@ const props = defineProps({
 }
 
 .subcontainer {
-  width: 80%;
+  width: 90%;
   gap: 12px;
   display: flex;
   flex-direction: column;
@@ -42,9 +44,6 @@ const props = defineProps({
 }
 
 .title {
-  border-width: 0px 0px 2px 0px;
-  border-color: rgb(82, 82, 82);
-  border-style: solid;
   font-size: 20px;
   text-align: center;
   margin-top: 6px;
@@ -52,4 +51,15 @@ const props = defineProps({
   width: 100%;
 }
 
+.title-container {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  padding-top: 10px;
+  border-width: 0px 0px 2px 0px;
+  border-color: rgb(82, 82, 82);
+  border-style: solid;
+  align-items: center;
+  justify-items: center;
+}
 </style>

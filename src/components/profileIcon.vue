@@ -24,11 +24,7 @@ import { useRouter } from 'vue-router';
 
 const router = useRouter();
 const toggled = ref(false);
-const user = new User( 
-    store.getUser().firstName,
-    store.getUser().lastName,
-    store.getUser().token,
-);
+const user = store.getUser();
 
 function logout() {
     console.log("Log out.");

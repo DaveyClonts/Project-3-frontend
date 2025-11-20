@@ -91,7 +91,7 @@ export default {
                 const { name, date, id, coachID, athleteID } = workoutObject; // match backend
                 return new Workout(
                     name,
-                    new Date(date).toISOString().replace("T", " ").slice(0, 16),
+                    date,
                     id,
                     coachID,
                     athleteID
@@ -107,42 +107,29 @@ export default {
      * @returns {Promise<Workout>}
      */
     async getAllForCoachAndAthlete(coachID, athleteID) {
-        const data = {
-            coachID,
-            athleteID
-        }
+        await apiClient
+            .get(`${API_ROOT}/coachAthleteWorkouts/${coachID}/${athleteID}`)
+            .then((workoutData) => {
+                return workoutData.data.map((data) => {
+                    const date = new Date(data.date)
+                        .toISOString()
+                        .replace("T", " ")
+                        .slice(0, 16);
 
-        await apiClient.get(`${API_ROOT}/coachAthleteWorkouts/`, data)
-        .then((workoutData) => {
-            return workoutData.map((data) => {
-                const date = new Date(data.date).toISOString().replace("T", " ").slice(0, 16);
-
-                return new Workout(data.name, date, data.id, data.coachID, data.athleteID);
+                    return new Workout(
+                        data.name,
+                        date,
+                        data.id,
+                        data.coachID,
+                        data.athleteID
+                    );
+                });
+            })
+            .catch((err) => {
+                console.error("Error fetching workouts: " + err);
             });
-        })
-        .catch(err => {
-            console.error("Error fetching workouts: " + err);
-        });
 
-        try {
-            const response = await apiClient.get(
-                `${API_ROOT}/athleteWorkouts/${userID}`
-            );
-
-            return response.data.map((workoutObject) => {
-                const { name, date, id, coachID, athleteID } = workoutObject; // match backend
-                return new Workout(
-                    name,
-                    new Date(date).toISOString().replace("T", " ").slice(0, 16),
-                    id,
-                    coachID,
-                    athleteID
-                );
-            });
-        } catch (err) {
-            console.error("Error fetching workouts:", err);
-            return [];
-        }
+        return [];
     },
 
     /**

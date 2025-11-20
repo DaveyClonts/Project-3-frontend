@@ -5,7 +5,7 @@
             label="Athlete"
             v-model="athlete"
             :items="athletes"
-            :item-title="a => `${a.firstName} ${a.lastName}`"
+            :item-title="(a) => `${a.firstName} ${a.lastName}`"
             return-object
             @update:model-value="onAthleteSelected"
         ></v-autocomplete>
@@ -17,6 +17,7 @@
                 <v-btn
                     class="add-workout-button"
                     :ripple="{ class: 'text-white' }"
+                    @click="onAddNewWorkout"
                     >+</v-btn
                 >
             </div>
@@ -57,7 +58,7 @@
     margin-top: 8px;
     width: 500px;
     padding: 20px;
-    height: 80vh;
+    height: 72.5vh;
     background-color: var(--color-primary);
     display: flex;
     flex-direction: row;
@@ -153,6 +154,8 @@ import workoutSelector from "../../components/workouts/workoutSelector.vue";
 import userServices from "../../services/userServices.js";
 import workoutServices from "../../services/workoutServices.js";
 import UserRole from "../../classes/userRole.js";
+import store from "../../store/store.js";
+import Workout from "../../classes/Workout.js";
 
 const athletes = ref([]);
 const athlete = ref(null);
@@ -163,6 +166,13 @@ const selectedWorkout = ref(null);
 const workouts = [];
 
 loadAthletes();
+
+function onAddNewWorkout() {
+    const coachID = store.getUser().id;
+    const athleteID = athlete.value.id;
+
+    selectedWorkout.value = new Workout("Workout", Date.now(), null, coachID, athleteID);
+}
 
 function save() {
     closeDialog();
@@ -183,12 +193,13 @@ function closeDialog() {
 }
 
 function onWorkoutSelected(workout) {
-    console.log("Selected workout: " + workout.name);
     openDialog(workout);
 }
 
 function onWorkoutDeleted(workout) {
-    console.log("Delete requested for workout: " + workout.name);
+    workoutServices.delete(workout.id).then(() => {
+        loadWorkouts();
+    });
 }
 
 function loadAthletes() {
@@ -214,7 +225,27 @@ function onAthleteSelected(athlete) {
 }
 
 function loadWorkouts() {
+    const coachID = store.getUser().id;
+    const athleteID = athlete.value.id;
+
+    workouts.value = [];
+
     workoutServices
-        .getAllForCoachAndAthlete()
+        .getAllForCoachAndAthlete(coachID, athleteID)
+        .then((databaseWorkouts) => {
+            workouts.value = databaseWorkouts.map(
+                (workout) =>
+                    new Workout(
+                        workout.name,
+                        workout.date,
+                        workout.id,
+                        workout.coachID,
+                        workout.athleteID
+                    )
+            );
+        })
+        .catch((err) => {
+            console.log("Error retrieving workouts: " + err);
+        });
 }
 </script>

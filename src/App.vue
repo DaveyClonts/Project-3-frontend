@@ -21,7 +21,7 @@
 
 <script setup>
 import navbar from "./components/navbar.vue";
-import topbar from "./components/login/topbar.vue";
+import topbar from "./components/topbar.vue";
 import profileIcon from "./components/profileIcon.vue";
 import { useRoute } from "vue-router";
 

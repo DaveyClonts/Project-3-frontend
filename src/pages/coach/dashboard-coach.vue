@@ -4,7 +4,7 @@
             <v-col class="fill-height flex-grow-0" style="width: 65vw; margin-left: 15px;">
                 <v-row>
                     <div class="title-text">
-                        Welcome, Coach Jones
+                        Welcome, Coach {{ user.lastName }}
                     </div>
                 </v-row>
                 <v-row>
@@ -20,6 +20,18 @@
         </v-row>
     </div>
 </template>
+
+
+<script setup>
+    import User from "../../classes/User.js";
+    import store from "../../store/store.js";
+
+    const user = new User(
+        store.getUser().firstName, 
+        store.getUser().lastName,
+        store.getUser().token,
+    );
+</script>
 
 <style scoped>
 
@@ -54,7 +66,3 @@
     border-radius: 20px;
 }
 </style>
-
-<script setup>
-    
-</script>

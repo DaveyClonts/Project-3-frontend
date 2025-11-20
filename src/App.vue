@@ -2,7 +2,6 @@
     <v-app>
         <topbar>
             <navbar tab="/dashboardCoach" v-if="route.path != '/login'" />
-            <logout class="logout" v-if="route.path != '/login'" />
             <profileIcon v-if="route.path != '/login'" />
         </topbar>
         <v-main>

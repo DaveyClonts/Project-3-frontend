@@ -16,8 +16,7 @@
     </div>
 </template>
 
-<style>
-
+<style scoped>
 .navbar {
     height: 50px;
     border-radius: 50px;

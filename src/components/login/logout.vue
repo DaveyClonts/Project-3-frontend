@@ -2,7 +2,7 @@
     <v-btn variant="plain" @click="logout">Logout</v-btn>
 </template>
 
-<style>
+<style scoped>
 .v-btn {
     width: 70px;
 }

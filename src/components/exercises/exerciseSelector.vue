@@ -1,21 +1,25 @@
 <template>
     <v-card class="selector-container rounded-xl">
         <div class="selector-subcontainer">
-            <div>
-                <div class="selector-title">{{ $props.workout.name }}</div>
-                <div class="selector-subtitle">{{ $props.workout.date }}</div>
+            <div v-if="exercise != null">
+                <div class="selector-title">{{ exercise.name }}</div>
+                <div class="selector-subtitle">{{ exercise.type }}</div>
+            </div>
+            <div v-if="exercise == null">
+                <div class="selector-title">MISSING</div>
+                <div class="selector-subtitle">MISSING</div>
             </div>
             <div class="selector-button-container">
                 <v-btn
                     class="select-button"
                     variant="text"
-                    @click="$emit('workout-selected', workout)"
+                    @click="$emit('exercise-selected', exercise)"
                     >Edit</v-btn
                 >
                 <v-btn
                     class="delete-button"
                     variant="text"
-                    @click="$emit('workout-deleted', workout)"
+                    @click="$emit('exercise-deleted', exercise)"
                     >Delete</v-btn
                 >
             </div>
@@ -28,6 +32,8 @@
     background-color: var(--btn-secondary);
     height: 80px;
     width: 95%;
+    margin-left: 12px;
+    margin-right: 12px;
     padding: 12px 24px 8px 24px;
     flex: 0 0 auto;
 }
@@ -88,5 +94,5 @@
 </style>
 
 <script setup>
-const props = defineProps(["workout"]);
+const props = defineProps(["exercise"]);
 </script>

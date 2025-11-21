@@ -5,12 +5,13 @@
             v-model="workout.name"
             placeholder="Workout"
             type="input"
+            class="workout-name"
         ></v-text-field>
         <v-card class="builder-container rounded-xl">
             <div class="subcontainer right-outline">
-                <v-label class="title">Exercise List</v-label>
+                <v-label class="title opacity-100">Exercise List</v-label>
                 <div class="element-container">
-                    <exerciseSelector
+                    <workoutExerciseSelector
                         v-for="exercise in exercises"
                         :exercise="exercise"
                         @exercise-selected="addExercise"
@@ -18,9 +19,9 @@
                 </div>
             </div>
             <div class="subcontainer">
-                <v-label class="title">Selected Exercises</v-label>
+                <v-label class="title opacity-100">Selected Exercises</v-label>
                 <div class="element-container">
-                    <exerciseEditor
+                    <workoutExerciseEditor
                         v-for="exercise in selectedExercises"
                         :workoutExercise="exercise"
                     />
@@ -39,7 +40,7 @@
     min-width: 450px;
     padding: 20px;
     height: 70vh;
-    background-color: #d0d0d0;
+    background-color: var(--color-primary);
     display: flex;
     flex-direction: row;
     justify-content: center;
@@ -73,13 +74,18 @@
 
 .right-outline {
     border-width: 0px 2px 0px 0px;
-    border-color: rgb(82, 82, 82);
+    border-color: var(--color-text-secondary);
     border-style: solid;
+}
+
+.workout-name ::v-deep .v-label {
+    color: var(--color-secondary) !important;
 }
 
 .title {
     border-width: 0px 0px 2px 0px;
-    border-color: rgb(82, 82, 82);
+    border-color: var(--color-text-secondary);
+    color: var(--color-text);
     border-style: solid;
     font-size: 20px;
     text-align: center;
@@ -91,9 +97,9 @@
 </style>
 
 <script setup>
-import { ref, watch } from "vue";
-import exerciseSelector from "./exerciseSelector.vue";
-import exerciseEditor from "./exerciseEditor.vue";
+import { ref } from "vue";
+import workoutExerciseSelector from "./workoutExerciseSelector.vue";
+import workoutExerciseEditor from "./workoutExerciseEditor.vue";
 import Exercise from "../../classes/Exercise.js";
 import ExerciseType from "../../classes/ExerciseType.js";
 import WorkoutExercise from "../../classes/WorkoutExercise.js";
@@ -102,8 +108,8 @@ const props = defineProps(["workout"]);
 const selectedExercises = ref([]);
 
 const exercises = [
-    new Exercise("Squat", ExerciseType.WEIGHTS, "my description yay", 1),
-    new Exercise("Run", ExerciseType.CARDIO, 2),
+    new Exercise("Squat", ExerciseType.Weights, "my description yay", 1, 1),
+    new Exercise("Run", ExerciseType.Cardio, 1, 2),
 ];
 
 const workoutExercises = [

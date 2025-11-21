@@ -1,5 +1,5 @@
 <template>
-    <v-card class="selector-container rounded-xl">
+    <v-card class="exercise-editor-container rounded-xl">
         <div class="selector-subcontainer">
             <div v-if="workoutExercise != null">
                 <div class="selector-title">{{ workoutExercise.exerciseID }}</div>
@@ -26,7 +26,7 @@
 </template>
 
 <style scoped>
-.selector-container {
+.exercise-editor-container {
     background-color: #848484;
     height: 80px;
     width: 100%;

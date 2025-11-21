@@ -55,6 +55,7 @@ async function handleCredentialResponse(response) {
             user.value = new User(
                 response.data.firstName,
                 response.data.lastName,
+                response.data.role,
                 response.data.token,
                 response.data.id
             );

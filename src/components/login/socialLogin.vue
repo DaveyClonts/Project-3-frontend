@@ -55,10 +55,9 @@ async function handleCredentialResponse(response) {
             user.value = new User(
                 response.data.firstName,
                 response.data.lastName,
-                response.data.sessionToken,
+                response.data.token,
                 response.data.id
             );
-
             console.log("Successfully logged in.");
             store.setUser(user.value);
             router.push({ name: "dashboardCoach" });

@@ -35,14 +35,15 @@ export default {
             .get(`coachAthletes/coachAthlete/${coachID}`)
             .then((data) => {
                 users = data.map(
-                    (u) => 
-                        new User (
-                            u.firstName,
-                            ru.lastName,
-                            ru.role,
-                            ru.token,
-                            ru.id
+                    (u) => {
+                        const athlete = u.athlete;
+                        return new User (
+                            athlete.firstName,
+                            athlete.lastName,
+                            athlete.role,
+                            athlete.id
                         )
+                    }
                 );
             })
             .catch((err) => {

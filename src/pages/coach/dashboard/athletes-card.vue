@@ -36,8 +36,8 @@ import athlete from '../../../components/athlete.vue';
 import addButton from '../../../components/addButton.vue';
 import userServices from '../../../services/userServices';
 
-const data = userServices.getAllWithRole("Athlete");
+const data = userServices.getAthletesForCoach(1);
 
-console.log(data);
+console.log(await data);
 
 </script>

@@ -33,8 +33,9 @@ export default {
 
         await apiClient
             .get(`coachAthletes/coachAthlete/${coachID}`)
-            .then((data) => {
-                users = data.map(
+            .then((response) => {
+                console.log(response);
+                users = response.data.map(
                     (u) => {
                         const athlete = u.athlete;
                         return new User (
@@ -49,6 +50,8 @@ export default {
             .catch((err) => {
                 console.error("Error getting users: " + err);
             });
+
+            return users;
     },
     /**
      *

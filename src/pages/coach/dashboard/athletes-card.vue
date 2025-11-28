@@ -34,5 +34,10 @@
 <script setup>
 import athlete from '../../../components/athlete.vue';
 import addButton from '../../../components/addButton.vue';
+import userServices from '../../../services/userServices';
+
+const data = userServices.getAllWithRole("Athlete");
+
+console.log(data);
 
 </script>

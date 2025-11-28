@@ -4,6 +4,7 @@ import User from "../classes/User.js";
 const API_ROOT = "users";
 
 export default {
+    // as of rn this is fake news... /roles/${role} isnt real
     async getAllWithRole(role) {
         let users = [];
 
@@ -26,6 +27,27 @@ export default {
             });
         
         return users;
+    },
+    async getAthletesForCoach(coachID) {
+        let users = [];
+
+        await apiClient
+            .get(`coachAthletes/coachAthlete/${coachID}`)
+            .then((data) => {
+                users = data.map(
+                    (u) => 
+                        new User (
+                            u.firstName,
+                            ru.lastName,
+                            ru.role,
+                            ru.token,
+                            ru.id
+                        )
+                );
+            })
+            .catch((err) => {
+                console.error("Error getting users: " + err);
+            });
     },
     /**
      *

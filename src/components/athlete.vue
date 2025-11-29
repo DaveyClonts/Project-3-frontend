@@ -5,7 +5,11 @@
                 <v-icon>mdi-account</v-icon>
             </div>
 
-            <div class="name">Test Athlete</div>
+            <div class="name">
+                <slot>
+                    
+                </slot>
+            </div>
         </div>
     </v-card>
 </template>

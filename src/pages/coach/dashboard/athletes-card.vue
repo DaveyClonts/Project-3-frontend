@@ -2,12 +2,28 @@
     <v-card class="athletes-card">
         <div class="title">Your Athletes</div>
         <div class="column">
-            <athlete/>
-            <athlete/>
+
+            <athlete v-for="athlete in athletes"> 
+                {{ athlete.getFullName() }}
+            </athlete>
+
             <addButton/>
         </div>
     </v-card>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import athlete from '../../../components/athlete.vue';
+import addButton from '../../../components/addButton.vue';
+import userServices from '../../../services/userServices';
+
+const athletes = ref([]);
+
+onMounted(async () => {
+    athletes.value = await userServices.getAthletesForCoach(1);
+});
+</script>
 
 <style scoped>
 .athletes-card {
@@ -30,14 +46,3 @@
     padding-bottom: 10px;
 }
 </style>
-
-<script setup>
-import athlete from '../../../components/athlete.vue';
-import addButton from '../../../components/addButton.vue';
-import userServices from '../../../services/userServices';
-
-const data = userServices.getAthletesForCoach(1);
-
-console.log(await data);
-
-</script>

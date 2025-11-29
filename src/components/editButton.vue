@@ -1,10 +1,10 @@
 <template>
     <v-btn variant="tonal" class="add-button" @click="popup = true">
-        <v-icon>mdi-plus</v-icon>
+        Edit
     </v-btn>
 
     <addAthletePopup v-model="popup">
-
+        
     </addAthletePopup>
 </template>
 

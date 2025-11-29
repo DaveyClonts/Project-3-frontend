@@ -15,7 +15,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import athlete from '../../../components/athlete.vue';
-import addButton from '../../../components/addButton.vue';
+import addButton from '../../../components/editButton.vue';
 import userServices from '../../../services/userServices';
 
 const athletes = ref([]);

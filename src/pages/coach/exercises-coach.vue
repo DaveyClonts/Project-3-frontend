@@ -101,7 +101,7 @@
 }
 
 .button-container {
-    margin: 0 12px 12px auto;
+    margin: 36px 12px 12px auto;
     display: flex;
     gap: 16px;
 }

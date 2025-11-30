@@ -1,6 +1,7 @@
 import apiClient from "./services.js";
 import Workout from "../classes/Workout.js";
 import store from "../store/store.js";
+import WorkoutExercise from "../classes/WorkoutExercise.js";
 
 const API_ROOT = "workouts";
 
@@ -24,7 +25,7 @@ export default {
      */
     createAll(workouts) {
         try {
-            return apiClient.post(`${API_ROOT}all`, workouts);
+            return apiClient.post(`${API_ROOT}/all`, workouts);
         } catch (error) {
             console.error("Error creating multiple workouts!");
             return null;
@@ -89,13 +90,7 @@ export default {
 
             return response.data.map((workoutObject) => {
                 const { name, date, id, coachID, athleteID } = workoutObject; // match backend
-                return new Workout(
-                    name,
-                    date,
-                    id,
-                    coachID,
-                    athleteID
-                );
+                return new Workout(name, date, id, coachID, athleteID);
             });
         } catch (err) {
             console.error("Error fetching workouts:", err);
@@ -107,10 +102,12 @@ export default {
      * @returns {Promise<Workout>}
      */
     async getAllForCoachAndAthlete(coachID, athleteID) {
+        let workouts = [];
+
         await apiClient
             .get(`${API_ROOT}/coachAthleteWorkouts/${coachID}/${athleteID}`)
             .then((workoutData) => {
-                return workoutData.data.map((data) => {
+                workouts = workoutData.data.map((data) => {
                     const date = new Date(data.date)
                         .toISOString()
                         .replace("T", " ")
@@ -129,7 +126,7 @@ export default {
                 console.error("Error fetching workouts: " + err);
             });
 
-        return [];
+        return workouts;
     },
 
     /**
@@ -149,10 +146,54 @@ export default {
      */
     async update(workout) {
         try {
-            return apiClient.put(`${API_ROOT}/${workout.workoutID}`, workout);
+            return apiClient.put(`${API_ROOT}/${workout.id}`, workout);
         } catch (error) {
             console.error("Error creating course:", error);
             return null;
         }
+    },
+
+    async getExercises(workoutID) {
+        let exercises = [];
+
+        await apiClient
+            .get(`workoutExercises/${workoutID}`)
+            .then((workoutExercises) => {
+                exercises = workoutExercises.data.map((e) => {
+                    return new WorkoutExercise(e.workoutID, e.exerciseID, true);
+                });
+            })
+            .catch((err) => {
+                console.error(`Error retrieving exercises: ${err}`);
+            });
+
+        return exercises;
+    },
+
+    async addExercise(workoutExercise) {
+        let body = {
+            workoutID: workoutExercise.workoutID,
+            exerciseID: workoutExercise.exerciseID,
+        };
+
+        await apiClient
+            .post("workoutExercises/", body)
+            .then(() => {
+                console.log("Added exercise to workout.");
+            })
+            .catch((err) => {
+                console.error("Error adding exercise to workout: " + err);
+            });
+    },
+
+    async deleteExercise(workoutExercise) {
+        await apiClient
+            .delete(`workoutExercises/${workoutExercise.workoutID}/${workoutExercise.exerciseID}`)
+            .then(() => {
+                console.log("Deleted exercise from workout.");
+            })
+            .catch((err) => {
+                console.error("Error deleting exercise from workout: " + err);
+            });
     },
 };

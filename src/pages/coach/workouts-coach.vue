@@ -33,10 +33,20 @@
     </v-card>
     <v-dialog class="dialog" v-model="isDialogVisible">
         <v-card class="dialog-card">
-            <workout-builder :workout="selectedWorkout" />
+            <workout-builder ref="builder" :workout="selectedWorkout" />
             <div class="button-container">
-                <v-btn class="save-button" @click="save()">Save</v-btn>
-                <v-btn class="cancel-button" @click="cancel()">Cancel</v-btn>
+                <v-btn
+                    class="save-button"
+                    :disabled="inputDisabled"
+                    @click="save()"
+                    >Save</v-btn
+                >
+                <v-btn
+                    class="cancel-button"
+                    :disabled="inputDisabled"
+                    @click="cancel()"
+                    >Cancel</v-btn
+                >
             </div>
         </v-card>
     </v-dialog>
@@ -157,13 +167,13 @@ import UserRole from "../../classes/userRole.js";
 import store from "../../store/store.js";
 import Workout from "../../classes/Workout.js";
 
+const isDialogVisible = ref(false);
+const inputDisabled = ref(false);
 const athletes = ref([]);
 const athlete = ref(null);
-const isDialogVisible = ref(false);
+const workouts = ref([]);
 const selectedWorkout = ref(null);
-
-// load all workouts
-const workouts = [];
+const builder = ref([]);
 
 loadAthletes();
 
@@ -171,15 +181,57 @@ function onAddNewWorkout() {
     const coachID = store.getUser().id;
     const athleteID = athlete.value.id;
 
-    selectedWorkout.value = new Workout("Workout", Date.now(), null, coachID, athleteID);
+    let workout = new Workout("Workout", Date.now(), null, coachID, athleteID);
+
+    openDialog(workout);
 }
 
 function save() {
-    closeDialog();
+    inputDisabled.value = true;
+
+    if (selectedWorkout.value.id == null)
+        workoutServices.create(selectedWorkout.value).then(() => {
+            saveExercises().then(() => {
+                closeDialog();
+                loadWorkouts();
+            });
+        });
+    else
+        workoutServices.update(selectedWorkout.value).then(() => {
+            saveExercises().then(() => {
+                closeDialog();
+                loadWorkouts();
+            });
+        });
 }
 
 function cancel() {
+    inputDisabled.value = true;
+
     closeDialog();
+}
+
+async function saveExercises() {
+    let newExercises = builder.value.workoutExercises.filter(
+        (e) => !e.fromDatabase
+    );
+    let deletedExercises = builder.value.deletedExercises;
+
+    const deletePromises = deletedExercises.map(async (workoutExercise) => {
+        await workoutServices
+            .deleteExercise(workoutExercise)
+            .catch((err) => console.error("Error deleting exercise: " + err));
+    });
+
+    await Promise.all(deletePromises);
+
+    const createPromises = newExercises.map(async (workoutExercise) => {
+        await workoutServices
+            .addExercise(workoutExercise)
+            .catch((err) => console.error("Error saving exercise: " + err));
+    });
+
+    await Promise.all(createPromises);
 }
 
 function openDialog(workout) {
@@ -189,6 +241,7 @@ function openDialog(workout) {
 
 function closeDialog() {
     selectedWorkout.value = null;
+    inputDisabled.value = false;
     isDialogVisible.value = false;
 }
 
@@ -197,9 +250,12 @@ function onWorkoutSelected(workout) {
 }
 
 function onWorkoutDeleted(workout) {
-    workoutServices.delete(workout.id).then(() => {
-        loadWorkouts();
-    });
+    workoutServices
+        .delete(workout.id)
+        .then(() => loadWorkouts())
+        .catch((err) => {
+            console.log("Error deleting workout: " + err);
+        });
 }
 
 function loadAthletes() {
@@ -220,6 +276,11 @@ function loadAthletes() {
 }
 
 function onAthleteSelected(athlete) {
+    if (athlete == null || athlete.id == null) {
+        workouts.value = [];
+        return;
+    }
+
     console.log("Athlete selected: " + JSON.stringify(athlete));
     loadWorkouts();
 }

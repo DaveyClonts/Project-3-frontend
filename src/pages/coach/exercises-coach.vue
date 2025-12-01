@@ -34,7 +34,7 @@
 <style scoped>
 .top-container {
     margin-top: 8px;
-    min-width: 500px;
+    width: 500px;
     padding: 20px;
     height: 80vh;
     background-color: var(--color-primary);
@@ -101,7 +101,7 @@
 }
 
 .button-container {
-    margin: 0 12px 12px auto;
+    margin: 36px 12px 12px auto;
     display: flex;
     gap: 16px;
 }

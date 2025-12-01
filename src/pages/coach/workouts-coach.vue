@@ -1,11 +1,13 @@
 <template>
-    <div class="athlete-selector-container">
+    <div class="athlete-selector-container rounded">
         <v-autocomplete
             class="athlete-selector"
             label="Athlete"
             v-model="athlete"
-            @update:model-value="onAthleteSelected"
             :items="athletes"
+            :item-title="(a) => `${a.firstName} ${a.lastName}`"
+            return-object
+            @update:model-value="onAthleteSelected"
         ></v-autocomplete>
     </div>
     <v-card v-if="athlete != null" class="top-container rounded-xl">
@@ -15,6 +17,7 @@
                 <v-btn
                     class="add-workout-button"
                     :ripple="{ class: 'text-white' }"
+                    @click="onAddNewWorkout"
                     >+</v-btn
                 >
             </div>
@@ -30,10 +33,20 @@
     </v-card>
     <v-dialog class="dialog" v-model="isDialogVisible">
         <v-card class="dialog-card">
-            <workout-builder :workout="selectedWorkout" />
+            <workout-builder ref="builder" :workout="selectedWorkout" />
             <div class="button-container">
-                <v-btn class="save-button" @click="save()">Save</v-btn>
-                <v-btn class="cancel-button" @click="cancel()">Cancel</v-btn>
+                <v-btn
+                    class="save-button"
+                    :disabled="inputDisabled"
+                    @click="save()"
+                    >Save</v-btn
+                >
+                <v-btn
+                    class="cancel-button"
+                    :disabled="inputDisabled"
+                    @click="cancel()"
+                    >Cancel</v-btn
+                >
             </div>
         </v-card>
     </v-dialog>
@@ -53,9 +66,9 @@
 
 .top-container {
     margin-top: 8px;
-    min-width: 500px;
+    width: 500px;
     padding: 20px;
-    height: 80vh;
+    height: 72.5vh;
     background-color: var(--color-primary);
     display: flex;
     flex-direction: row;
@@ -148,33 +161,77 @@
 import { ref } from "vue";
 import workoutBuilder from "../../components/workouts/workoutBuilder.vue";
 import workoutSelector from "../../components/workouts/workoutSelector.vue";
+import userServices from "../../services/userServices.js";
+import workoutServices from "../../services/workoutServices.js";
+import UserRole from "../../classes/userRole.js";
+import store from "../../store/store.js";
 import Workout from "../../classes/Workout.js";
 
-const athlete = ref(null);
 const isDialogVisible = ref(false);
+const inputDisabled = ref(false);
+const athletes = ref([]);
+const athlete = ref(null);
+const workouts = ref([]);
 const selectedWorkout = ref(null);
+const builder = ref([]);
 
-const athletes = ["Reagan Cheatham"];
+loadAthletes();
 
-// load all workouts
-const workouts = [
-    new Workout("Chest, Triceps, Shoulders", "11/17/25", 1),
-    new Workout("Back, Biceps", "11/17/26", 2),
-    new Workout("Legs", "11/17/27", 3),
-    new Workout("Cardio", "11/17/25", 4),
-    new Workout("Workout #5", "11/17/26", 5),
-    new Workout("Workout #6", "11/17/27", 6),
-    new Workout("Workout #7", "11/17/25", 7),
-    new Workout("Workout #8", "11/17/26", 8),
-    new Workout("Workout #9", "11/17/27", 9),
-];
+function onAddNewWorkout() {
+    const coachID = store.getUser().id;
+    const athleteID = athlete.value.id;
+
+    let workout = new Workout("Workout", Date.now(), null, coachID, athleteID);
+
+    openDialog(workout);
+}
 
 function save() {
-    closeDialog();
+    inputDisabled.value = true;
+
+    if (selectedWorkout.value.id == null)
+        workoutServices.create(selectedWorkout.value).then(() => {
+            saveExercises().then(() => {
+                closeDialog();
+                loadWorkouts();
+            });
+        });
+    else
+        workoutServices.update(selectedWorkout.value).then(() => {
+            saveExercises().then(() => {
+                closeDialog();
+                loadWorkouts();
+            });
+        });
 }
 
 function cancel() {
+    inputDisabled.value = true;
+
     closeDialog();
+}
+
+async function saveExercises() {
+    let newExercises = builder.value.workoutExercises.filter(
+        (e) => !e.fromDatabase
+    );
+    let deletedExercises = builder.value.deletedExercises;
+
+    const deletePromises = deletedExercises.map(async (workoutExercise) => {
+        await workoutServices
+            .deleteExercise(workoutExercise)
+            .catch((err) => console.error("Error deleting exercise: " + err));
+    });
+
+    await Promise.all(deletePromises);
+
+    const createPromises = newExercises.map(async (workoutExercise) => {
+        await workoutServices
+            .addExercise(workoutExercise)
+            .catch((err) => console.error("Error saving exercise: " + err));
+    });
+
+    await Promise.all(createPromises);
 }
 
 function openDialog(workout) {
@@ -184,23 +241,72 @@ function openDialog(workout) {
 
 function closeDialog() {
     selectedWorkout.value = null;
+    inputDisabled.value = false;
     isDialogVisible.value = false;
 }
 
 function onWorkoutSelected(workout) {
-    console.log("Selected workout: " + workout.name);
     openDialog(workout);
 }
 
 function onWorkoutDeleted(workout) {
-    console.log("Delete requested for workout: " + workout.name);
+    workoutServices
+        .delete(workout.id)
+        .then(() => loadWorkouts())
+        .catch((err) => {
+            console.log("Error deleting workout: " + err);
+        });
 }
 
 function loadAthletes() {
-    // get all users who are athletes
+    userServices
+        .getAllWithRole(UserRole.Athlete)
+        .then((databaseAthletes) => {
+            athletes.value = databaseAthletes.map((da) => {
+                return {
+                    id: da.id,
+                    firstName: da.firstName,
+                    lastName: da.lastName,
+                };
+            });
+        })
+        .catch((err) => {
+            console.error("Error retrieving athletes: " + err);
+        });
 }
 
-function onAthleteSelected() {
-    console.log("Athlete selected.");
+function onAthleteSelected(athlete) {
+    if (athlete == null || athlete.id == null) {
+        workouts.value = [];
+        return;
+    }
+
+    console.log("Athlete selected: " + JSON.stringify(athlete));
+    loadWorkouts();
+}
+
+function loadWorkouts() {
+    const coachID = store.getUser().id;
+    const athleteID = athlete.value.id;
+
+    workouts.value = [];
+
+    workoutServices
+        .getAllForCoachAndAthlete(coachID, athleteID)
+        .then((databaseWorkouts) => {
+            workouts.value = databaseWorkouts.map(
+                (workout) =>
+                    new Workout(
+                        workout.name,
+                        workout.date,
+                        workout.id,
+                        workout.coachID,
+                        workout.athleteID
+                    )
+            );
+        })
+        .catch((err) => {
+            console.log("Error retrieving workouts: " + err);
+        });
 }
 </script>

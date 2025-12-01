@@ -24,18 +24,30 @@ export default {
      * @returns {Promise<Exercise>}
      */
     async get(id) {
+        let exercise = {};
+
         await apiClient
             .get(`${API_ROOT}/${id}`)
             .then((response) => {
                 console.log(
                     `Successfully found exercise: ${JSON.stringify(
-                        response.body
+                        response.data
                     )}`
+                );
+
+                exercise = new Exercise(
+                    response.data.name,
+                    response.data.type,
+                    response.data.description,
+                    response.data.coachID,
+                    response.data.id
                 );
             })
             .catch((err) => {
                 console.log("Could not find exercise: " + err);
             });
+
+        return exercise;
     },
 
     /**
@@ -49,7 +61,13 @@ export default {
             .get(`${API_ROOT}/coachExercises/${userID}`)
             .then((exerciseData) => {
                 results = exerciseData.data.map((e) => {
-                    return new Exercise(e.name, e.type, e.description, e.coachID, e.id);
+                    return new Exercise(
+                        e.name,
+                        e.type,
+                        e.description,
+                        e.coachID,
+                        e.id
+                    );
                 });
             })
             .catch((err) => {
@@ -60,8 +78,8 @@ export default {
     },
 
     /**
-     * 
-     * @param {number} id 
+     *
+     * @param {number} id
      */
     async delete(id) {
         await apiClient

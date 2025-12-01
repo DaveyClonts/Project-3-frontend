@@ -159,7 +159,6 @@ import workoutBuilder from "../../components/workouts/workoutBuilder.vue";
 import workoutSelector from "../../components/workouts/workoutSelector.vue";
 import userServices from "../../services/userServices.js";
 import workoutServices from "../../services/workoutServices.js";
-import UserRole from "../../classes/userRole.js";
 import store from "../../store/store.js";
 import Workout from "../../classes/Workout.js";
 

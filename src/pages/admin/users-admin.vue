@@ -4,11 +4,15 @@
 			<v-col>
 				<div class="title-text mb-4 d-flex align-center justify-space-between">
 					<span>Users</span>
-					<v-btn :loading="loading" color="secondary" variant="tonal" @click="loadUsers">Refresh</v-btn>
+					<div class="button-group">
+						<v-btn :loading="loading" class="refresh-btn mr-2" variant="tonal" @click="loadUsers">Refresh</v-btn>
+						<v-btn class="logout-btn" variant="tonal" @click="logout">Logout</v-btn>
+					</div>
 				</div>
 				<v-card class="users-card" elevation="2">
 					<v-card-text>
 						<v-data-table
+                            color="color-secondary"
 							:headers="headers"
 							:items="users"
 							:loading="loading"
@@ -29,18 +33,14 @@
 									@update:model-value="updateUserRole(item, $event)"
 									class="role-select"
 								>
-									<template #selection="{ item: selectedItem }">
-			
-											{{ selectedItem.title }}
-									</template>
+									{{ selectedItem.title }}
 								</v-select>
 							</template>
 							<template #item.actions="{ item }">
 								<v-btn 
 									icon="mdi-delete" 
-									color="--btn-primary" 
+									class="delete-btn" 
 									size="small" 
-									:disabled="item.role === 'Admin'"
 									@click="promptDelete(item)"
 								></v-btn>
 							</template>
@@ -76,6 +76,11 @@
 <script setup>
 import { ref, onMounted } from "vue";
 import apiClient from "../../services/services.js";
+import authServices from "../../services/authServices.js";
+import store from "../../store/store.js";
+import { useRouter } from "vue-router";
+
+const router = useRouter();
 
 const users = ref([]);
 const loading = ref(false);
@@ -102,7 +107,7 @@ const headers = [
 ];
 
 function mapUser(u) {
-	console.log("Mapping user:", u);
+	// console.log("Mapping user:", u);
 	const role = u.role ? u.role.charAt(0).toUpperCase() + u.role.slice(1).toLowerCase() : "N/A";
 	
 	// Format timestamps
@@ -124,7 +129,7 @@ function mapUser(u) {
 		updatedAt: formatDate(u.updatedAt)
 	};
 	
-	console.log("Mapped to:", mappedUser);
+	// console.log("Mapped to:", mappedUser);
 	return mappedUser;
 }
 
@@ -187,7 +192,7 @@ async function updateUserRole(user, newRole) {
 			users.value[userIndex].role = newRole.charAt(0).toUpperCase() + newRole.slice(1).toLowerCase();
 		}
 		
-		console.log(`Updated user ${user.id} role to ${newRole}`);
+		// console.log(`Updated user ${user.id} role to ${newRole}`);
 	} catch (e) {
 		console.error('Error updating user role:', e);
 		error.value = `Failed to update role: ${e?.response?.data?.message || e?.message || e}`;
@@ -200,14 +205,69 @@ async function updateUserRole(user, newRole) {
 	}
 }
 
+async function logout() {
+	try {
+		const user = store.getUser();
+		if (user && user.token) {
+			await authServices.logoutUser({ credential: user.token });
+		}
+		// console.log("Successfully logged out.");
+		store.clearUser();
+		router.push({ name: "login" });
+	} catch (err) {
+		console.error("Error during logout:", err);
+		// Still clear user and redirect even if logout call fails
+		store.clearUser();
+		router.push({ name: "login" });
+	}
+}
+
 onMounted(loadUsers);
 </script>
 
 <style scoped>
 .page-margins { padding: 40px; }
-.title-text { font-size: 30px; font-weight: 600; }
-.users-card { border-radius: 20px; background-color: var(--color-primary); }
-.v-data-table { font-size: 0.9rem; }
-.role-select { min-width: 120px; max-width: 150px; }
+.title-text { 
+	font-size: 30px; 
+	font-weight: 600; 
+	color: var(--color-text);
+}
+.users-card { 
+	border-radius: 20px; 
+	background-color: var(--color-primary); 
+}
+.v-data-table { 
+	font-size: 0.9rem; 
+	color: var(--color-text);
+}
+.role-select { 
+	min-width: 120px; 
+	max-width: 150px; 
+}
+.button-group { 
+	display: flex; 
+	gap: 8px; 
+	align-items: center; 
+}
+.refresh-btn {
+	background-color: var(--btn-secondary) !important;
+	color: var(--btn-secondary-text) !important;
+}
+.logout-btn {
+	background-color: #ff5252 !important;
+	color: var(--btn-primary-text) !important;
+}
+.delete-btn {
+	color: #ff5252 !important;
+}
+.role-chip.admin {
+	color: var(--btn-primary-text) !important;
+}
+.role-chip.coach {
+	color: var(--btn-primary-text) !important;
+}
+.role-chip.athlete {
+	color: var(--btn-primary-text) !important;
+}
 </style>
 

@@ -25,6 +25,7 @@
 
 <script setup>
 import { ref, toRef } from "vue";
+import workoutServices from "../../../services/workoutServices";
 
 const props = defineProps({
   show: Boolean,
@@ -39,7 +40,8 @@ const showWorkoutViewPopup = toRef(props, "show");
 const exercises = ref([]);
 
 async function getExercises() {
-  //const data = await exercisesServices.getAll();
+  const data = await workoutServices.getExercises(props.workout.id);
+  console.log(data);
   exercises.value = data;
   return data;
 }
@@ -47,6 +49,8 @@ async function getExercises() {
 function closeDialog() {
   emit("update:show", false);
 }
+
+getExercises();
 </script>
 
 <style scoped>

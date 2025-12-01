@@ -115,7 +115,7 @@ function submitGoal() {
 }
 
 .name-input {
-  width: 20%;
+  width: 50%;
 }
 
 .description-input {
@@ -123,7 +123,7 @@ function submitGoal() {
 }
 
 .date-input {
-  width: 20%;
+  width: 50%;
   margin-bottom: 1rem;
   z-index: 1;
 }

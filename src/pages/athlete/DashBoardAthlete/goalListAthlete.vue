@@ -28,11 +28,12 @@ const props = defineProps({
 .builder-container {
   height: 100%;
   width: 100%;
-  background-color: #d0d0d0;
+  background-color: var(--color-primary);
   display: flex;
   flex-direction: row;
   justify-content: center;
   justify-self: center;
+  
 }
 
 .subcontainer {

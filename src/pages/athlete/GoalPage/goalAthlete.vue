@@ -1,6 +1,4 @@
-<template>
-  <GoalListAthlete :goals="goals" :refresh="refresh" />
-</template>
+<template><GoalListAthlete :goals="goals" :refresh="refresh" /></template>
 
 <script setup>
 import GoalListAthlete from "./goalListAthlete.vue";
@@ -10,10 +8,12 @@ import goalServices from "../../../services/goalServices";
 const goals = ref([]);
 
 async function refresh() {
-  const data = await goalServices.getAll();
-  goals.value = data;
-  return data;
+    const data = await goalServices.getAll();
+    goals.value = data;
+    return data;
 }
 
-refresh(); 
+refresh();
 </script>
+
+<style scoped></style>

@@ -36,7 +36,6 @@ const handleClick = () => {
   background-color: var(--btn-secondary);
   height: 80px;
   width: 95%;
-  margin-top: 20px;
   padding: 12px 24px 8px 24px;
   flex: 0 0 auto;
 }

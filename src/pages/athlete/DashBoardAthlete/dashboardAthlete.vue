@@ -69,6 +69,7 @@ getGoals();
     border-radius: 20px;
     width: 65vw;
     height: 15vh;
+    
 }
 
 .exercises-card {

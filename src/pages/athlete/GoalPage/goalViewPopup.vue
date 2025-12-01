@@ -20,10 +20,8 @@
       <v-btn @click="addNote">Add Note</v-btn>
 
       <div class="buttons">
-          <GoalDeleteButton :goal="goal" :refresh="refresh" @closeParentPopup="closeDialog" />
-
           <GoalEditButton :goal="goal" :refresh="refresh"/>
-
+          <GoalDeleteButton :goal="goal" :refresh="refresh" @closeParentPopup="closeDialog" />
           <v-btn @click="closeDialog">Close</v-btn>
       </div>
     </v-card>
@@ -93,17 +91,16 @@ getNotes();
 }
 
 .buttons {
-  margin-top: 1.5rem;
+  margin: 24px 12px 12px auto;
   display: flex;
-  gap: 1rem;
-  padding: 2;
-  width: 20%;
-  will-change: auto !important;
+  gap: 16px;
 }
 
-.action-button {
-  flex: 1;
+.edit-button {
+  background-color: var(--btn-primary);
+  color: var(--btn-primary-text);
 }
+
 
 .note-item {
   white-space: normal;

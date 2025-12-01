@@ -5,7 +5,6 @@
                 <div class="title">Exercises</div>
                 <v-btn
                     class="add-exercise-button"
-                    :ripple="{ class: 'text-white' }"
                     @click="openAddExerciseDialog"
                     >+</v-btn
                 >
@@ -34,7 +33,7 @@
 <style scoped>
 .top-container {
     margin-top: 8px;
-    min-width: 500px;
+    width: 500px;
     padding: 20px;
     height: 80vh;
     background-color: var(--color-primary);
@@ -96,12 +95,12 @@
 }
 
 .dialog {
-    max-width: 950px;
+    max-width: 650px;
     min-width: 450px;
 }
 
 .button-container {
-    margin: 0 12px 12px auto;
+    margin: 36px 12px 12px auto;
     display: flex;
     gap: 16px;
 }

@@ -8,7 +8,7 @@
     <v-dialog v-model="toggled" width="30vw" height="30vh">
         <v-card class="popup">
             <div class="centered-column">
-                <div class="popup-title">{{ user.getFullName() }}</div>
+                <div class="popup-title">{{ user.firstName }} {{ user.lastName }}</div>
                 <v-btn @click="logout" class="logout-button" variant="tonal">Logout</v-btn>
             </div>
         </v-card>
@@ -17,7 +17,6 @@
 
 <script setup>
 import { ref } from "vue";
-import User from "../classes/User";
 import store from "../store/store";
 import authServices from "../services/authServices";
 import { useRouter } from 'vue-router';

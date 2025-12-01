@@ -1,18 +1,16 @@
 <template>
-    <div class="navbar-container">
-        <div class="navbar">
-            <ul class="nav-list">
-                <li
-                    v-for="item in navItems"
-                    :key="item.name"
-                    class="nav-item"
-                    @click="navigate(item)"
-                    :class="{ active: route.name === item.name }"
-                >
-                    {{ item.label }}
-                </li>
-            </ul>
-        </div>
+    <div class="navbar">
+        <ul class="nav-list">
+            <li
+                v-for="item in navigation"
+                :key="item.name"
+                class="nav-item"
+                @click="navigate(item)"
+                :class="{ active: route.name === item.name }"
+            >
+                {{ item.label }}
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -57,16 +55,41 @@
 </style>
 
 <script setup>
-import { useRouter, useRoute} from 'vue-router';
+import { ref } from "vue";
+import { useRouter, useRoute } from "vue-router";
+import store from "../store/store";
+import userRole from "../classes/userRole";
 const route = useRoute();
 const router = useRouter();
 
-const navItems = [
-    { name: "dashboardCoach", label: "Dashboard", path: "/dashboardCoach" },
-    { name: "workoutsCoach", label: "Workouts", path: "/workoutsCoach" },
-    { name: "exercisesCoach", label: "Exercises", path: "/exercisesCoach" },
-    { name: "athletesCoach", label: "Athletes", path: "/athletesCoach" },
-];
+const navigation = ref([]);
+
+const user = store.getUser();
+
+if (user.role == userRole.Athlete)
+    navigation.value = [
+        {
+            name: "dashboardAthlete",
+            label: "Dashboard",
+            path: "/dashboardAthlete",
+        },
+        {
+            name: "workoutsAthlete",
+            label: "Workouts",
+            path: "/workoutsAthlete",
+        },
+        {
+            name: "goalsAthlete",
+            label: "Goals",
+            path: "/goalsAthlete",
+        },
+    ];
+else
+    navigation.value = [
+        { name: "workoutsCoach", label: "Workouts", path: "/workoutsCoach" },
+        { name: "exercisesCoach", label: "Exercises", path: "/exercisesCoach" },
+        { name: "athletesCoach", label: "Athletes", path: "/athletesCoach" },
+    ];
 
 // push the route to the router if that part of the navbar is active
 const navigate = (item) => {

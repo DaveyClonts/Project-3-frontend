@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <topbar v-if="!route.meta.noNavigation">
-            <navbar tab="/dashboardCoach" />
+            <navbar/>
             <profileIcon />
         </topbar>
         <v-main>

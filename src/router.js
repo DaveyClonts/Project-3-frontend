@@ -1,13 +1,13 @@
 import { createRouter, createWebHistory } from "vue-router";
 import login from "./pages/login.vue";
-import dashboardCoach from "./pages/coach/dashboard-coach.vue";
+import dashboardCoach from "./pages/coach/dashboard/dashboard-coach.vue";
 import workoutsCoach from "./pages/coach/workouts-coach.vue";
 import exercisesCoach from "./pages/coach/exercises-coach.vue";
 import athletesCoach from "./pages/coach/athletes-coach.vue";
-import goalAthlete from "./pages/athlete/GoalPage/goalAthlete.vue";
+import goalAthlete from "./pages/athlete/GoalPage/goalsAthlete.vue";
 import dashboardAthlete from "./pages/athlete/DashBoardAthlete/dashboardAthlete.vue";
-import workoutAthlete from "./pages/athlete/WorkoutPage/workoutAthlete.vue";
 import usersAdmin from "./pages/admin/users-admin.vue";
+import workoutsAthlete from "./pages/athlete/WorkoutPage/workoutsAthlete.vue";
 import store from "./store/store.js";
 import authServices from "./services/authServices.js";
 import roleSelect from "./pages/roleSelect.vue";
@@ -63,8 +63,8 @@ const router = createRouter({
             meta: { requiresAuth: true },
         },
         {
-            path: "/goalAthlete",
-            name: "goalAthlete",
+            path: "/goalsAthlete",
+            name: "goalsAthlete",
             component: goalAthlete,
             meta: { requiresAuth: true },
         },
@@ -75,9 +75,9 @@ const router = createRouter({
             meta: { requiresAuth: true },
         },
         {
-            path: "/workoutAthlete",
-            name: "workoutAthlete",
-            component: workoutAthlete,
+            path: "/workoutsAthlete",
+            name: "workoutsAthlete",
+            component: workoutsAthlete,
             meta: { requiresAuth: true },
         },
         {
@@ -97,18 +97,20 @@ router.beforeEach((to, from, next) => {
 
     const user = store.getUser();
 
-    if (user == null) {
+    if (user === null) {
         next({ name: "login" });
-        return;
-    } else if (user.role == null) {
-        next({ name: "roleSelect" });
         return;
     }
 
     authServices
         .authorizeUser(user)
         .then(() => {
-            next();
+            if (user.role === null) {
+                next({ name: "roleSelect" });
+                return;
+            }
+            else
+                next();
         })
         .catch((err) => {
             console.log(`Error authorizing user: ${err}`);

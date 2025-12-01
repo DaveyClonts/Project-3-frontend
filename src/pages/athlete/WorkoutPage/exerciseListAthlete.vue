@@ -1,38 +1,30 @@
 <template>
-  <v-card class="workout-container rounded-xl" @click="handleClick">
-    <div class="workout-subcontainer">
+  <v-card class="exercise-container rounded-xl" @click="handleClick">
+    <div class="exercise-subcontainer">
       <div>
-        <div class="workout-title">{{ props.workout.name }}</div>
-        <div class="workout-subtitle">{{ props.workout.date }}</div>
+        <div class="exercise-title">{{ props.exercise.name }}</div>
+        <div class="exercise-subtitle">{{ props.exercise.type }}</div>
       </div>
     </div>
   </v-card>
-  <WorkoutViewPopup
-        v-model:show="showWorkoutViewPopup"
-        :workout="props.workout"
-        :getWorkouts="getWorkouts"
-      />
 </template>
 
 <script setup>
 import { ref } from "vue";
-import WorkoutViewPopup from "./workoutViewPopup.vue";
 
 const props = defineProps({
-  workout: Object,
-  getWorkouts: Function,
+  exercise: Object
 });
-const showWorkoutViewPopup = ref(false);
 
-console.log(props.workout);
+const emit = defineEmits(["update:showExercise"]);
 
 const handleClick = () => {
-  showWorkoutViewPopup.value = true;
+  emit("update:showExercise", props.exercise.id);
 };
 </script>
 
 <style scoped>
-.workout-container {
+.exercise-container {
   background-color: var(--btn-secondary);
   height: 80px;
   width: 95%;
@@ -40,14 +32,14 @@ const handleClick = () => {
   flex: 0 0 auto;
 }
 
-.workout-subcontainer {
+.exercise-subcontainer {
   display: flex;
   flex-direction: row;
   width: 100%;
   height: 100%;
 }
 
-.workout-title {
+.exercise-title {
   font-size: 20px;
   color: var(--color-text);
   white-space: nowrap;
@@ -55,7 +47,7 @@ const handleClick = () => {
   text-overflow: ellipsis;
 }
 
-.workout-subtitle {
+.exercise-subtitle {
   font-size: 16px;
   color: var(--color-text-secondary);
   margin-top: -2px;

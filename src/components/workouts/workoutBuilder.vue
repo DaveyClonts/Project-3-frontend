@@ -1,12 +1,19 @@
 <template>
     <div v-if="workout != null">
-        <v-text-field
-            label="Workout Title"
-            v-model="workout.name"
-            placeholder="Workout"
-            type="input"
-            class="workout-name"
-        ></v-text-field>
+        <div class="builder-title">
+            <v-text-field
+                label="Workout Title"
+                v-model="workout.name"
+                placeholder="Workout"
+                type="input"
+                class="workout-name"
+            ></v-text-field>
+            <v-date-input
+                v-model="workout.date"
+                label="Date"
+                prepend-icon=""
+            ></v-date-input>
+        </div>
         <v-card class="builder-container rounded-xl">
             <div class="subcontainer right-outline">
                 <v-label class="title opacity-100">Exercise List</v-label>
@@ -21,17 +28,46 @@
             <div class="subcontainer">
                 <v-label class="title opacity-100">Selected Exercises</v-label>
                 <div class="element-container">
-                    <workoutExerciseEditor
-                        v-for="exercise in selectedExercises"
+                    <workoutExerciseEditSelector
+                        v-for="exercise in workoutExercises"
                         :workoutExercise="exercise"
+                        @exercise-selected="editExercise"
+                        @exercise-deleted="deleteExercise"
                     />
                 </div>
             </div>
         </v-card>
     </div>
+    <v-dialog class="dialog" v-model="isDialogVisible">
+        <v-card class="dialog-card rounded-xl">
+            <workoutExerciseEditor
+                :workout-exercise="selectedWorkoutExercise"
+                ref="exerciseEditor"
+            />
+            <div class="button-container">
+                <v-btn
+                    class="save-button"
+                    :disabled="inputDisabled"
+                    @click="saveExercise"
+                    >Save</v-btn
+                >
+                <v-btn
+                    class="cancel-button"
+                    :disabled="inputDisabled"
+                    @click="cancelEdit"
+                    >Cancel</v-btn
+                >
+            </div>
+        </v-card>
+    </v-dialog>
 </template>
 
 <style scoped>
+.builder-title {
+    display: flex;
+    flex-direction: row;
+}
+
 .builder-container {
     margin-left: 25%;
     margin-right: 25%;
@@ -78,7 +114,7 @@
     border-style: solid;
 }
 
-.workout-name ::v-deep .v-label {
+.workout-name :deep(v.label) {
     color: var(--color-secondary) !important;
 }
 
@@ -94,37 +130,132 @@
     width: 100%;
     justify-content: center;
 }
+
+.save-button {
+    background-color: var(--btn-primary);
+    color: var(--btn-primary-text);
+}
+
+.cancel-button {
+    background-color: var(--color-text-secondary);
+    color: var(--btn-primary-text);
+}
+
+.dialog {
+    max-width: 450px;
+    height: 500px;
+}
+
+.dialog-card {
+    background-color: var(--color-bg);
+}
+
+.button-container {
+    margin: 0 12px 12px auto;
+    display: flex;
+    gap: 16px;
+}
 </style>
 
 <script setup>
+import { VDateInput } from "vuetify/labs/VDateInput";
 import { ref } from "vue";
 import workoutExerciseSelector from "./workoutExerciseSelector.vue";
+import workoutExerciseEditSelector from "./workoutExerciseEditSelector.vue";
 import workoutExerciseEditor from "./workoutExerciseEditor.vue";
-import Exercise from "../../classes/Exercise.js";
-import ExerciseType from "../../classes/ExerciseType.js";
 import WorkoutExercise from "../../classes/WorkoutExercise.js";
+import exerciseServices from "../../services/exerciseServices.js";
+import Workout from "../../classes/Workout.js";
+import workoutServices from "../../services/workoutServices.js";
+import ExerciseType from "../../classes/ExerciseType.js";
 
-const props = defineProps(["workout"]);
-const selectedExercises = ref([]);
+const props = defineProps({
+    workout: Workout,
+});
+const exercises = ref([]);
+const workoutExercises = ref([]);
+const deletedExercises = ref([]);
+const selectedWorkoutExercise = ref(null);
+const exerciseEditor = ref(null);
+const isDialogVisible = ref(false);
+const inputDisabled = ref(false);
 
-const exercises = [
-    new Exercise("Squat", ExerciseType.Weights, "my description yay", 1, 1),
-    new Exercise("Run", ExerciseType.Cardio, 1, 2),
-];
-
-const workoutExercises = [
-    WorkoutExercise.WeightExercise(3, 1, 8, 3, 225),
-    WorkoutExercise.CardioExercise(4, 2, 5, 50),
-];
-
-selectedExercises.value = workoutExercises.filter((exercise) => {
-    if (exercise.workoutID == props.workout.id) {
-        console.log("add exercise: " + JSON.stringify(exercise));
-        return exercise;
-    }
+defineExpose({
+    workoutExercises,
+    deletedExercises,
 });
 
-console.log("selected exercises: " + JSON.stringify(selectedExercises.value));
+workoutServices.getExercises(props.workout.id).then((data) => {
+    workoutExercises.value = data;
 
-function addExercise(exercise) {}
+    loadExercises();
+});
+
+function addExercise(exercise) {
+    let workoutExercise = null;
+
+    if (exercise.type == ExerciseType.Weights)
+        workoutExercise = WorkoutExercise.WeightExercise(
+            props.workout.id,
+            exercise.id,
+            8,
+            3,
+            50,
+            false
+        );
+    else
+        workoutExercise = WorkoutExercise.CardioExercise(
+            props.workout.id,
+            exercise.id,
+            5,
+            30,
+            false
+        );
+
+    console.log("add exercise: " + JSON.stringify(workoutExercise));
+    workoutExercises.value.push(workoutExercise);
+
+    loadExercises();
+}
+
+function deleteExercise(workoutExercise) {
+    let index = workoutExercises.value.indexOf(workoutExercise);
+
+    deletedExercises.value.push(workoutExercise);
+    workoutExercises.value.splice(index, 1);
+
+    loadExercises();
+}
+
+function editExercise(workoutExercise) {
+    selectedWorkoutExercise.value = workoutExercise;
+
+    isDialogVisible.value = true;
+}
+
+function loadExercises() {
+    exercises.value = [];
+
+    exerciseServices.getAllForUser().then((data) => {
+        exercises.value = data.filter(
+            (e) => !workoutExercises.value.some((we) => we.exerciseID == e.id)
+        );
+    });
+}
+
+function saveExercise() {
+    if (exerciseEditor.value.exercise.type == ExerciseType.Weights) {
+        selectedWorkoutExercise.value.reps = exerciseEditor.value.reps;
+        selectedWorkoutExercise.value.sets = exerciseEditor.value.sets;
+    } else {
+        selectedWorkoutExercise.value.miles = exerciseEditor.value.miles;
+        selectedWorkoutExercise.value.time = exerciseEditor.value.time;
+    }
+
+    isDialogVisible.value = false;
+}
+
+function cancelEdit() {
+    isDialogVisible.value = false;
+}
 </script>

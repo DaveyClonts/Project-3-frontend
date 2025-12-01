@@ -1,8 +1,17 @@
 <template>
     <v-card class="top-container rounded-xl">
-        <v-data-table :headers="headers" :items="athletes" hide-default-footer>
+        <v-data-table
+            :headers="headers"
+            :items="athletes"
+            hide-default-footer
+        >
             <template v-slot:item.owned="{ item }">
-                <v-checkbox-btn class="toggle-button" v-model="item.owned"> </v-checkbox-btn>
+                <v-checkbox-btn
+                    class="toggle-button"
+                    v-model="item.owned"
+                    @click="toggleOwnership(item)"
+                >
+                </v-checkbox-btn>
             </template>
         </v-data-table>
     </v-card>
@@ -28,6 +37,7 @@
 import { ref } from "vue";
 import userRole from "../../classes/userRole";
 import userServices from "../../services/userServices";
+import store from "../../store/store";
 
 const athletes = ref([]);
 
@@ -40,10 +50,31 @@ const headers = [
     {
         title: "Owned",
         key: "owned",
+        value: "item.owned",
     },
 ];
 
-userServices.getAllWithRole(userRole.Athlete).then((users) => {
-    athletes.value = users;
-});
+let ownedAthletes = null;
+
+userServices
+    .getAthletesForCoach(store.getUser().id)
+    .then((databaseAthletes) => {
+        ownedAthletes = databaseAthletes.map((a) => a.id);
+
+        userServices.getAllWithRole(userRole.Athlete).then((users) => {
+            athletes.value = users;
+
+            athletes.value.forEach((a) => {
+                a.owned = ownedAthletes.includes(a.id);
+            });
+        });
+    });
+
+function toggleOwnership(athlete) {
+    if (athlete.owned) {
+        userServices.releaseAthlete(athlete.id);
+    } else {
+        userServices.reserveAthlete(athlete.id);
+    }
+}
 </script>

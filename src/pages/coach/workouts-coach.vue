@@ -274,7 +274,7 @@ function onWorkoutDeleted(workout) {
 
 function loadAthletes() {
     userServices
-        .getAllWithRole(UserRole.Athlete)
+        .getAthletesForCoach(store.getUser().id)
         .then((databaseAthletes) => {
             athletes.value = databaseAthletes.map((da) => {
                 return {
@@ -304,13 +304,21 @@ function loadWorkouts() {
     const coachID = store.getUser().id;
     const athleteID = athlete.value.id;
 
-    userServices.find(athleteID)
-    .then((user) => {
+    userServices.getAthletesForCoach(coachID).then((athletes) => {
+        athletes = athletes.map((a) => a.id);
+
+        if (!athletes.includes(athleteID)) {
+            athlete.value = null;
+            return;
+        }
+    });
+
+    userServices.find(athleteID).then((user) => {
         if (user.id === undefined) {
             athlete.value = null;
             return;
         }
-    })
+    });
 
     workouts.value = [];
 

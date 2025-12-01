@@ -58,8 +58,8 @@ export default {
         console.log("Got goals:", response.data);
 
         return response.data.map((goalObject) => {
-            const { name, description, date, userID, goalID } = goalObject; // match backend
-            return new Goal(name, description, date, userID, goalID);
+            const { name, description, date, userID, id } = goalObject; // match backend
+            return new Goal(name, description, date, userID, id);
         });
     } catch (err) {
         console.error("Error fetching goals:", err);

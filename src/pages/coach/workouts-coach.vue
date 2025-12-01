@@ -32,7 +32,7 @@
         </div>
     </v-card>
     <v-dialog class="dialog" v-model="isDialogVisible">
-        <v-card class="dialog-card">
+        <v-card class="dialog-card rounded-xl">
             <workout-builder ref="builder" :workout="selectedWorkout" />
             <div class="button-container">
                 <v-btn
@@ -142,10 +142,6 @@
     gap: 16px;
 }
 
-.builder-card {
-    background-color: var(--color-bg);
-}
-
 .save-button {
     background-color: var(--btn-primary);
     color: var(--btn-primary-text);
@@ -163,19 +159,20 @@ import workoutBuilder from "../../components/workouts/workoutBuilder.vue";
 import workoutSelector from "../../components/workouts/workoutSelector.vue";
 import userServices from "../../services/userServices.js";
 import workoutServices from "../../services/workoutServices.js";
-import UserRole from "../../classes/userRole.js";
 import store from "../../store/store.js";
 import Workout from "../../classes/Workout.js";
 
 const isDialogVisible = ref(false);
 const inputDisabled = ref(false);
 const athletes = ref([]);
-const athlete = ref(null);
+const athlete = ref(store.getAthlete());
 const workouts = ref([]);
 const selectedWorkout = ref(null);
 const builder = ref([]);
 
 loadAthletes();
+
+if (athlete.value != null) loadWorkouts();
 
 function onAddNewWorkout() {
     const coachID = store.getUser().id;
@@ -190,7 +187,12 @@ function save() {
     inputDisabled.value = true;
 
     if (selectedWorkout.value.id == null)
-        workoutServices.create(selectedWorkout.value).then(() => {
+        workoutServices.create(selectedWorkout.value).then((data) => {
+            builder.value.workoutExercises.forEach((workoutExercise) => {
+                console.log("Assigning id: " + JSON.stringify(workoutExercise));
+                workoutExercise.workoutID = data.id;
+            });
+
             saveExercises().then(() => {
                 closeDialog();
                 loadWorkouts();
@@ -215,6 +217,9 @@ async function saveExercises() {
     let newExercises = builder.value.workoutExercises.filter(
         (e) => !e.fromDatabase
     );
+    let updatedExercises = builder.value.workoutExercises.filter(
+        (e) => e.fromDatabase
+    );
     let deletedExercises = builder.value.deletedExercises;
 
     const deletePromises = deletedExercises.map(async (workoutExercise) => {
@@ -232,6 +237,14 @@ async function saveExercises() {
     });
 
     await Promise.all(createPromises);
+
+    const updatePromises = updatedExercises.map(async (workoutExercise) => {
+        await workoutServices
+            .updateExercise(workoutExercise)
+            .catch((err) => console.error("Error updating exercise: " + err));
+    });
+
+    await Promise.all(updatePromises);
 }
 
 function openDialog(workout) {
@@ -260,7 +273,7 @@ function onWorkoutDeleted(workout) {
 
 function loadAthletes() {
     userServices
-        .getAllWithRole(UserRole.Athlete)
+        .getAthletesForCoach(store.getUser().id)
         .then((databaseAthletes) => {
             athletes.value = databaseAthletes.map((da) => {
                 return {
@@ -282,12 +295,29 @@ function onAthleteSelected(athlete) {
     }
 
     console.log("Athlete selected: " + JSON.stringify(athlete));
+    store.setAthlete(athlete);
     loadWorkouts();
 }
 
 function loadWorkouts() {
     const coachID = store.getUser().id;
     const athleteID = athlete.value.id;
+
+    userServices.getAthletesForCoach(coachID).then((athletes) => {
+        athletes = athletes.map((a) => a.id);
+
+        if (!athletes.includes(athleteID)) {
+            athlete.value = null;
+            return;
+        }
+    });
+
+    userServices.find(athleteID).then((user) => {
+        if (user.id === undefined) {
+            athlete.value = null;
+            return;
+        }
+    });
 
     workouts.value = [];
 

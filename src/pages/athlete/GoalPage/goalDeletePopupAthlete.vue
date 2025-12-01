@@ -2,12 +2,12 @@
     <div>
         <div v-if="showDialog" class="modal-overlay" @click.self="closeDialog">
             <v-card class="modal">
-                <h3>Are you sure you wish to delete goal {{ goal.name }}</h3>
+                <v-card-title class="title">Are you sure you wish to delete goal {{ goal.name }}</v-card-title>
                 <div class="buttons">
-                    <v-btn class="action-button" @click="confirmDelete">
+                    <v-btn class="confirm-button" @click="confirmDelete">
                         Delete
                     </v-btn>
-                    <v-btn class="action-button" @click="closeDialog">
+                    <v-btn class="close-button" @click="closeDialog">
                         Cancel
                     </v-btn>
                 </div>
@@ -65,20 +65,32 @@ function confirmDelete() {
     background-color: #ffffff;
     border-radius: 40px;
     padding: 2rem;
-    width: 80%;
+    width: 30%;
     max-width: 90%;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
-.buttons {
-    margin-top: 1.5rem;
-    display: flex;
-    gap: 1rem;
-    padding: 2;
-    width: 20%;
+.title{
+    text-align: center;
 }
 
-.action-button {
-    flex: 1;
+.buttons {
+  margin: 24px 12px 12px auto;
+  display: flex;
+  gap: 16px;
+  justify-content: center;
 }
+
+
+
+.confirm-button {
+  background-color: var(--btn-primary);
+  color: var(--btn-primary-text);
+}
+
+.close-button {
+  background-color: var(--color-text-secondary);
+  color: var(--btn-primary-text);
+}
+
 </style>

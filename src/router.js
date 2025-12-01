@@ -4,9 +4,9 @@ import dashboardCoach from "./pages/coach/dashboard/dashboard-coach.vue";
 import workoutsCoach from "./pages/coach/workouts-coach.vue";
 import exercisesCoach from "./pages/coach/exercises-coach.vue";
 import athletesCoach from "./pages/coach/athletes-coach.vue";
-import goalAthlete from "./pages/athlete/GoalPage/goalAthlete.vue";
+import goalAthlete from "./pages/athlete/GoalPage/goalsAthlete.vue";
 import dashboardAthlete from "./pages/athlete/DashBoardAthlete/dashboardAthlete.vue";
-import workoutAthlete from "./pages/athlete/WorkoutPage/workoutAthlete.vue";
+import workoutsAthlete from "./pages/athlete/WorkoutPage/workoutsAthlete.vue";
 import store from "./store/store.js";
 import authServices from "./services/authServices.js";
 import roleSelect from "./pages/roleSelect.vue";
@@ -62,8 +62,8 @@ const router = createRouter({
             meta: { requiresAuth: true },
         },
         {
-            path: "/goalAthlete",
-            name: "goalAthlete",
+            path: "/goalsAthlete",
+            name: "goalsAthlete",
             component: goalAthlete,
             meta: { requiresAuth: true },
         },
@@ -74,9 +74,9 @@ const router = createRouter({
             meta: { requiresAuth: true },
         },
         {
-            path: "/workoutAthlete",
-            name: "workoutAthlete",
-            component: workoutAthlete,
+            path: "/workoutsAthlete",
+            name: "workoutsAthlete",
+            component: workoutsAthlete,
             meta: { requiresAuth: true },
         },
     ],

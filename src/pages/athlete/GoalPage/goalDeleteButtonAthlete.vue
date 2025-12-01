@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn @click="showDeleteGoalPopup = true">Delete</v-btn>
+    <v-btn @click="showDeleteGoalPopup = true" class="delete-button">Delete</v-btn>
 
     <DeleteGoalPopup
       v-model:show="showDeleteGoalPopup"
@@ -27,8 +27,8 @@ const emit = defineEmits(["closeParentPopup"]);
 </script>
 
 <style scoped>
-.buttons {
-  margin-top: 1rem;
-  text-align: right;
+.delete-button {
+  background-color: var(--color-text-secondary);
+  color: var(--btn-primary-text);
 }
 </style>

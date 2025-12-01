@@ -5,7 +5,9 @@
         <div class="title">Goal List</div>
         <AddGoalButtonAthlete :refresh="refresh" />
       </div>
-      <GoalDisplay v-for="goal in goals" :key="goal.goalID" :goal="goal" />
+      <div class="list-container">
+        <GoalDisplay v-for="goal in goals" :key="goal.goalID" :goal="goal" />
+      </div>
     </div>
   </v-card>
 </template>
@@ -25,12 +27,15 @@ const props = defineProps({
 
 <style scoped>
 .builder-container {
+  margin-top: 8px;
+  width: 500px;
+  padding: 20px;
   height: 80vh;
-  width: 30%;
-  background-color: #d0d0d0;
+  background-color: var(--color-primary);
   display: flex;
   justify-content: center;
-  margin: 0 auto;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .subcontainer {
@@ -38,9 +43,6 @@ const props = defineProps({
   gap: 12px;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  overflow: auto scroll;
-  overflow-y: auto;
 }
 
 .title {
@@ -61,5 +63,19 @@ const props = defineProps({
   border-style: solid;
   align-items: center;
   justify-items: center;
+}
+
+.list-container {
+  width: 100%;
+  height: 100%;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  align-items: center;
+  overflow: auto scroll;
+  overflow-y: auto;
+  scrollbar-color: var(--color-text-secondary) transparent;
 }
 </style>

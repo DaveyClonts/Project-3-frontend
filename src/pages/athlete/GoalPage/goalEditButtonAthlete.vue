@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-btn @click="showGoalEditPopup = true">Edit</v-btn>
+    <v-btn @click="showGoalEditPopup = true" class="edit-button">Edit</v-btn>
 
     <GoalEditPopup
       v-model:show="showGoalEditPopup"
@@ -23,8 +23,8 @@ const props = defineProps({
 </script>
 
 <style scoped>
-.buttons {
-  margin-top: 1rem;
-  text-align: right;
+.edit-button {
+  background-color: var(--btn-primary);
+  color: var(--btn-primary-text);
 }
 </style>

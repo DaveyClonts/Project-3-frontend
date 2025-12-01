@@ -28,7 +28,7 @@ const props = defineProps({
 .builder-container {
   height: 100%;
   width: 100%;
-  background-color: #d0d0d0;
+  background-color: var(--color-primary);
   display: flex;
   flex-direction: row;
   justify-content: left;
@@ -56,4 +56,6 @@ const props = defineProps({
   height: 80%;
   width: 100%;
 }
+
+
 </style>

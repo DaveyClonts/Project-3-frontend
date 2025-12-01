@@ -1,6 +1,6 @@
 <template>
   <v-btn
-    class="add-workout-button"
+    class="add-goal-button"
     :ripple="{ class: 'text-white' }"
     @click="showAddGoalPopup = true"
     >+</v-btn
@@ -21,13 +21,13 @@ const showAddGoalPopup = ref(false);
 </script>
 
 <style scoped>
-.add-workout-button {
-  background-color: #848484;
-  color: white;
-  height: 32px;
-  width: 32px;
-  min-width: 32px !important;
-  margin-bottom: 8px;
+.add-goal-button {
+  background-color: var(--btn-secondary);
+    color: var(--btn-secondary-text);
+    height: 32px;
+    width: 32px;
+    min-width: 32px !important;
+    margin-bottom: 8px;
 }
 
 .goal-container {

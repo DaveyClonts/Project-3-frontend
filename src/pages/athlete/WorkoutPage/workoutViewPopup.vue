@@ -7,14 +7,23 @@
     <v-card class="builder-container rounded-xl">
       <div class="subcontainer right-outline">
         <div class="title">Exercise List</div>
-        <ExerciseDisplay
+        <ExerciseList
           v-for="exercise in exercises"
           :key="exercise.id"
-          :exercise="getExercises()"
+          :exercise="exercise"
+          @update:showExercise="showExercise = $event"
         />
       </div>
       <div class="subcontainer">
         <div class="title">Exercise</div>
+        <ExerciseInfo
+          v-if="showExercise !== null && exerciseMatch !== null"
+          :exercise="exercises.find((e) => e.id === showExercise)"
+          :exerciseMatch="exerciseMatch"
+        />
+        <div v-else>
+          <p style="color: white">No exercise selected</p>
+        </div>
       </div>
       <div class="button-container">
         <v-btn @click="closeDialog()">Close</v-btn>
@@ -24,27 +33,45 @@
 </template>
 
 <script setup>
-import { ref, toRef } from "vue";
+import { ref, toRef, watch } from "vue";
 import workoutServices from "../../../services/workoutServices";
+import exerciseServices from "../../../services/exerciseServices";
+import ExerciseList from "./exerciseListAthlete.vue";
+import ExerciseInfo from "./exerciseInfoAthlete.vue";
 
 const props = defineProps({
   show: Boolean,
   workout: Object,
   getAll: Function,
 });
+const showExercise = ref(null);
 
 const emit = defineEmits(["update:show", "closeParentPopup"]);
 
 const showWorkoutViewPopup = toRef(props, "show");
 
 const exercises = ref([]);
+const exerciseMatch = ref(null);
 
 async function getExercises() {
-  const data = await workoutServices.getExercises(props.workout.id);
-  console.log(data);
+  const workoutMatch = await workoutServices.getExercises(props.workout.id);
+  const data = await Promise.all(
+    workoutMatch.map((w) => exerciseServices.get(w.exerciseID))
+  );
   exercises.value = data;
-  return data;
 }
+
+async function loadExerciseMatch(exerciseID) {
+  if (!exerciseID) return;
+  exerciseMatch.value = await workoutServices.getOneExercise(
+    props.workout.id,
+    exerciseID
+  );
+}
+
+watch(showExercise, (val) => {
+  loadExerciseMatch(val);
+});
 
 function closeDialog() {
   emit("update:show", false);
@@ -69,7 +96,7 @@ getExercises();
   margin-left: 25%;
   margin-right: 25%;
   min-width: 850px;
-  padding: 20px;
+
   height: 80vh;
   background-color: #d0d0d0;
   display: flex;
@@ -82,6 +109,7 @@ getExercises();
 .subcontainer {
   width: 50%;
   gap: 12px;
+  padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: center;

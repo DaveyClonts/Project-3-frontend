@@ -13,6 +13,11 @@
             v-model="exercise.type"
         >
         </v-select>
+        <v-text-field
+            label="Description"
+            v-model="exercise.description"
+        >
+        </v-text-field>
     </div>
 </template>
 
@@ -21,7 +26,7 @@
     margin-bottom: 16px;
     width: 95%;
     padding: 12px;
-    height: 16vh;
+    height: 28vh;
     background-color: var(--color-primary);
     justify-content: center;
     justify-self: center;
@@ -30,8 +35,6 @@
 </style>
 
 <script setup>
-import { ref } from "vue";
-import Exercise from "../../classes/Exercise.js";
 import { exerciseTypeArray } from "../../classes/ExerciseType.js";
 
 const props = defineProps(["exercise"]);

@@ -24,7 +24,29 @@ export default {
             .catch((err) => {
                 console.error("Error getting users: " + err);
             });
-        
+
+        return users;
+    },
+    async getAthletesForCoach(coachID) {
+        let users = [];
+
+        await apiClient
+            .get(`coachAthletes/coachAthlete/${coachID}`)
+            .then((response) => {
+                users = response.data.map((u) => {
+                    const athlete = u.athlete;
+                    return new User(
+                        athlete.firstName,
+                        athlete.lastName,
+                        athlete.role,
+                        athlete.id
+                    );
+                });
+            })
+            .catch((err) => {
+                console.error("Error getting users: " + err);
+            });
+
         return users;
     },
     /**
@@ -40,5 +62,25 @@ export default {
             .catch((err) => {
                 console.error("Error updating user: " + err);
             });
+    },
+    async find(id) {
+        let user = {};
+
+        await apiClient
+            .get(`${API_ROOT}/${id}`)
+            .then((response) => {
+                user = new User(
+                    response.data.firstName,
+                    response.data.lastName,
+                    response.data.role,
+                    response.data.token,
+                    response.data.id
+                );
+            })
+            .catch((err) => {
+                console.error("Error finding user: " + err);
+            });
+
+        return user;
     },
 };

@@ -5,7 +5,6 @@
                 <div class="title">Exercises</div>
                 <v-btn
                     class="add-exercise-button"
-                    :ripple="{ class: 'text-white' }"
                     @click="openAddExerciseDialog"
                     >+</v-btn
                 >
@@ -96,7 +95,7 @@
 }
 
 .dialog {
-    max-width: 950px;
+    max-width: 650px;
     min-width: 450px;
 }
 

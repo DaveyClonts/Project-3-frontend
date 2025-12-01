@@ -64,7 +64,7 @@ async function handleCredentialResponse(response) {
             console.log("Successfully logged in.");
             store.setUser(user.value);
 
-            if (user.role == userRole.Athlete)
+            if (user.value.role == userRole.Athlete)
                 router.push({ name: "dashboardAthlete" });
             else router.push({ name: "dashboardCoach" });
         })

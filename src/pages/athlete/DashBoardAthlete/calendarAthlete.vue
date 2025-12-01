@@ -18,18 +18,29 @@ import { VCalendar } from "vuetify/labs/VCalendar";
 
 const props = defineProps({
   goals: Array,
+  workouts: Array
 });
 
 const today = ref(new Date().toISOString().substr(0, 10));
 
-const events = computed(() =>
-  props.goals.map(goal => ({
+const events = computed(() => {
+  const goalEvents = props.goals.map(goal => ({
     name: goal.name,
     start: goal.date,
     end: goal.date,
     color: goal.color || "blue",
-  })) 
-);
+  }));
+
+  const workoutEvents = props.workouts.map(workout => ({
+    name: workout.name,
+    start: workout.date,
+    end: workout.date,
+    color: workout.color || "red",
+  }));
+
+
+  return [...goalEvents, ...workoutEvents];
+});
 console.log(events);
 </script>
 

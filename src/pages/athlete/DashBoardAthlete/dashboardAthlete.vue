@@ -6,7 +6,7 @@
         style="width: 65vw; margin-left: 15px"
       >
         <v-row>
-          <div class="title-text">Welcome, {{ user.getFullName() }}</div>
+          <div class="title-text">Welcome, {{ user.firstName + " " + user.lastName}}</div>
         </v-row>
         <v-row>
           <v-card class="workouts-card">
@@ -35,6 +35,7 @@ import CalendarAthlete from "./calendarAthlete.vue";
 import WorkoutAthlete from "./workoutListAthlete.vue";
 import goalServices from "../../../services/goalServices";
 import workoutServices from "../../../services/workoutServices";
+import User from "../../../classes/User";
 import { ref } from "vue";
 
 const user = store.getUser();

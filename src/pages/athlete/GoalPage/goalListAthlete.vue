@@ -29,7 +29,6 @@ const props = defineProps({
 .builder-container {
   margin-top: 8px;
   width: 500px;
-  padding: 20px;
   height: 80vh;
   background-color: var(--color-primary);
   display: flex;
@@ -59,7 +58,7 @@ const props = defineProps({
   width: 100%;
   padding-top: 10px;
   border-width: 0px 0px 2px 0px;
-  border-color: rgb(82, 82, 82);
+  border-color: var(--color-secondary);
   border-style: solid;
   align-items: center;
   justify-items: center;

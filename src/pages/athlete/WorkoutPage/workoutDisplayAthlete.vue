@@ -33,9 +33,9 @@ const handleClick = () => {
 
 <style scoped>
 .workout-container {
-  background-color: #848484;
+  background-color: var(--btn-secondary);
   height: 80px;
-  width: 100%;
+  width: 95%;
   padding: 12px 24px 8px 24px;
   flex: 0 0 auto;
 }
@@ -49,7 +49,7 @@ const handleClick = () => {
 
 .workout-title {
   font-size: 20px;
-  color: white;
+  color: var(--color-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -57,7 +57,7 @@ const handleClick = () => {
 
 .workout-subtitle {
   font-size: 16px;
-  color: whitesmoke;
+  color: var(--color-text-secondary);
   margin-top: -2px;
   margin-left: 12px;
   white-space: nowrap;

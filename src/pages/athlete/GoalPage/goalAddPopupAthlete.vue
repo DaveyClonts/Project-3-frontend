@@ -2,29 +2,29 @@
   <div v-if="show" class="modal-overlay" @click.self="closeDialog">
     <v-card class="modal">
       <v-form v-model="valid">
-        <div class="title">Add Goal</div>
+        <v-card-title class="title">Add Goal</v-card-title>
+        <div class="modal-content">
+          <v-text-field
+            v-model="name"
+            class="name-input"
+            label="Name"
+            required
+          ></v-text-field>
 
-        <v-text-field
-          v-model="name"
-          class="name-input"
-          label="Name"
-          required
-        ></v-text-field>
+          <v-textarea
+            v-model="description"
+            class="description-input"
+            label="Description"
+            rows="4"
+          ></v-textarea>
 
-        <v-textarea
-          v-model="description"
-          class="description-input"
-          label="Description"
-          rows="4"
-        ></v-textarea>
-
-        <v-date-input
-          v-model="date"
-          label="Goal Date"
-          class="date-input"
-          prepend-icon="mdi-calendar"
-        ></v-date-input>
-
+          <v-date-input
+            v-model="date"
+            label="Goal Date"
+            class="date-input"
+            prepend-icon="mdi-calendar"
+          ></v-date-input>
+        </div>
         <div class="button-container">
           <v-btn class="save-button" @click="submitGoal">Save</v-btn>
           <v-btn class="cancel-button" @click="closeDialog">Cancel</v-btn>
@@ -92,26 +92,35 @@ function submitGoal() {
   align-items: center;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.4);
-  z-index: 1;
+  z-index: 10;
+  will-change: auto !important;
 }
 
 .modal {
   background-color: #ffffff;
-  border-radius: 40px;
-  padding: 2rem;
-  width: 80%;
-  max-width: 50%;
+  width: 60%;
+  max-width: 90%;
+  max-height: 80%;
+  overflow-y: auto;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+  will-change: auto !important;
+  background-color: var(--color-primary);
+  justify-content: center;
+  justify-self: center;
+  align-self: center;
 }
 
-.title{
-    font-size: 1.25rem;
-    font-weight: 500;
-    color: var(--color-text);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    padding: 16px ;
+.title {
+  padding: 16px 24px;
+}
+
+.modal-content {
+  width: 95%;
+  padding: 24px;
+  background-color: var(--color-primary);
+  justify-content: center;
+  justify-self: center;
+  align-self: center;
 }
 
 .name-input {
@@ -129,9 +138,11 @@ function submitGoal() {
 }
 
 .button-container {
+  justify-content: right;
   margin: 0 12px 12px auto;
   display: flex;
   gap: 16px;
+  padding-right: 12px;
 }
 
 .action-button {

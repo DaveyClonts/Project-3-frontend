@@ -41,9 +41,9 @@ const props = defineProps({
 
 <style scoped>
 .exercise-container {
-  background-color: #848484;
+   background-color: var(--btn-secondary);
   height: auto;
-  width: 100%;
+  width: 95%;
   padding: 12px 24px 8px 24px;
   flex: 0 0 auto;
 }
@@ -57,7 +57,7 @@ const props = defineProps({
 
 .exercise-title {
   font-size: 20px;
-  color: white;
+  color: var(--color-text);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -65,8 +65,8 @@ const props = defineProps({
 
 .exercise-subtitle {
   font-size: 16px;
-  color: whitesmoke;
-  margin-top: -2px;
+  color: var(--color-text-secondary);
+  margin: 12px;
   margin-left: 12px;
   white-space: nowrap;
   overflow: hidden;

@@ -1,9 +1,9 @@
 <template>
     <v-card class="exercise-editor-container rounded-xl">
         <div class="selector-subcontainer">
-            <div v-if="workoutExercise != null">
+            <div v-if="workoutExercise != null" class="selector-title-container">
                 <div class="selector-title">{{ exercise.name }}</div>
-                <div class="selector-subtitle">{{ exercise.type }}</div>
+                <div class="selector-subtitle">{{ exercise.type }}{{ exercise.description ? ` - ${exercise.description}` : `` }}</div>
             </div>
             <div class="selector-button-container">
                 <v-btn
@@ -37,6 +37,10 @@
     flex-direction: row;
     width: 100%;
     height: 100%;
+}
+
+.selector-title-container {
+    overflow: hidden;
 }
 
 .selector-title {

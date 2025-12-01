@@ -1,11 +1,11 @@
 <template>
     <v-card class="selector-container rounded-xl">
         <div class="selector-subcontainer">
-            <div v-if="exercise != null">
+            <div v-if="exercise != null" class="selector-title-container">
                 <div class="selector-title">{{ exercise.name }}</div>
-                <div class="selector-subtitle">{{ exercise.type }}</div>
+                <div class="selector-subtitle">{{ exercise.type }}{{ exercise.description ? ` - ${exercise.description}` : `` }}</div>
             </div>
-            <div v-if="exercise == null">
+            <div v-if="exercise == null" class="selector-title-container">
                 <div class="selector-title">MISSING</div>
                 <div class="selector-subtitle">MISSING</div>
             </div>
@@ -72,6 +72,10 @@
     color: var(--color-text-secondary);
     min-width: 100%;
     font-size: 16px;
+}
+
+.selector-title-container {
+    overflow: hidden;
 }
 
 .selector-title {

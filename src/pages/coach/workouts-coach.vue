@@ -296,14 +296,21 @@ function onAthleteSelected(athlete) {
     }
 
     console.log("Athlete selected: " + JSON.stringify(athlete));
-    loadWorkouts();
-
     store.setAthlete(athlete);
+    loadWorkouts();
 }
 
 function loadWorkouts() {
     const coachID = store.getUser().id;
     const athleteID = athlete.value.id;
+
+    userServices.find(athleteID)
+    .then((user) => {
+        if (user.id === undefined) {
+            athlete.value = null;
+            return;
+        }
+    })
 
     workouts.value = [];
 

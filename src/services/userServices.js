@@ -9,16 +9,16 @@ export default {
 
         await apiClient
             .get(`${API_ROOT}/roles/${role}`)
-            .then((response) => {
-                users = response.data.map(
-                    (u) => {
-                        return new User (
-                            u.firstName,
-                            u.lastName,
-                            u.role,
-                            u.id
+            .then((roleUsers) => {
+                users = roleUsers.data.map(
+                    (ru) =>
+                        new User(
+                            ru.firstName,
+                            ru.lastName,
+                            ru.role,
+                            ru.token,
+                            ru.id
                         )
-                    }
                 );
             })
             .catch((err) => {
@@ -26,30 +26,6 @@ export default {
             });
         
         return users;
-    },
-    async getAthletesForCoach(coachID) {
-        let users = [];
-
-        await apiClient
-            .get(`coachAthletes/coachAthlete/${coachID}`)
-            .then((response) => {
-                users = response.data.map(
-                    (u) => {
-                        const athlete = u.athlete;
-                        return new User (
-                            athlete.firstName,
-                            athlete.lastName,
-                            athlete.role,
-                            athlete.id
-                        )
-                    }
-                );
-            })
-            .catch((err) => {
-                console.error("Error getting users: " + err);
-            });
-
-            return users;
     },
     /**
      *

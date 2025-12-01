@@ -22,8 +22,9 @@
                 <v-label class="title opacity-100">Selected Exercises</v-label>
                 <div class="element-container">
                     <workoutExerciseEditor
-                        v-for="exercise in selectedExercises"
+                        v-for="exercise in workoutExercises"
                         :workoutExercise="exercise"
+                        @exercise-deleted="deleteExercise"
                     />
                 </div>
             </div>
@@ -101,30 +102,47 @@ import { ref } from "vue";
 import workoutExerciseSelector from "./workoutExerciseSelector.vue";
 import workoutExerciseEditor from "./workoutExerciseEditor.vue";
 import Exercise from "../../classes/Exercise.js";
-import ExerciseType from "../../classes/ExerciseType.js";
 import WorkoutExercise from "../../classes/WorkoutExercise.js";
+import exerciseServices from "../../services/exerciseServices.js";
+import Workout from "../../classes/Workout.js";
+import workoutServices from "../../services/workoutServices.js";
 
-const props = defineProps(["workout"]);
-const selectedExercises = ref([]);
+const props = defineProps({
+    workout: Workout,
+});
+const exercises = ref([]);
+const workoutExercises = ref([]);
+const deletedExercises = ref([]);
 
-const exercises = [
-    new Exercise("Squat", ExerciseType.Weights, "my description yay", 1, 1),
-    new Exercise("Run", ExerciseType.Cardio, 1, 2),
-];
-
-const workoutExercises = [
-    WorkoutExercise.WeightExercise(3, 1, 8, 3, 225),
-    WorkoutExercise.CardioExercise(4, 2, 5, 50),
-];
-
-selectedExercises.value = workoutExercises.filter((exercise) => {
-    if (exercise.workoutID == props.workout.id) {
-        console.log("add exercise: " + JSON.stringify(exercise));
-        return exercise;
-    }
+defineExpose({
+    workoutExercises,
+    deletedExercises
 });
 
-console.log("selected exercises: " + JSON.stringify(selectedExercises.value));
+exerciseServices.getAllForUser().then((data) => {
+    exercises.value = data.map(
+        (e) => new Exercise(e.name, e.type, e.description, e.coachID, e.id)
+    );
+});
 
-function addExercise(exercise) {}
+workoutServices.getExercises(props.workout.id).then((data) => {
+    workoutExercises.value = data;
+});
+
+function addExercise(exercise) {
+    let workoutExercise = new WorkoutExercise(props.workout.id, exercise.id);
+
+    workoutExercises.value.push(workoutExercise);
+}
+
+function deleteExercise(workoutExercise) {
+    let index = workoutExercises.value.indexOf(workoutExercise);
+
+    console.log("Delete exercise: " + index);
+
+    deletedExercises.value.push(workoutExercise);
+    workoutExercises.value.splice(index, 1);
+
+    console.log("Exercises: " + JSON.stringify(workoutExercises.value));
+}
 </script>

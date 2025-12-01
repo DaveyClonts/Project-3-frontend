@@ -44,7 +44,7 @@ const props = defineProps({
 
 .title {
   border-width: 0px 2px 0px 0px;
-  border-color: rgb(82, 82, 82);
+  border-color: var(--color-secondary);
   border-style: solid;
   font-size: 20px;
   padding-top: 20px;

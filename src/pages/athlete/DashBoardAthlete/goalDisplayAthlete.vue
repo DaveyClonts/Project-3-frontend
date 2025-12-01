@@ -43,19 +43,9 @@ const props = defineProps({
   text-overflow: ellipsis;
 }
 
-.goal-subtitle{
-  font-size: 16px;
-  color: var(--color-text-secondary);
-  margin-top: -2px;
-  margin-left: 12px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
 .goal-subtitle {
   font-size: 16px;
-  color: whitesmoke;
+  color: var(--color-text-secondary);
   margin-top: -2px;
   margin-left: 12px;
   white-space: nowrap;

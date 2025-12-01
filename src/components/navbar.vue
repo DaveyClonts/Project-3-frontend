@@ -86,7 +86,6 @@ if (user.role == userRole.Athlete)
     ];
 else
     navigation.value = [
-        { name: "dashboardCoach", label: "Dashboard", path: "/dashboardCoach" },
         { name: "workoutsCoach", label: "Workouts", path: "/workoutsCoach" },
         { name: "exercisesCoach", label: "Exercises", path: "/exercisesCoach" },
         { name: "athletesCoach", label: "Athletes", path: "/athletesCoach" },

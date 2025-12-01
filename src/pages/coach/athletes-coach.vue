@@ -1,10 +1,6 @@
 <template>
     <v-card class="top-container rounded-xl">
-        <v-data-table
-            :headers="headers"
-            :items="athletes"
-            hide-default-footer
-        >
+        <v-data-table :headers="headers" :items="athletes" hide-default-footer>
             <template v-slot:item.owned="{ item }">
                 <v-checkbox-btn
                     class="toggle-button"
@@ -35,9 +31,9 @@
 
 <script setup>
 import { ref } from "vue";
-import userRole from "../../classes/userRole";
-import userServices from "../../services/userServices";
-import store from "../../store/store";
+import userRole from "../../classes/userRole.js";
+import userServices from "../../services/userServices.js";
+import store from "../../store/store.js";
 
 const athletes = ref([]);
 

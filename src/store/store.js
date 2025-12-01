@@ -8,7 +8,13 @@ export default {
     user,
     athlete,
     getUser() {
-        return this.user;
+        return new User(
+            this.user.firstName,
+            this.user.lastName,
+            this.user.role,
+            this.user.token,
+            this.user.id
+        );
     },
     setUser(user) {
         this.user = user;
@@ -30,5 +36,5 @@ export default {
     clearAthlete() {
         this.athlete = null;
         Utils.removeItem("athlete");
-    }
+    },
 };

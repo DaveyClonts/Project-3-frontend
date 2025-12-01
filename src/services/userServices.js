@@ -1,5 +1,7 @@
 import apiClient from "./services.js";
 import User from "../classes/User.js";
+import store from "../store/store.js";
+import CoachAthlete from "../classes/CoachAthlete.js";
 
 const API_ROOT = "users";
 
@@ -39,6 +41,7 @@ export default {
                         athlete.firstName,
                         athlete.lastName,
                         athlete.role,
+                        null,
                         athlete.id
                     );
                 });
@@ -82,5 +85,26 @@ export default {
             });
 
         return user;
+    },
+    async reserveAthlete(athleteID) {
+        const coachID = store.getUser().id;
+        const coachAthlete = new CoachAthlete(coachID, athleteID);
+
+        await apiClient
+            .post(`coachAthletes`, coachAthlete)
+            .catch((err) => {
+                console.error("Error creating coach athlete: " + err);
+            });
+
+        return coachAthlete;
+    },
+    async releaseAthlete(athleteID) {
+        const coachID = store.getUser().id;
+
+        await apiClient
+            .delete(`coachAthletes/${coachID}/${athleteID}`)
+            .catch((err) => {
+                console.error("Error deleting coach athlete: " + err);
+            });
     },
 };

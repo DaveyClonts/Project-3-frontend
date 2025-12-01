@@ -34,7 +34,7 @@ export default {
                     response.data.type,
                     response.data.description,
                     response.data.coachID,
-                    response.data.id
+                    id
                 );
             })
             .catch((err) => {
@@ -70,6 +70,8 @@ export default {
 
         return results;
     },
+
+    
 
     /**
      *

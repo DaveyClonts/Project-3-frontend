@@ -54,13 +54,13 @@ function closeDialog() {
 
 async function addNote() {
   if (!newNote.value.trim()) return;
-  await noteServices.create(new Note(newNote.value, props.goal.goalID));
+  await noteServices.create(new Note(newNote.value, props.goal.id));
   newNote.value = "";
   getNotes();
 }
 
 async function getNotes() {
-  notesList.value = await noteServices.getAll(props.goal.goalID);
+  notesList.value = await noteServices.getAll(props.goal.id);
 }
 
 getNotes();

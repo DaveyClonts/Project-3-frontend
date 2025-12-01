@@ -1,6 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import login from "./pages/login.vue";
-import dashboardCoach from "./pages/coach/dashboard-coach.vue";
+import dashboardCoach from "./pages/coach/dashboard/dashboard-coach.vue";
 import workoutsCoach from "./pages/coach/workouts-coach.vue";
 import exercisesCoach from "./pages/coach/exercises-coach.vue";
 import athletesCoach from "./pages/coach/athletes-coach.vue";

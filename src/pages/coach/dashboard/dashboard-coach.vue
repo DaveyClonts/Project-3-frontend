@@ -15,7 +15,7 @@
                 </v-row>
             </v-col>
             <v-col>
-                <v-card class="athletes-card">Test</v-card>
+                 <athletesCard/>
             </v-col>
         </v-row>
     </div>
@@ -23,8 +23,9 @@
 
 
 <script setup>
-    import User from "../../classes/User.js";
-    import store from "../../store/store.js";
+    import athletesCard from "./athletes-card.vue";
+    import User from "../../../classes/User.js";
+    import store from "../../../store/store.js";
 
     const user = store.getUser();
 </script>
@@ -52,12 +53,6 @@
 .exercises-card {
     height: 45vh;
     width: 65vw;
-    border-radius: 20px;
-}
-
-.athletes-card {
-    width: 22vw;
-    height: 78vh;
     border-radius: 20px;
 }
 </style>

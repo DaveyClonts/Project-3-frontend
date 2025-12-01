@@ -8,6 +8,9 @@ export default {
     user,
     athlete,
     getUser() {
+        if (this.user == null)
+            return null;
+
         return new User(
             this.user.firstName,
             this.user.lastName,

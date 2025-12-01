@@ -5,7 +5,7 @@
         <div class="title">Goal List</div>
         <AddGoalButtonAthlete :refresh="refresh" />
       </div>
-      <div class="list-containter">
+      <div class="list-container">
         <GoalDisplay v-for="goal in goals" :key="goal.goalID" :goal="goal" />
       </div>
     </div>
@@ -28,18 +28,19 @@ const props = defineProps({
 <style scoped>
 .builder-container {
   margin-top: 8px;
-  min-width: 500px;
+  width: 500px;
   padding: 20px;
   height: 80vh;
   background-color: var(--color-primary);
   display: flex;
-  flex-direction: row;
   justify-content: center;
-  justify-self: center;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .subcontainer {
-  width: 100%;
+  width: 90%;
+  gap: 12px;
   display: flex;
   flex-direction: column;
 }
@@ -55,8 +56,10 @@ const props = defineProps({
 .title-container {
   display: flex;
   flex-direction: row;
+  width: 100%;
+  padding-top: 10px;
   border-width: 0px 0px 2px 0px;
-  border-color: var(--color-secondary);
+  border-color: rgb(82, 82, 82);
   border-style: solid;
   align-items: center;
   justify-items: center;

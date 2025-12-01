@@ -1,18 +1,16 @@
 <template>
-    <div class="navbar-container">
-        <div class="navbar">
-            <ul class="nav-list">
-                <li
-                    v-for="item in navItems"
-                    :key="item.name"
-                    class="nav-item"
-                    @click="navigate(item)"
-                    :class="{ active: route.name === item.name }"
-                >
-                    {{ item.label }}
-                </li>
-            </ul>
-        </div>
+    <div class="navbar">
+        <ul class="nav-list">
+            <li
+                v-for="item in navItems"
+                :key="item.name"
+                class="nav-item"
+                @click="navigate(item)"
+                :class="{ active: route.name === item.name }"
+            >
+                {{ item.label }}
+            </li>
+        </ul>
     </div>
 </template>
 
@@ -57,7 +55,7 @@
 </style>
 
 <script setup>
-import { useRouter, useRoute} from 'vue-router';
+import { useRouter, useRoute } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 

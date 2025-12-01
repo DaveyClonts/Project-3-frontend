@@ -1,5 +1,5 @@
 export default class User {
-    constructor(firstName, lastName, role, token, id = -1) {
+    constructor(firstName, lastName, role, token, id) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -10,5 +10,17 @@ export default class User {
     getFullName() {
         const fullName = this.firstName + " " + this.lastName;
         return fullName;
+    }
+
+    isAthlete() {
+        return this.role === "Athlete";
+    }
+
+    isCoach() {
+        return this.role === "Coach";
+    }
+
+    isAdmin() {
+        return this.role === "Admin";
     }
 }

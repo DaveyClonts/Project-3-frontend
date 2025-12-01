@@ -29,12 +29,6 @@ export default {
         await apiClient
             .get(`${API_ROOT}/${id}`)
             .then((response) => {
-                console.log(
-                    `Successfully found exercise: ${JSON.stringify(
-                        response.data
-                    )}`
-                );
-
                 exercise = new Exercise(
                     response.data.name,
                     response.data.type,

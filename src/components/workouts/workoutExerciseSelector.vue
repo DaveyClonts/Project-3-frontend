@@ -1,9 +1,13 @@
 <template>
     <v-card class="selector-container rounded-xl">
         <div class="selector-subcontainer">
-            <div>
+            <div v-if="exercise != null">
                 <div class="selector-title">{{ exercise.name }}</div>
                 <div class="selector-subtitle">{{ exercise.type }}</div>
+            </div>
+            <div v-if="exercise == null">
+                <div class="selector-title">MISSING</div>
+                <div class="selector-subtitle">MISSING</div>
             </div>
             <v-btn
                 class="select-button rounded-xl"

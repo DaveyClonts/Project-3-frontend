@@ -24,7 +24,29 @@ export default {
             .catch((err) => {
                 console.error("Error getting users: " + err);
             });
-        
+
+        return users;
+    },
+    async getAthletesForCoach(coachID) {
+        let users = [];
+
+        await apiClient
+            .get(`coachAthletes/coachAthlete/${coachID}`)
+            .then((response) => {
+                users = response.data.map((u) => {
+                    const athlete = u.athlete;
+                    return new User(
+                        athlete.firstName,
+                        athlete.lastName,
+                        athlete.role,
+                        athlete.id
+                    );
+                });
+            })
+            .catch((err) => {
+                console.error("Error getting users: " + err);
+            });
+
         return users;
     },
     /**

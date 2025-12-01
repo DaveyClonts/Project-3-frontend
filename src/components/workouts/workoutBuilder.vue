@@ -1,12 +1,19 @@
 <template>
     <div v-if="workout != null">
-        <v-text-field
-            label="Workout Title"
-            v-model="workout.name"
-            placeholder="Workout"
-            type="input"
-            class="workout-name"
-        ></v-text-field>
+        <div class="builder-title">
+            <v-text-field
+                label="Workout Title"
+                v-model="workout.name"
+                placeholder="Workout"
+                type="input"
+                class="workout-name"
+            ></v-text-field>
+            <v-date-input
+                v-model="workout.date"
+                label="Date"
+                prepend-icon=""
+            ></v-date-input>
+        </div>
         <v-card class="builder-container rounded-xl">
             <div class="subcontainer right-outline">
                 <v-label class="title opacity-100">Exercise List</v-label>
@@ -21,18 +28,46 @@
             <div class="subcontainer">
                 <v-label class="title opacity-100">Selected Exercises</v-label>
                 <div class="element-container">
-                    <workoutExerciseEditor
+                    <workoutExerciseEditSelector
                         v-for="exercise in workoutExercises"
                         :workoutExercise="exercise"
+                        @exercise-selected="editExercise"
                         @exercise-deleted="deleteExercise"
                     />
                 </div>
             </div>
         </v-card>
     </div>
+    <v-dialog class="dialog" v-model="isDialogVisible">
+        <v-card class="dialog-card rounded-xl">
+            <workoutExerciseEditor
+                :workout-exercise="selectedWorkoutExercise"
+                ref="exerciseEditor"
+            />
+            <div class="button-container">
+                <v-btn
+                    class="save-button"
+                    :disabled="inputDisabled"
+                    @click="saveExercise"
+                    >Save</v-btn
+                >
+                <v-btn
+                    class="cancel-button"
+                    :disabled="inputDisabled"
+                    @click="cancelEdit"
+                    >Cancel</v-btn
+                >
+            </div>
+        </v-card>
+    </v-dialog>
 </template>
 
 <style scoped>
+.builder-title {
+    display: flex;
+    flex-direction: row;
+}
+
 .builder-container {
     margin-left: 25%;
     margin-right: 25%;
@@ -79,7 +114,7 @@
     border-style: solid;
 }
 
-.workout-name ::v-deep .v-label {
+.workout-name :deep(v.label) {
     color: var(--color-secondary) !important;
 }
 
@@ -95,17 +130,44 @@
     width: 100%;
     justify-content: center;
 }
+
+.save-button {
+    background-color: var(--btn-primary);
+    color: var(--btn-primary-text);
+}
+
+.cancel-button {
+    background-color: var(--color-text-secondary);
+    color: var(--btn-primary-text);
+}
+
+.dialog {
+    max-width: 450px;
+    height: 500px;
+}
+
+.dialog-card {
+    background-color: var(--color-bg);
+}
+
+.button-container {
+    margin: 0 12px 12px auto;
+    display: flex;
+    gap: 16px;
+}
 </style>
 
 <script setup>
+import { VDateInput } from "vuetify/labs/VDateInput";
 import { ref } from "vue";
 import workoutExerciseSelector from "./workoutExerciseSelector.vue";
+import workoutExerciseEditSelector from "./workoutExerciseEditSelector.vue";
 import workoutExerciseEditor from "./workoutExerciseEditor.vue";
-import Exercise from "../../classes/Exercise.js";
 import WorkoutExercise from "../../classes/WorkoutExercise.js";
 import exerciseServices from "../../services/exerciseServices.js";
 import Workout from "../../classes/Workout.js";
 import workoutServices from "../../services/workoutServices.js";
+import ExerciseType from "../../classes/ExerciseType.js";
 
 const props = defineProps({
     workout: Workout,
@@ -113,36 +175,73 @@ const props = defineProps({
 const exercises = ref([]);
 const workoutExercises = ref([]);
 const deletedExercises = ref([]);
+const selectedWorkoutExercise = ref(null);
+const exerciseEditor = ref(null);
+const isDialogVisible = ref(false);
+const inputDisabled = ref(false);
 
 defineExpose({
     workoutExercises,
-    deletedExercises
-});
-
-exerciseServices.getAllForUser().then((data) => {
-    exercises.value = data.map(
-        (e) => new Exercise(e.name, e.type, e.description, e.coachID, e.id)
-    );
+    deletedExercises,
 });
 
 workoutServices.getExercises(props.workout.id).then((data) => {
     workoutExercises.value = data;
+
+    loadExercises();
 });
 
 function addExercise(exercise) {
     let workoutExercise = new WorkoutExercise(props.workout.id, exercise.id);
 
     workoutExercises.value.push(workoutExercise);
+
+    loadExercises();
 }
 
 function deleteExercise(workoutExercise) {
     let index = workoutExercises.value.indexOf(workoutExercise);
 
-    console.log("Delete exercise: " + index);
-
     deletedExercises.value.push(workoutExercise);
     workoutExercises.value.splice(index, 1);
 
-    console.log("Exercises: " + JSON.stringify(workoutExercises.value));
+    loadExercises();
+}
+
+function editExercise(workoutExercise) {
+    selectedWorkoutExercise.value = workoutExercise;
+
+    isDialogVisible.value = true;
+}
+
+function loadExercises() {
+    exercises.value = [];
+
+    exerciseServices.getAllForUser().then((data) => {
+        exercises.value = data.filter(
+            (e) => !workoutExercises.value.some((we) => we.exerciseID == e.id)
+        );
+    });
+}
+
+function saveExercise() {
+    if (exerciseEditor.value.exercise.type == ExerciseType.Weights) {
+        console.log("Save sets: " + exerciseEditor.value.sets);
+        selectedWorkoutExercise.value.reps = exerciseEditor.value.reps;
+        selectedWorkoutExercise.value.sets = exerciseEditor.value.sets;
+    } else {
+        selectedWorkoutExercise.value.miles = exerciseEditor.value.miles;
+        selectedWorkoutExercise.value.time = exerciseEditor.value.time;
+    }
+
+    console.log(
+        "All workout exercises: " + JSON.stringify(workoutExercises.value)
+    );
+
+    isDialogVisible.value = false;
+}
+
+function cancelEdit() {
+    isDialogVisible.value = false;
 }
 </script>

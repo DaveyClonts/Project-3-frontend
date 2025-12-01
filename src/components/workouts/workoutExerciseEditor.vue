@@ -1,111 +1,120 @@
 <template>
-    <v-card class="exercise-editor-container rounded-xl">
-        <div class="selector-subcontainer">
-            <div v-if="workoutExercise != null">
-                <div class="selector-title">{{ exercise.name }}</div>
-                <div class="selector-subtitle">{{ exercise.type }}</div>
-            </div>
-            <div class="selector-button-container">
-                <v-btn
-                    class="select-button"
-                    variant="text"
-                    :ripple="{ class: 'text-white' }"
-                    @click="$emit('exercise-selected', workoutExercise)"
-                    >Edit</v-btn
-                >
-                <v-btn
-                    class="delete-button"
-                    variant="text"
-                    :ripple="{ class: 'text-white' }"
-                    @click="$emit('exercise-deleted', workoutExercise)"
-                    >Delete</v-btn
-                >
-            </div>
+    <div v-if="exercise != null">
+        <div class="editor-title">
+            <v-label :text="exercise.name"></v-label>
         </div>
-    </v-card>
+        <v-card class="editor-container rounded-xl">
+            <v-form class="editor-form">
+                <div v-if="exercise.type == ExerciseType.Weights">
+                    <v-number-input
+                        v-model="sets"
+                        label="Sets"
+                    ></v-number-input>
+                    <v-number-input
+                        v-model="reps"
+                        label="Reps"
+                    ></v-number-input>
+                    <v-number-input
+                        v-model="weight"
+                        label="Weight"
+                        suffix="lbs"
+                    ></v-number-input>
+                </div>
+                <div v-else>
+                    <v-number-input
+                        v-model="miles"
+                        label="Distance"
+                        suffix="miles"
+                    ></v-number-input>
+                    <v-number-input
+                        v-model="time"
+                        label="Time"
+                        suffix="minutes"
+                    >
+                    </v-number-input>
+                </div>
+            </v-form>
+        </v-card>
+    </div>
 </template>
 
 <style scoped>
-.exercise-editor-container {
-    background-color: var(--btn-secondary);
-    height: 80px;
-    width: 100%;
-    padding: 12px 24px 8px 24px;
-    flex: 0 0 auto;
-}
-
-.selector-subcontainer {
+.editor-title :deep(.v-label) {
     display: flex;
     flex-direction: row;
-    width: 100%;
-    height: 100%;
-}
-
-.selector-title {
-    font-size: 20px;
+    margin: 12px auto 6px 24px;
+    font-size: 24px;
     color: var(--color-text);
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
 }
 
-.selector-subtitle {
-    font-size: 16px;
-    color: var(--color-text-secondary);
-    margin-top: -2px;
-    margin-left: 12px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-
-.selector-button-container {
-    height: 150%;
-    width: 80px;
-    min-width: 64px;
-    margin-left: auto;
-    margin-right: -8px;
-    padding-left: 8px;
+.editor-container {
+    margin-left: 25%;
+    margin-right: 25%;
+    margin-bottom: 16px;
+    width: 90%;
+    padding: 20px;
+    height: 40vh;
+    background-color: var(--color-primary);
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    justify-self: center;
     align-self: center;
+}
+
+.subcontainer {
+    width: 50%;
+    gap: 12px;
+    display: flex;
+    flex-direction: column;
+    justify-self: center;
+}
+
+.editor-form {
+    width: 100%;
     justify-content: center;
     align-content: center;
-}
-
-.delete-button {
-    height: 40% !important;
-    width: 100%;
-    min-width: 100%;
-    color: var(--color-text-secondary);
-    font-size: 16px;
-}
-
-.select-button {
-    height: 40% !important;
-    width: 100%;
-    min-width: 100%;
-    color: var(--color-text-secondary);
-    font-size: 16px;
 }
 </style>
 
 <script setup>
-import Exercise from "../../classes/Exercise";
-import exerciseServices from "../../services/exerciseServices";
-import { ref, onMounted } from "vue";
+import WorkoutExercise from "../../classes/WorkoutExercise.js";
+import { ref } from "vue";
+import exerciseServices from "../../services/exerciseServices.js";
+import ExerciseType from "../../classes/ExerciseType.js";
 
-const props = defineProps(["workoutExercise"]);
-const exercise = ref({});
-
-onMounted(() => {
-    exerciseServices.get(props.workoutExercise.exerciseID).then((data) => {
-        exercise.value = new Exercise(
-            data.name,
-            data.type,
-            data.description,
-            data.coachID,
-            data.id
-        );
-    });
+const props = defineProps({
+    workoutExercise: WorkoutExercise,
 });
-// load the workout as well
+
+const exercise = ref(null);
+const sets = ref(3);
+const reps = ref(8);
+const weight = ref(50);
+const miles = ref(10);
+const time = ref(10);
+
+defineExpose({
+    exercise,
+    sets,
+    reps,
+    weight,
+    miles,
+    time,
+});
+
+if (props.workoutExercise != null) {
+    if (props.workoutExercise.weight !== undefined) {
+        sets.value = props.workoutExercise.sets;
+        reps.value = props.workoutExercise.reps;
+        weight.value = props.workoutExercise.weight;
+    } else {
+        miles.value = props.workoutExercise.miles;
+        time.value = props.workoutExercise.time;
+    }
+
+    exerciseServices.get(props.workoutExercise.exerciseID).then((response) => {
+        exercise.value = response;
+    });
+}
 </script>

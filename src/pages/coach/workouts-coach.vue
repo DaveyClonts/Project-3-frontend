@@ -190,7 +190,7 @@ function save() {
     if (selectedWorkout.value.id == null)
         workoutServices.create(selectedWorkout.value).then((data) => {
             builder.value.workoutExercises.forEach((workoutExercise) => {
-                console.log("Assigning id: " + JSON.stringify(data));
+                console.log("Assigning id: " + JSON.stringify(workoutExercise));
                 workoutExercise.workoutID = data.id;
             });
 

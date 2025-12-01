@@ -192,8 +192,27 @@ workoutServices.getExercises(props.workout.id).then((data) => {
 });
 
 function addExercise(exercise) {
-    let workoutExercise = new WorkoutExercise(props.workout.id, exercise.id);
+    let workoutExercise = null;
 
+    if (exercise.type == ExerciseType.Weights)
+        workoutExercise = WorkoutExercise.WeightExercise(
+            props.workout.id,
+            exercise.id,
+            8,
+            3,
+            50,
+            false
+        );
+    else
+        workoutExercise = WorkoutExercise.CardioExercise(
+            props.workout.id,
+            exercise.id,
+            5,
+            30,
+            false
+        );
+
+    console.log("add exercise: " + JSON.stringify(workoutExercise));
     workoutExercises.value.push(workoutExercise);
 
     loadExercises();
@@ -226,17 +245,12 @@ function loadExercises() {
 
 function saveExercise() {
     if (exerciseEditor.value.exercise.type == ExerciseType.Weights) {
-        console.log("Save sets: " + exerciseEditor.value.sets);
         selectedWorkoutExercise.value.reps = exerciseEditor.value.reps;
         selectedWorkoutExercise.value.sets = exerciseEditor.value.sets;
     } else {
         selectedWorkoutExercise.value.miles = exerciseEditor.value.miles;
         selectedWorkoutExercise.value.time = exerciseEditor.value.time;
     }
-
-    console.log(
-        "All workout exercises: " + JSON.stringify(workoutExercises.value)
-    );
 
     isDialogVisible.value = false;
 }

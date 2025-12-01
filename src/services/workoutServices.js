@@ -16,8 +16,6 @@ export default {
         await apiClient
             .post(API_ROOT, workout)
             .then((response) => {
-                console.log("Created workout: " + JSON.stringify(response));
-
                 createdWorkout = new Workout(
                     response.data.name,
                     response.data.date,
@@ -207,13 +205,8 @@ export default {
     },
 
     async addExercise(workoutExercise) {
-        let body = {
-            workoutID: workoutExercise.workoutID,
-            exerciseID: workoutExercise.exerciseID,
-        };
-
         await apiClient
-            .post("workoutExercises/", body)
+            .post("workoutExercises/", workoutExercise)
             .then(() => {
                 console.log("Added exercise to workout.");
             })

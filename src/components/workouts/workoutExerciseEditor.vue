@@ -79,7 +79,7 @@
 
 <script setup>
 import WorkoutExercise from "../../classes/WorkoutExercise.js";
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 import exerciseServices from "../../services/exerciseServices.js";
 import ExerciseType from "../../classes/ExerciseType.js";
 
@@ -88,11 +88,11 @@ const props = defineProps({
 });
 
 const exercise = ref(null);
-const sets = ref(3);
-const reps = ref(8);
-const weight = ref(50);
-const miles = ref(10);
-const time = ref(10);
+const sets = ref(0);
+const reps = ref(0);
+const weight = ref(0);
+const miles = ref(0);
+const time = ref(0);
 
 defineExpose({
     exercise,
@@ -103,7 +103,7 @@ defineExpose({
     time,
 });
 
-if (props.workoutExercise != null) {
+onMounted(() => {
     if (props.workoutExercise.weight !== undefined) {
         sets.value = props.workoutExercise.sets;
         reps.value = props.workoutExercise.reps;
@@ -116,5 +116,5 @@ if (props.workoutExercise != null) {
     exerciseServices.get(props.workoutExercise.exerciseID).then((response) => {
         exercise.value = response;
     });
-}
+});
 </script>

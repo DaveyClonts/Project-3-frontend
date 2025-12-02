@@ -60,11 +60,11 @@ const user = store.getUser();
 }
 
 .workouts-card {
-  margin-top: 2.5vh;
-  margin-bottom: 5vh;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
   border-radius: 20px;
   width: 65vw;
-  height: 22vh;
+  height: 28vh;
   background-color: var(--color-primary);
   padding: 20px;
 }

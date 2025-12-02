@@ -11,7 +11,7 @@
             </v-btn>
         </div>
         <div class="row">
-          <v-slide-group style="height: 14vh" show-arrows>
+          <v-slide-group class="slide" style="height: 18vh" show-arrows>
             <v-slide-group-item v-for="workout in workouts">
               <workout class="mx-4">
                   {{ workout.name }}
@@ -45,13 +45,19 @@ onMounted(async () => {
     workouts.value = await workoutServices.getAllForCoach();
 });
 
-//TODO: route the view workout button, scrolling?
+//TODO: route the view workout button
 </script>
 
 <style scoped>
 .row {
     display: flex;
     flex-direction: row;
+}
+
+.slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .title {

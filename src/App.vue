@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <topbar v-if="!route.meta.noNavigation">
-            <navbar/>
+            <navbar v-if="store.getUser().role == 'Coach'" />
             <profileIcon />
         </topbar>
         <v-main>
@@ -20,6 +20,7 @@
 </style>
 
 <script setup>
+import store from "./store/store";
 import navbar from "./components/navbar.vue";
 import topbar from "./components/topbar.vue";
 import profileIcon from "./components/profileIcon.vue";

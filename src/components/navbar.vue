@@ -14,25 +14,6 @@
     </div>
 </template>
 
-<script setup>
-import { useRouter, useRoute } from "vue-router";
-const route = useRoute();
-const router = useRouter();
-
-const props = defineProps({
-    navItems: {
-        type: Array
-    }
-});
-
-// push the route to the router if that part of the navbar is active
-const navigate = (item) => {
-    if (route.name !== item.name) {
-        router.push(item.path);
-    }
-};
-</script>
-
 <style scoped>
 .navbar {
     height: 50px;
@@ -105,6 +86,7 @@ if (user.role == userRole.Athlete)
     ];
 else
     navigation.value = [
+        { name: 'dashboardCoach', label: 'dashboard', path: '/dashboardCoach'},
         { name: "workoutsCoach", label: "Workouts", path: "/workoutsCoach" },
         { name: "exercisesCoach", label: "Exercises", path: "/exercisesCoach" },
         { name: "athletesCoach", label: "Athletes", path: "/athletesCoach" },

@@ -1,8 +1,10 @@
 <template>
   <div class="page-margins">
     <v-row style="gap: 5vw">
+
+      <!-- left column -->
       <v-col
-        class="fill-height flex-grow-0"
+        class="left-column"
         style="width: 65vw; margin-left: 15px"
       >
         <v-row>
@@ -15,8 +17,10 @@
           <v-card class="exercises-card"><exerciseCard /></v-card>
         </v-row>
       </v-col>
-      <v-col>
-        <athletesCard />
+
+      <!-- right column -->
+      <v-col class="right-column">
+        <athletesCard class="athletes-card"/>
       </v-col>
     </v-row>
   </div>
@@ -43,19 +47,37 @@ const user = store.getUser();
   font-weight: 600;
 }
 
-/* margin top and bottom prob not best practice... */
+.left-column {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-column {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .workouts-card {
-  margin-top: 25px;
-  margin-bottom: 50px;
+  margin-top: 2.5vh;
+  margin-bottom: 5vh;
   border-radius: 20px;
   width: 65vw;
-  height: 15vh;
+  height: 22vh;
   background-color: var(--color-primary);
 }
 
 .exercises-card {
-  height: 60vh;
+  height: 37vh;
   width: 65vw;
   border-radius: 20px;
+}
+
+.athletes-card {
+  width: 22vw;
+  height: 100%;
+  border-radius: 20px;
+  padding: 20px;
 }
 </style>

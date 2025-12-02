@@ -11,7 +11,7 @@
           <div class="title-text">Welcome, Coach {{ user.lastName }}</div>
         </v-row>
         <v-row>
-          <v-card class="workouts-card"><workoutCard /></v-card>
+          <workoutCard class="workouts-card"/>
         </v-row>
         <v-row>
           <v-card class="exercises-card"><exerciseCard /></v-card>
@@ -66,12 +66,14 @@ const user = store.getUser();
   width: 65vw;
   height: 22vh;
   background-color: var(--color-primary);
+  padding: 20px;
 }
 
 .exercises-card {
   height: 37vh;
   width: 65vw;
   border-radius: 20px;
+  padding: 20px;
 }
 
 .athletes-card {

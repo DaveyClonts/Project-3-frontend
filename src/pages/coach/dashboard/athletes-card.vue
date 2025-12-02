@@ -10,7 +10,7 @@
         </div>
 
         <div class="no-athletes" v-if="athletes.length == 0">
-            <div class="text">You have no athletes assigned...</div>
+            <div class="text">You have no assigned athletes...</div>
             <v-btn
                 variant="text"
                 class="button-none"
@@ -28,12 +28,13 @@ import { useRouter } from "vue-router";
 import athlete from "../../../components/athlete.vue";
 import athleteButton from "../../../components/athleteButton.vue";
 import userServices from "../../../services/userServices";
+import store from "../../../store/store";
 
 const athletes = ref([]);
 const router = useRouter();
 
 onMounted(async () => {
-    athletes.value = await userServices.getAthletesForCoach(1);
+    athletes.value = await userServices.getAthletesForCoach(store.getUser().id);
 });
 </script>
 

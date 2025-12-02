@@ -11,7 +11,7 @@
             </v-btn>
         </div>
         <div class="row">
-          <v-slide-group style="height: 14vh">
+          <v-slide-group style="height: 14vh" show-arrows>
             <v-slide-group-item v-for="workout in workouts">
               <workout class="mx-4">
                   {{ workout.name }}
@@ -45,7 +45,7 @@ onMounted(async () => {
     workouts.value = await workoutServices.getAllForCoach();
 });
 
-//TODO: route the view workout button, get navbar routes working again, scrolling? also text button testing
+//TODO: route the view workout button, scrolling?
 </script>
 
 <style scoped>

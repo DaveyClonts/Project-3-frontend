@@ -2,7 +2,7 @@
     <v-card class="item">
         <div class="title">
             <slot>
-                
+
             </slot>
         </div>
         <v-btn class="btn">
@@ -34,9 +34,22 @@
         font-size: 20px;
     }
 
+    @media (max-width: 1200px) and (max-height: 900px) {
+        .title {
+            font-weight: 600;
+            font-size: 16px;
+        }
+
+        .btn {
+            font-size: 12px;
+        }
+    }
+
     .btn {
         background-color: var(--btn-primary);
         color: var(--btn-primary-text);
         border-radius: 40px;
+        height: 3.5vh !important;
+        width: 10vw;
     }
 </style>

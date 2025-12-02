@@ -2,22 +2,24 @@
     <v-card class="athletes-card">
         <div class="title">Your Athletes</div>
 
-        <div class="populated" v-if="athletes.length > 0">
-            <athlete v-for="athlete in athletes">
-                {{ athlete.getFullName() }}
-            </athlete>
-            <athleteButton> View Athletes </athleteButton>
-        </div>
-
-        <div class="no-athletes" v-if="athletes.length == 0">
-            <div class="text">You have no athletes assigned...</div>
-            <v-btn
-                variant="text"
-                class="button-none"
-                @click="router.push('/athletesCoach')"
-            >
-                Assign athletes?
-            </v-btn>
+        <div class="centered-column">
+            <div class="populated" v-if="athletes.length > 0">
+                <athlete v-for="athlete in athletes">
+                    {{ athlete.getFullName() }}
+                </athlete>
+                <athleteButton> View Athletes </athleteButton>
+            </div>
+    
+            <div class="no-athletes" v-if="athletes.length == 0">
+                <div class="text">You have no athletes assigned...</div>
+                <v-btn
+                    variant="text"
+                    class="button-none"
+                    @click="router.push('/athletesCoach')"
+                >
+                    Assign athletes?
+                </v-btn>
+            </div>
         </div>
     </v-card>
 </template>
@@ -43,6 +45,11 @@ onMounted(async () => {
     height: 78vh;
     border-radius: 20px;
     padding: 20px;
+}
+
+.centered-column {
+    display: flex;
+    justify-content: center;
 }
 
 .title {

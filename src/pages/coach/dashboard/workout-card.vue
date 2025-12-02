@@ -2,7 +2,11 @@
     <v-card>
         <div class="row" style="justify-content: space-between">
             <div class="title">Your Workouts</div>
-            <v-btn variant="tonal" class="view-workouts-btn" @click="router.push('/workoutsCoach')">
+            <v-btn
+                variant="tonal"
+                class="view-workouts-btn"
+                @click="router.push('/workoutsCoach')"
+            >
                 View Workouts
             </v-btn>
         </div>

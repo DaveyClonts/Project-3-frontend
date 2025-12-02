@@ -10,10 +10,14 @@
                 View Workouts
             </v-btn>
         </div>
-        <div class="row" style="gap: 2vw">
-            <workout v-for="workout in workouts">
-                {{ workout.name }}
-            </workout>
+        <div class="row">
+          <v-slide-group style="height: 14vh">
+            <v-slide-group-item v-for="workout in workouts">
+              <workout class="mx-4">
+                  {{ workout.name }}
+              </workout>
+            </v-slide-group-item>
+          </v-slide-group>
         </div>
         <div class="unpopulated" v-if="workouts.length == 0">
             <div class="empty-text">You have no workouts...</div>

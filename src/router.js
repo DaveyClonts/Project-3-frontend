@@ -21,6 +21,7 @@ const router = createRouter({
         {
             path: "/",
             redirect: "/login",
+            meta: { noNavigation: true },
         },
         {
             path: "/callback",
@@ -108,9 +109,7 @@ router.beforeEach((to, from, next) => {
             if (user.role === null) {
                 next({ name: "roleSelect" });
                 return;
-            }
-            else
-                next();
+            } else next();
         })
         .catch((err) => {
             console.log(`Error authorizing user: ${err}`);

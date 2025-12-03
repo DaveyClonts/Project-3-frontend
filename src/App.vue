@@ -29,4 +29,6 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 const user = ref(store.getUser());
+
+console.log("Route: " + JSON.stringify(route));
 </script>

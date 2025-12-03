@@ -14,7 +14,7 @@
           <workoutCard class="workouts-card"/>
         </v-row>
         <v-row>
-          <v-card class="exercises-card"><exerciseCard /></v-card>
+          <exerciseCard class="exercises-card"/>
         </v-row>
       </v-col>
 

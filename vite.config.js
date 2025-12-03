@@ -5,24 +5,27 @@ import dns from "dns";
 
 dns.setDefaultResultOrder("verbatim");
 export default () => {
-  const baseURL =
-    process.env.APP_ENV === "development" ? "/" : "/seiv2025/p3/t6";
+    const baseURL =
+        process.env.APP_ENV === "development" ? "/" : "/seiv2025/p3/t6";
 
-  return defineConfig({
-    plugins: [
-      vue({
-        template: {
-          compilerOptions: {
-            isCustomElement: (tag) => ["v-list-item-content"].includes(tag),
-          },
+    console.log("Base: " + baseURL);
+
+    return defineConfig({
+        plugins: [
+            vue({
+                template: {
+                    compilerOptions: {
+                        isCustomElement: (tag) =>
+                            ["v-list-item-content"].includes(tag),
+                    },
+                },
+            }),
+            vuetify({ autoImport: true }),
+        ],
+        server: {
+            host: "localhost",
+            port: 8081,
         },
-      }),
-      vuetify({ autoImport: true }),
-    ],
-    server: {
-      host: "localhost",
-      port: 8081,
-    },
-    base: baseURL,
-  });
+        base: baseURL,
+    });
 };

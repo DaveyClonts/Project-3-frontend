@@ -15,9 +15,6 @@ import roleSelect from "./pages/roleSelect.vue";
 const baseURL = "development" ? "/" : "/seiv2025/p3/t6";
 
 const router = createRouter({
-    //removes the # from the url
-    history: createWebHistory(),
-
     // the url /login exsits rn but we can just do / if we want (this doesnt actually matter)
     routes: [
         {

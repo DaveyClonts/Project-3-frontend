@@ -8,16 +8,17 @@
             </athlete>
             <athleteButton> View Athletes </athleteButton>
         </div>
-
-        <div class="no-athletes" v-if="athletes.length == 0">
-            <div class="text">You have no assigned athletes...</div>
-            <v-btn
-                variant="text"
-                class="button-none"
-                @click="router.push('/athletesCoach')"
-            >
-                Assign athletes?
-            </v-btn>
+        <div class="empty-content">
+            <div class="no-athletes" v-if="athletes.length == 0">
+                <div class="text">You have no assigned athletes...</div>
+                <v-btn
+                    variant="text"
+                    class="button-none"
+                    @click="router.push('/athletesCoach')"
+                >
+                    Assign athletes?
+                </v-btn>
+            </div>
         </div>
     </v-card>
 </template>
@@ -39,11 +40,14 @@ onMounted(async () => {
 </script>
 
 <style scoped>
-.athletes-card {
-    width: 22vw;
-    height: 78vh;
-    border-radius: 20px;
-    padding: 20px;
+.empty-content {
+    width: 100%;
+    height: 60vh;
+    padding-bottom: 10vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 .title {
@@ -59,8 +63,6 @@ onMounted(async () => {
     justify-content: center;
     align-items: center;
     text-align: center;
-    height: 60vh;
-    width: 15vw;
 }
 
 .populated {

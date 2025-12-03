@@ -11,23 +11,23 @@
             </v-btn>
         </div>
         <div class="row">
-          <v-slide-group class="slide" style="height: 18vh" show-arrows>
-            <v-slide-group-item v-for="workout in workouts">
-              <workout class="mx-4">
-                  {{ workout.name }}
-              </workout>
-            </v-slide-group-item>
-          </v-slide-group>
-        </div>
-        <div class="unpopulated" v-if="workouts.length == 0">
-            <div class="empty-text">You have no workouts...</div>
-            <v-btn
-                variant="text"
-                class="button-none"
-                @click="router.push('/workoutsCoach')"
-            >
-                Create a Workout?
-            </v-btn>
+            <v-slide-group class="slide" style="height: 18vh" show-arrows>
+                <v-slide-group-item v-for="workout in workouts">
+                    <workout class="mx-4">
+                        {{ workout.name }}
+                    </workout>
+                </v-slide-group-item>
+            </v-slide-group>
+            <div class="unpopulated" v-if="workouts.length == 0">
+                <div class="empty-text">You have no workouts...</div>
+                <v-btn
+                    variant="text"
+                    class="button-none"
+                    @click="router.push('/workoutsCoach')"
+                >
+                    Create a Workout?
+                </v-btn>
+            </div>
         </div>
     </v-card>
 </template>
@@ -44,8 +44,6 @@ const workouts = ref([]);
 onMounted(async () => {
     workouts.value = await workoutServices.getAllForCoach();
 });
-
-//TODO: route the view workout button
 </script>
 
 <style scoped>
@@ -58,6 +56,7 @@ onMounted(async () => {
     display: flex;
     justify-content: center;
     align-items: center;
+    height: 18vh;
 }
 
 .title {
@@ -76,7 +75,7 @@ onMounted(async () => {
     justify-content: center;
     align-items: center;
     flex-direction: column;
-    height: 12vh;
+    width: 100%;
 }
 
 .empty-text {

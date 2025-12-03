@@ -19,7 +19,7 @@
 
 <style scoped>
 
-    .item {
+.item {
     height: 12vh;
     width: 12vw;
     min-width: 170px; /* ensures slide-group arrows ALWAYS appear */
@@ -32,6 +32,7 @@
     align-items: center;
     gap: 1vh;
     background-color: var(--color-bg);
+    overflow: visible;
 }
 
 .title {

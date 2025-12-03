@@ -21,7 +21,7 @@
     </v-card>
     <v-dialog class="dialog" v-model="isDialogVisible" @close="clearExercise">
         <v-card :title="dialogTitle">
-            <exerciseEditor :exercise="selectedExercise" />
+            <exerciseEditor ref="editorRef" :exercise="selectedExercise" />
             <div class="button-container">
                 <v-btn class="save-button" @click="save()">Save</v-btn>
                 <v-btn class="cancel-button" @click="cancel()">Cancel</v-btn>
@@ -133,6 +133,7 @@ const dialogTitle = ref("");
 const isDialogVisible = ref(false);
 const selectedExercise = ref(null);
 const exercises = ref([]);
+const editorRef = ref(null);
 
 loadExercises();
 
@@ -182,6 +183,9 @@ function updateExercise(exercise) {
 }
 
 function save() {
+    if (!editorRef.value.isFormValid)
+        return;
+
     if (selectedExercise.value.id == null) addExercise(selectedExercise.value);
     else updateExercise(selectedExercise.value);
 }

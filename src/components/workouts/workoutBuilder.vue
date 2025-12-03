@@ -1,19 +1,23 @@
 <template>
     <div v-if="workout != null">
-        <div class="builder-title">
-            <v-text-field
-                label="Workout Title"
-                v-model="workout.name"
-                placeholder="Workout"
-                type="input"
-                class="workout-name"
-            ></v-text-field>
-            <v-date-input
-                v-model="workout.date"
-                label="Date"
-                prepend-icon=""
-            ></v-date-input>
-        </div>
+        <v-form v-model="isFormValid">
+            <div class="builder-title">
+                <v-text-field
+                    label="Workout Title"
+                    v-model="workout.name"
+                    placeholder="Workout"
+                    type="input"
+                    class="workout-name"
+                    :rules="nameRules"
+                ></v-text-field>
+                <v-date-input
+                    v-model="workout.date"
+                    label="Date"
+                    prepend-icon=""
+                    :rules="dateRules"
+                ></v-date-input>
+            </div>
+        </v-form>
         <v-card class="builder-container rounded-xl">
             <div class="subcontainer right-outline">
                 <v-label class="title opacity-100">Exercise List</v-label>
@@ -179,10 +183,24 @@ const selectedWorkoutExercise = ref(null);
 const exerciseEditor = ref(null);
 const isDialogVisible = ref(false);
 const inputDisabled = ref(false);
+const isFormValid = ref(false);
+
+const nameRules = [
+    (value) => {
+        return !!value || "Name is required";
+    },
+];
+
+const dateRules = [
+    (value) => {
+        return !!value || "Date is required";
+    },
+];
 
 defineExpose({
     workoutExercises,
     deletedExercises,
+    isFormValid,
 });
 
 workoutServices.getExercises(props.workout.id).then((data) => {

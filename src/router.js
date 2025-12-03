@@ -1,4 +1,4 @@
-import { createRouter, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
 import login from "./pages/login.vue";
 import dashboardCoach from "./pages/coach/dashboard/dashboard-coach.vue";
 import workoutsCoach from "./pages/coach/workouts-coach.vue";
@@ -13,6 +13,9 @@ import authServices from "./services/authServices.js";
 import roleSelect from "./pages/roleSelect.vue";
 
 const router = createRouter({
+    //removes the # from the url
+    history: createWebHashHistory(),
+
     // the url /login exsits rn but we can just do / if we want (this doesnt actually matter)
     routes: [
         {

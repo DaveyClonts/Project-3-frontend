@@ -12,8 +12,6 @@ import store from "./store/store.js";
 import authServices from "./services/authServices.js";
 import roleSelect from "./pages/roleSelect.vue";
 
-const baseURL = "development" ? "/" : "/seiv2025/p3/t6";
-
 const router = createRouter({
     //removes the # from the url
     history: createWebHistory(),
@@ -21,7 +19,7 @@ const router = createRouter({
     // the url /login exsits rn but we can just do / if we want (this doesnt actually matter)
     routes: [
         {
-            path: baseURL,
+            path: "/",
             redirect: "/login",
             meta: { noNavigation: true },
         },

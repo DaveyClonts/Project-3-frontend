@@ -184,6 +184,8 @@ function onAddNewWorkout() {
 }
 
 function save() {
+    if (!builder.value.isFormValid) return;
+
     inputDisabled.value = true;
 
     if (selectedWorkout.value.id == null)
@@ -259,7 +261,14 @@ function closeDialog() {
 }
 
 function onWorkoutSelected(workout) {
-    openDialog(workout);
+    let workoutCopy = new Workout(
+        workout.name,
+        workout.date,
+        workout.id,
+        workout.coachID,
+        workout.athleteID
+    );
+    openDialog(workoutCopy);
 }
 
 function onWorkoutDeleted(workout) {

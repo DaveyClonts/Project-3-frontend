@@ -14,7 +14,7 @@
           <workoutCard class="workouts-card"/>
         </v-row>
         <v-row>
-          <v-card class="exercises-card"><exerciseCard /></v-card>
+          <exerciseCard class="exercises-card"/>
         </v-row>
       </v-col>
 
@@ -74,6 +74,9 @@ const user = store.getUser();
   width: 65vw;
   border-radius: 20px;
   padding: 20px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .athletes-card {

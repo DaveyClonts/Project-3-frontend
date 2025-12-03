@@ -31,7 +31,7 @@
 
 <script setup>
 import { ref } from "vue";
-import userRole from "../../classes/userRole.js";
+import UserRole from "../../classes/UserRole.js";
 import userServices from "../../services/userServices.js";
 import store from "../../store/store.js";
 
@@ -57,7 +57,7 @@ userServices
     .then((databaseAthletes) => {
         ownedAthletes = databaseAthletes.map((a) => a.id);
 
-        userServices.getAllWithRole(userRole.Athlete).then((users) => {
+        userServices.getAllWithRole(UserRole.Athlete).then((users) => {
             athletes.value = users;
 
             athletes.value.forEach((a) => {

@@ -12,7 +12,7 @@ import authServices from "../../services/authServices.js";
 import User from "../../classes/User.js";
 import store from "../../store/store.js";
 import { useRouter } from "vue-router";
-import userRole from "../../classes/userRole.js";
+import userRole from "../../classes/UserRole.js";
 
 const user = ref({});
 const router = useRouter();

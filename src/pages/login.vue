@@ -14,7 +14,7 @@ onMounted(() => {
         if (user.role == userRole.Athlete)
             router.push("/dashboardAthlete");
         else
-            router.push("/workoutsCoach");
+            router.push("/dashboardCoach");
     }
 });
 </script>

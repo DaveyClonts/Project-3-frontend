@@ -66,7 +66,7 @@ async function handleCredentialResponse(response) {
 
             if (user.value.role == userRole.Athlete)
                 router.push({ name: "dashboardAthlete" });
-            else router.push({ name: "workoutsCoach" });
+            else router.push({ name: "dashboardCoach" });
         })
         .catch((err) => {
             console.error(`Error with authentication: ${err}.`);

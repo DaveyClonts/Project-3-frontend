@@ -1,5 +1,5 @@
 <script setup>
-import userRole from "../classes/userRole.js";
+import UserRole from "../classes/UserRole.js";
 import socialLogin from "../components/login/socialLogin.vue";
 import store from "../store/store.js";
 import { onMounted } from "vue";
@@ -11,7 +11,7 @@ onMounted(() => {
     let user = store.getUser();
 
     if (user != null && user.token != null && user.token != "") {
-        if (user.role == userRole.Athlete)
+        if (user.role == UserRole.Athlete)
             router.push("/dashboardAthlete");
         else
             router.push("/dashboardCoach");

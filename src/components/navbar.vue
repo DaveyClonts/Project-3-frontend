@@ -57,8 +57,8 @@
 <script setup>
 import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
-import store from "../store/store";
-import userRole from "../classes/userRole";
+import store from "../store/store.js";
+import userRole from "../classes/userRole.js";
 const route = useRoute();
 const router = useRouter();
 

@@ -74,6 +74,9 @@ const user = store.getUser();
   width: 65vw;
   border-radius: 20px;
   padding: 20px;
+
+  display: flex;
+  flex-direction: column;
 }
 
 .athletes-card {

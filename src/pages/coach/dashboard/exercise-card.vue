@@ -20,11 +20,6 @@
 </script>
 
 <style scoped>
-.table-card {
-  height: 60vh;        /* ✅ card stays confined */
-  display: flex;
-  flex-direction: column;
-}
 
 .table-wrapper {
   flex: 1;

@@ -8,6 +8,7 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 onMounted(() => {
+    console.log("Login mounted");
     let user = store.getUser();
 
     if (user != null && user.token != null && user.token != "") {

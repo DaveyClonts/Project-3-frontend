@@ -1,25 +1,23 @@
 <template>
-    <v-card class="athletes-card">
+    <v-card>
         <div class="title">Your Athletes</div>
 
-        <div class="centered-column">
-            <div class="populated" v-if="athletes.length > 0">
-                <athlete v-for="athlete in athletes">
-                    {{ athlete.getFullName() }}
-                </athlete>
-                <athleteButton> View Athletes </athleteButton>
-            </div>
-    
-            <div class="no-athletes" v-if="athletes.length == 0">
-                <div class="text">You have no athletes assigned...</div>
-                <v-btn
-                    variant="text"
-                    class="button-none"
-                    @click="router.push('/athletesCoach')"
-                >
-                    Assign athletes?
-                </v-btn>
-            </div>
+        <div class="populated" v-if="athletes.length > 0">
+            <athlete v-for="athlete in athletes">
+                {{ athlete.getFullName() }}
+            </athlete>
+            <athleteButton> View Athletes </athleteButton>
+        </div>
+
+        <div class="no-athletes" v-if="athletes.length == 0">
+            <div class="text">You have no assigned athletes...</div>
+            <v-btn
+                variant="text"
+                class="button-none"
+                @click="router.push('/athletesCoach')"
+            >
+                Assign athletes?
+            </v-btn>
         </div>
     </v-card>
 </template>
@@ -30,12 +28,13 @@ import { useRouter } from "vue-router";
 import athlete from "../../../components/athlete.vue";
 import athleteButton from "../../../components/athleteButton.vue";
 import userServices from "../../../services/userServices";
+import store from "../../../store/store";
 
 const athletes = ref([]);
 const router = useRouter();
 
 onMounted(async () => {
-    athletes.value = await userServices.getAthletesForCoach(1);
+    athletes.value = await userServices.getAthletesForCoach(store.getUser().id);
 });
 </script>
 
@@ -45,11 +44,6 @@ onMounted(async () => {
     height: 78vh;
     border-radius: 20px;
     padding: 20px;
-}
-
-.centered-column {
-    display: flex;
-    justify-content: center;
 }
 
 .title {

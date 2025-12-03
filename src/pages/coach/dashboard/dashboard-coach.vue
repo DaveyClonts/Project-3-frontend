@@ -1,22 +1,26 @@
 <template>
   <div class="page-margins">
     <v-row style="gap: 5vw">
+
+      <!-- left column -->
       <v-col
-        class="fill-height flex-grow-0"
+        class="left-column"
         style="width: 65vw; margin-left: 15px"
       >
         <v-row>
           <div class="title-text">Welcome, Coach {{ user.lastName }}</div>
         </v-row>
         <v-row>
-          <v-card class="workouts-card"><workoutCard /></v-card>
+          <workoutCard class="workouts-card"/>
         </v-row>
         <v-row>
           <v-card class="exercises-card"><exerciseCard /></v-card>
         </v-row>
       </v-col>
-      <v-col>
-        <athletesCard />
+
+      <!-- right column -->
+      <v-col class="right-column">
+        <athletesCard class="athletes-card"/>
       </v-col>
     </v-row>
   </div>
@@ -43,19 +47,39 @@ const user = store.getUser();
   font-weight: 600;
 }
 
-/* margin top and bottom prob not best practice... */
+.left-column {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-column {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .workouts-card {
-  margin-top: 25px;
-  margin-bottom: 50px;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
   border-radius: 20px;
   width: 65vw;
-  height: 15vh;
+  height: 28vh;
   background-color: var(--color-primary);
+  padding: 20px;
 }
 
 .exercises-card {
-  height: 60vh;
+  height: 37vh;
   width: 65vw;
   border-radius: 20px;
+  padding: 20px;
+}
+
+.athletes-card {
+  width: 22vw;
+  height: 100%;
+  border-radius: 20px;
+  padding: 20px;
 }
 </style>

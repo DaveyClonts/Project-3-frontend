@@ -1,120 +1,96 @@
 <template>
-  <div class="title-container">
-    <v-card-title class="title">Workouts</v-card-title>
-  </div>
-  <div class="element-container">
-    <v-card
-      v-for="workout in workouts"
-      :key="workout.id"
-      class="workout-container"
-    >
-      <div class="workout-subcontainer">
-        <div class="workout-title">{{ workout.name }}</div>
-        <div class="workout-subtitle">
-          {{ "Workouts: " + getExerciseCount(workout.id) }}
+    <v-card>
+        <div class="row" style="justify-content: space-between">
+            <div class="title">Your Workouts</div>
+            <v-btn
+                variant="tonal"
+                class="view-workouts-btn"
+                @click="router.push('/workoutsCoach')"
+            >
+                View Workouts
+            </v-btn>
         </div>
-      </div>
+        <div class="row">
+          <v-slide-group class="slide" style="height: 18vh" show-arrows>
+            <v-slide-group-item v-for="workout in workouts">
+              <workout class="mx-4">
+                  {{ workout.name }}
+              </workout>
+            </v-slide-group-item>
+          </v-slide-group>
+        </div>
+        <div class="unpopulated" v-if="workouts.length == 0">
+            <div class="empty-text">You have no workouts...</div>
+            <v-btn
+                variant="text"
+                class="button-none"
+                @click="router.push('/workoutsCoach')"
+            >
+                Create a Workout?
+            </v-btn>
+        </div>
     </v-card>
-  </div>
 </template>
 
 <script setup>
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
+import { useRouter } from "vuetify/lib/composables/router.mjs";
+import workout from "../../../components/workout.vue";
 import workoutServices from "../../../services/workoutServices";
 
+const router = useRouter();
 const workouts = ref([]);
-const workoutStats = ref([]);
 
-async function getWorkoutStats() {
-  const data = await workoutServices.getAllForCoach();
-  workouts.value = data;
+onMounted(async () => {
+    workouts.value = await workoutServices.getAllForCoach();
+});
 
-  const stats = await Promise.all(
-    data.map(async (workout) => {
-      const exercises = await workoutServices.getExercises(workout.id);
-      const exerciseCount = exercises.length;
-
-      return {
-        workoutID: workout.id,
-        exerciseCount
-      };
-    })
-  );
-  workoutStats.value = stats;
-}
-getWorkoutStats();
-
-function getExerciseCount(workoutID) {
-  const stat = workoutStats.value.find(s => s.workoutID === workoutID);
-  return stat ? stat.exerciseCount : 0;
-}
+//TODO: route the view workout button
 </script>
 
 <style scoped>
-.workout-container {
-  background-color: var(--btn-secondary);
-  height: 100%;
-  padding: 12px 24px;
-  flex: 0 0 auto;
-  word-break: break-word; /* break long words inside card */
+.row {
+    display: flex;
+    flex-direction: row;
 }
 
-.workout-subcontainer {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-}
-
-.workout-title {
-  font-size: 20px;
-  color: var(--color-text);
-  white-space: normal; /* allow wrapping */
-  overflow-wrap: break-word;
-}
-
-.element-container {
-  width: 100%;
-  height: 50%;
-  display: flex;
-  flex-direction: row;
-  gap: 12px;
-  padding-left: 12px;
-  padding-bottom: 12px;
-  margin-bottom: 24px;
-  align-items: flex-start;
-  overflow-x: auto;
-  overflow-y: hidden;
-  scrollbar-color: var(--color-text-secondary) transparent;
-  scrollbar-width: thin;
-}
-
-/* Webkit scrollbar */
-.element-container::-webkit-scrollbar {
-  height: 8px;
-}
-.element-container::-webkit-scrollbar-track {
-  background: transparent;
-}
-.element-container::-webkit-scrollbar-thumb {
-  background-color: var(--color-text-secondary);
-  border-radius: 4px;
-}
-.element-container::-webkit-scrollbar-thumb:hover {
-  background-color: #555;
-}
-
-.title-container {
-  display: flex;
-  flex-direction: column;
-  width: 100%;
-  padding-top: 10px;
-  align-items: left;
+.slide {
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 .title {
-  font-size: 24px;
-  text-align: center;
-  height: auto;
-  width: 15%;
+    font-weight: 600;
+    font-size: 25px;
+}
+
+.view-workouts-btn {
+    border-radius: 40px;
+    background-color: var(--btn-secondary);
+    color: var(--btn-secondary-text);
+}
+
+.unpopulated {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    height: 12vh;
+}
+
+.empty-text {
+    font-size: 18px;
+    font-weight: 400;
+    color: var(--color-text-secondary);
+}
+
+.button-none {
+    color: var(--color-text-secondary);
+    text-transform: none;
+    font-weight: 400;
+    font-size: 18px;
+    letter-spacing: normal;
+    text-decoration: underline;
 }
 </style>

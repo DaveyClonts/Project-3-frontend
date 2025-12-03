@@ -13,9 +13,6 @@ import authServices from "./services/authServices.js";
 import roleSelect from "./pages/roleSelect.vue";
 
 const router = createRouter({
-    //removes the # from the url
-    history: createWebHistory(),
-
     // the url /login exsits rn but we can just do / if we want (this doesnt actually matter)
     routes: [
         {

@@ -12,7 +12,7 @@ import authServices from "../../services/authServices.js";
 import User from "../../classes/User.js";
 import store from "../../store/store.js";
 import { useRouter } from "vue-router";
-import userRole from "../../classes/UserRole.js";
+import UserRole from "../../classes/UserRole.js";
 
 const user = ref({});
 const router = useRouter();
@@ -64,9 +64,12 @@ async function handleCredentialResponse(response) {
             console.log("Successfully logged in.");
             store.setUser(user.value);
 
-            if (user.value.role == userRole.Athlete)
+            if (user.value.role == UserRole.Athlete)
                 router.push({ name: "dashboardAthlete" });
-            else router.push({ name: "dashboardCoach" });
+            else if (user.value.role == UserRole.Coach)
+                router.push({ name: "dashboardCoach" });
+            else if (user.value.role == UserRole.Admin)
+                router.push({ name: "usersAdmin" });
         })
         .catch((err) => {
             console.error(`Error with authentication: ${err}.`);

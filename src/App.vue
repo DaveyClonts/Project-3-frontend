@@ -1,7 +1,7 @@
 <template>
     <v-app>
-        <topbar v-if="!route.meta.noNavigation">
-            <navbar v-if="user && user.role == 'Coach'" />
+        <topbar v-if="user">
+            <navbar v-if="!route.meta.noNavigation && user && user.role == 'Coach'" />
             <profileIcon />
         </topbar>
         <v-main>
@@ -29,6 +29,4 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 const user = ref(store.getUser());
-
-console.log("Route: " + JSON.stringify(route));
 </script>

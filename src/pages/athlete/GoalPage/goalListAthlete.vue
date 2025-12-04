@@ -6,7 +6,7 @@
         <AddGoalButtonAthlete :refresh="refresh" />
       </div>
       <div class="list-container">
-        <GoalDisplay v-for="goal in goals" :key="goal.goalID" :goal="goal" />
+        <GoalDisplay v-for="goal in goals" :key="goal.goalID" :goal="goal" :refresh="refresh"/>
       </div>
     </div>
   </v-card>

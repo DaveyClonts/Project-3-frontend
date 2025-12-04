@@ -27,6 +27,7 @@ const user = store.getUser();
 
 function logout() {
     console.log("Log out.");
+    toggled.value = false;
 
     const user = store.getUser();
 

@@ -28,7 +28,6 @@
 
 <script setup>
 import athletesCard from "./athletes-card.vue";
-import User from "../../../classes/User.js";
 import store from "../../../store/store.js";
 import workoutCard from "./workout-card.vue";
 import exerciseCard from "./exercise-card.vue";

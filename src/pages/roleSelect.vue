@@ -3,7 +3,7 @@ import store from "../store/store.js";
 import { onMounted } from "vue";
 import { useRouter } from "vue-router";
 import userServices from "../services/userServices.js";
-import UserRole from "../classes/userRole.js";
+import UserRole from "../classes/UserRole.js";
 
 const router = useRouter();
 

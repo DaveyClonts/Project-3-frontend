@@ -4,20 +4,19 @@
       <v-card-title class="title">View Goal</v-card-title>
       <div class="modal-content">
         <v-text-field
-          :model-value="goal.name || 'N/A'"
+        v-model="name"
           label="Goal Name"
-          readonly
         />
         <v-text-field
-          :model-value="goal.description || 'N/A'"
+        v-model="description"
           label="Description"
-          readonly
         />
-        <v-text-field
-          :model-value="goal.date || 'N/A'"
-          label="Goal Date"
-          readonly
-        />
+        <v-date-input
+            v-model="date"
+            label="Goal Date"
+            class="date-input"
+            prepend-icon="mdi-calendar"
+          ></v-date-input>
 
         <v-list>
           <v-list-item
@@ -40,7 +39,7 @@
         <v-btn @click="addNote">Add Note</v-btn>
       </div>
       <div class="buttons">
-        <GoalEditButton :goal="goal" :refresh="refresh" />
+        <v-btn @click="submitGoal" class="save-button">Save</v-btn>
         <GoalDeleteButton
           :goal="goal"
           :refresh="refresh"
@@ -53,9 +52,11 @@
 </template>
 
 <script setup>
-import { toRef, ref } from "vue";
+import { toRef, ref, watch } from "vue";
+import { VDateInput } from "vuetify/labs/VDateInput";
 import GoalDeleteButton from "./goalDeleteButtonAthlete.vue";
-import GoalEditButton from "./goalEditButtonAthlete.vue";
+import goalServices from "../../../services/goalServices.js";
+import Goal from "../../../classes/Goal.js";
 import Note from "../../../classes/Note.js";
 import noteServices from "../../../services/noteServices.js";
 
@@ -72,6 +73,23 @@ const showDialog = toRef(props, "show");
 const notesList = ref([]);
 const newNote = ref("");
 
+const name = ref("");
+const description = ref("");
+const date = ref("");
+
+watch(
+  [showDialog, () => props.goal],
+  ([show, goal]) => {
+    if (show && goal) {
+      name.value = goal.name || "";
+      description.value = goal.description || "";
+      date.value = goal.date || "";
+      getNotes();
+    }
+  },
+  { immediate: true }
+);
+
 function closeDialog() {
   emit("update:show", false);
 }
@@ -87,7 +105,26 @@ async function getNotes() {
   notesList.value = await noteServices.getAll(props.goal.id);
 }
 
-getNotes();
+function submitGoal() {
+  const newGoal = new Goal(
+    name.value,
+    description.value,
+    date.value,
+    props.goal.userID,
+    props.goal.id
+  );
+  console.log(newGoal);
+
+  goalServices
+    .update(newGoal)
+    .then(() => {
+      console.log("Updated Goal:", newGoal);
+      if (props.refresh) props.refresh();
+    })
+    .catch((err) => console.log(err));
+  closeDialog();
+}
+
 </script>
 
 <style scoped>
@@ -151,5 +188,17 @@ getNotes();
   overflow: visible !important;
   text-overflow: unset !important;
   display: block !important;
+}
+
+.date-input {
+  width: 20%;
+  margin-bottom: 1rem;
+  z-index: 1;
+  will-change: auto !important;
+}
+
+.save-button {
+  background-color: var(--btn-primary);
+  color: var(--btn-primary-text);
 }
 </style>

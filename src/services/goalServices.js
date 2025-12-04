@@ -70,9 +70,9 @@ export default {
 /**
    * @returns {Promise<Goal>}
    */
-  async delete(goalID) {
+  async delete(id) {
     try {
-      return apiClient.delete(`${API_ROOT}/${goalID}`);
+      return apiClient.delete(`${API_ROOT}/${id}`);
     } catch (error) {
       console.error("Error creating course:", error);
       return null;
@@ -83,8 +83,9 @@ export default {
    * @returns {Promise<Goal>}
    */
   async update(goal) {
+    console.log(goal);
     try {
-      return apiClient.put(`${API_ROOT}/${goal.goalID}`, goal);
+      return apiClient.put(`${API_ROOT}/${goal.id}`, goal);
     } catch (error) {
       console.error("Error creating course:", error);
       return null;

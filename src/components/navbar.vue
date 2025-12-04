@@ -58,7 +58,7 @@
 import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
 import store from "../store/store.js";
-import userRole from "../classes/userRole.js";
+import UserRole from "../classes/UserRole.js";
 const route = useRoute();
 const router = useRouter();
 
@@ -66,7 +66,7 @@ const navigation = ref([]);
 
 const user = store.getUser();
 
-if (user.role == userRole.Athlete)
+if (user.role == UserRole.Athlete)
     navigation.value = [
         {
             name: "dashboardAthlete",

@@ -8,7 +8,8 @@
         <v-row>
           <div class="title-text">Welcome, {{ user.firstName + " " + user.lastName}}</div>
         </v-row>
-        <v-row>
+        <div class="left-column">
+          <v-row>
           <v-card class="workouts-card">
             <WorkoutAthlete :workout="workout" />
           </v-card>
@@ -17,7 +18,9 @@
           <v-card class="exercises-card">
             <CalendarAthlete :goals="goals" :workouts="workouts" />
           </v-card>
-        </v-row>
+                  </v-row>
+
+        </div>
       </v-col>
       <v-col>
         <v-card class="goal-card">
@@ -52,8 +55,13 @@ async function getGoals() {
 async function getWorkouts() {
   const data = await workoutServices.getAllForAthlete();
 
-  const today = new Date();
-  const todayStr = today.toISOString().split("T")[0];
+  const now = new Date(); 
+
+const cstYear = now.getFullYear();
+const cstMonth = String(now.getMonth() + 1).padStart(2, "0"); 
+const cstDate = String(now.getDate()).padStart(2, "0");
+
+const todayStr = `${cstYear}-${cstMonth}-${cstDate}`;
 
   workouts.value = data.map((w) => ({
     ...w,
@@ -81,7 +89,12 @@ getGoals();
   font-weight: 600;
 }
 
-/* margin top and bottom prob not best practice... */
+.left-column {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .workouts-card {
   margin-top: 25px;
   margin-bottom: 50px;
@@ -91,7 +104,7 @@ getGoals();
 }
 
 .exercises-card {
-  height: 60vh;
+  height: 55%;
   width: 65vw;
   border-radius: 20px;
 }

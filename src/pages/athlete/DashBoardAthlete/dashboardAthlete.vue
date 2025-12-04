@@ -96,17 +96,18 @@ getGoals();
 }
 
 .workouts-card {
-  margin-top: 25px;
-  margin-bottom: 50px;
-  border-radius: 20px;
   width: 65vw;
-  height: 15vh;
+  border-radius: 20px;
+  margin-top: 100px;
+  margin-bottom: 20px; /* small spacing */
+  height: 15vh;        /* or auto */
 }
 
 .exercises-card {
-  height: 55%;
   width: 65vw;
   border-radius: 20px;
+  height: 45vh;        /* set desired height */
+  margin-top: auto;     /* <-- snaps it to the bottom */
 }
 
 .goal-card {

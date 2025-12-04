@@ -13,9 +13,11 @@ onMounted(() => {
 
     if (user != null && user.token != null && user.token != "") {
         if (user.role == UserRole.Athlete)
-            router.push("/dashboardAthlete");
-        else
-            router.push("/dashboardCoach");
+            router.push({ name: "dashboardAthlete" });
+        else if (user.role == UserRole.Coach)
+            router.push({ name: "dashboardCoach" });
+        else if (user.role == UserRole.Admin)
+            router.push({ name: "usersAdmin" });
     }
 });
 </script>

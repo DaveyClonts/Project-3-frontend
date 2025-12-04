@@ -1,4 +1,4 @@
-import { createRouter, createWebHashHistory, createWebHistory } from "vue-router";
+import { createRouter, createWebHashHistory } from "vue-router";
 import login from "./pages/login.vue";
 import dashboardCoach from "./pages/coach/dashboard/dashboard-coach.vue";
 import workoutsCoach from "./pages/coach/workouts-coach.vue";

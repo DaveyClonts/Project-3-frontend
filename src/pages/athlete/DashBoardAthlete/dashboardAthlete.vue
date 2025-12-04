@@ -98,7 +98,7 @@ getGoals();
 .workouts-card {
   width: 65vw;
   border-radius: 20px;
-  margin-top: 100px;
+  margin-top: 25px;
   margin-bottom: 20px; /* small spacing */
   height: 15vh;        /* or auto */
 }
@@ -106,8 +106,8 @@ getGoals();
 .exercises-card {
   width: 65vw;
   border-radius: 20px;
-  height: 45vh;        /* set desired height */
-  margin-top: auto;     /* <-- snaps it to the bottom */
+  height: 55vh;    
+  margin-top: auto;   
 }
 
 .goal-card {

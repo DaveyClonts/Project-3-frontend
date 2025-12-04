@@ -1,7 +1,7 @@
 <template>
     <v-app>
         <topbar v-if="user">
-            <navbar v-if="!$route.meta.noNavigation && user && user.role == 'Coach'" />
+            <navbar v-if="!$route.meta.noNavigation && user" />
             <profileIcon />
         </topbar>
         <v-main>

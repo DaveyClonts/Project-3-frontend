@@ -1,8 +1,10 @@
 <template>
   <div class="page-margins">
     <v-row style="gap: 5vw">
+
+      <!-- left column -->
       <v-col
-        class="fill-height flex-grow-0"
+        class="left-column"
         style="width: 65vw; margin-left: 15px"
       >
         <v-row>

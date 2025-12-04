@@ -52,17 +52,9 @@ async function getGoals() {
 async function getWorkouts() {
   const data = await workoutServices.getAllForAthlete();
 
-const now = new Date(); 
+  const today = new Date();
+  const todayStr = today.toISOString().split("T")[0];
 
-const cstYear = now.getFullYear();
-const cstMonth = String(now.getMonth() + 1).padStart(2, "0"); 
-const cstDate = String(now.getDate()).padStart(2, "0");
-
-const todayStr = `${cstYear}-${cstMonth}-${cstDate}`;
-
-
-console.log("Local time:", now);
-console.log("CST YYYY-MM-DD:", todayStr);
   workouts.value = data.map((w) => ({
     ...w,
     date: new Date(w.date).toISOString().split("T")[0], 
@@ -70,8 +62,6 @@ console.log("CST YYYY-MM-DD:", todayStr);
   
   workout.value = data.find((w) => {
     const workoutDateStr = new Date(w.date).toISOString().split("T")[0];
-    //console.log(workoutDateStr);
-    //console.log(todayStr);
     return workoutDateStr === todayStr;
   });
 }
@@ -94,14 +84,14 @@ getGoals();
 /* margin top and bottom prob not best practice... */
 .workouts-card {
   margin-top: 25px;
-  margin-bottom: 2vw;
+  margin-bottom: 50px;
   border-radius: 20px;
   width: 65vw;
   height: 15vh;
 }
 
 .exercises-card {
-  height: 54vh;
+  height: 60vh;
   width: 65vw;
   border-radius: 20px;
 }

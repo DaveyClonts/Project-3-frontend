@@ -2,7 +2,7 @@
     <div>
         <div v-if="showDialog" class="modal-overlay" @click.self="closeDialog">
             <v-card class="modal">
-                <v-card-title class="title">Are you sure you wish to delete goal {{ goal.name }}</v-card-title>
+                <v-card-title class="title">Are you sure you wish to delete goal?</v-card-title>
                 <div class="buttons">
                     <v-btn class="confirm-button" @click="confirmDelete">
                         Delete

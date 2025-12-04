@@ -9,14 +9,16 @@
           <div class="title-text">Welcome, Coach {{ user.lastName }}</div>
         </v-row>
         <v-row>
-          <v-card class="workouts-card"><workoutCard /></v-card>
+          <workoutCard class="workouts-card"/>
         </v-row>
         <v-row>
-          <v-card class="exercises-card"><exerciseCard /></v-card>
+          <exerciseCard class="exercises-card"/>
         </v-row>
       </v-col>
-      <v-col>
-        <athletesCard />
+
+      <!-- right column -->
+      <v-col class="right-column">
+        <athletesCard class="athletes-card"/>
       </v-col>
     </v-row>
   </div>
@@ -24,7 +26,6 @@
 
 <script setup>
 import athletesCard from "./athletes-card.vue";
-import User from "../../../classes/User.js";
 import store from "../../../store/store.js";
 import workoutCard from "./workout-card.vue";
 import exerciseCard from "./exercise-card.vue";
@@ -43,19 +44,42 @@ const user = store.getUser();
   font-weight: 600;
 }
 
-/* margin top and bottom prob not best practice... */
+.left-column {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.right-column {
+  height: 75vh;
+  display: flex;
+  flex-direction: column;
+}
+
 .workouts-card {
-  margin-top: 25px;
-  margin-bottom: 50px;
+  margin-top: 1vh;
+  margin-bottom: 1vh;
   border-radius: 20px;
   width: 65vw;
-  height: 15vh;
+  height: 28vh;
   background-color: var(--color-primary);
+  padding: 20px;
 }
 
 .exercises-card {
-  height: 60vh;
+  height: 37vh;
   width: 65vw;
   border-radius: 20px;
+  padding: 20px;
+
+  display: flex;
+  flex-direction: column;
+}
+
+.athletes-card {
+  width: 22vw;
+  height: 100%;
+  border-radius: 20px;
+  padding: 20px;
 }
 </style>

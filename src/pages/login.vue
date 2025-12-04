@@ -1,4 +1,5 @@
 <script setup>
+import UserRole from "../classes/UserRole.js";
 import socialLogin from "../components/login/socialLogin.vue";
 import store from "../store/store.js";
 import { onMounted } from "vue";
@@ -7,10 +8,17 @@ import { useRouter } from "vue-router";
 const router = useRouter();
 
 onMounted(() => {
+    console.log("Login mounted");
     let user = store.getUser();
 
-    if (user != null && user.token != null && user.token != "")
-        router.push("/dashboardCoach");
+    if (user != null && user.token != null && user.token != "") {
+        if (user.role == UserRole.Athlete)
+            router.push({ name: "dashboardAthlete" });
+        else if (user.role == UserRole.Coach)
+            router.push({ name: "dashboardCoach" });
+        else if (user.role == UserRole.Admin)
+            router.push({ name: "usersAdmin" });
+    }
 });
 </script>
 

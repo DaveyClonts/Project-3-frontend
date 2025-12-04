@@ -2,7 +2,7 @@
     <div class="navbar">
         <ul class="nav-list">
             <li
-                v-for="item in navItems"
+                v-for="item in navigation"
                 :key="item.name"
                 class="nav-item"
                 @click="navigate(item)"
@@ -55,16 +55,42 @@
 </style>
 
 <script setup>
+import { ref } from "vue";
 import { useRouter, useRoute } from "vue-router";
+import store from "../store/store.js";
+import UserRole from "../classes/UserRole.js";
 const route = useRoute();
 const router = useRouter();
 
-const navItems = [
-    { name: "dashboardCoach", label: "Dashboard", path: "/dashboardCoach" },
-    { name: "workoutsCoach", label: "Workouts", path: "/workoutsCoach" },
-    { name: "exercisesCoach", label: "Exercises", path: "/exercisesCoach" },
-    { name: "athletesCoach", label: "Athletes", path: "/athletesCoach" },
-];
+const navigation = ref([]);
+
+const user = store.getUser();
+
+if (user.role == UserRole.Athlete)
+    navigation.value = [
+        {
+            name: "dashboardAthlete",
+            label: "Dashboard",
+            path: "/dashboardAthlete",
+        },
+        {
+            name: "workoutsAthlete",
+            label: "Workouts",
+            path: "/workoutsAthlete",
+        },
+        {
+            name: "goalsAthlete",
+            label: "Goals",
+            path: "/goalsAthlete",
+        },
+    ];
+else
+    navigation.value = [
+        { name: 'dashboardCoach', label: 'Dashboard', path: '/dashboardCoach'},
+        { name: "workoutsCoach", label: "Workouts", path: "/workoutsCoach" },
+        { name: "exercisesCoach", label: "Exercises", path: "/exercisesCoach" },
+        { name: "athletesCoach", label: "Athletes", path: "/athletesCoach" },
+    ];
 
 // push the route to the router if that part of the navbar is active
 const navigate = (item) => {

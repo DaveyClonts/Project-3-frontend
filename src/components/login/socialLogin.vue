@@ -12,6 +12,7 @@ import authServices from "../../services/authServices.js";
 import User from "../../classes/User.js";
 import store from "../../store/store.js";
 import { useRouter } from "vue-router";
+import UserRole from "../../classes/UserRole.js";
 
 const user = ref({});
 const router = useRouter();
@@ -39,7 +40,7 @@ async function loginWithGoogle() {
             size: "large",
             text: "signup_with",
             width: 300,
-            height: 200
+            height: 200,
         }
     );
 }
@@ -62,7 +63,13 @@ async function handleCredentialResponse(response) {
 
             console.log("Successfully logged in.");
             store.setUser(user.value);
-            router.push({ name: "dashboardCoach" });
+
+            if (user.value.role == UserRole.Athlete)
+                router.push({ name: "dashboardAthlete" });
+            else if (user.value.role == UserRole.Coach)
+                router.push({ name: "dashboardCoach" });
+            else if (user.value.role == UserRole.Admin)
+                router.push({ name: "usersAdmin" });
         })
         .catch((err) => {
             console.error(`Error with authentication: ${err}.`);

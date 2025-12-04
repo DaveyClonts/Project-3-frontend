@@ -91,8 +91,6 @@ const router = createRouter({
 });
 
 router.beforeEach((to, from, next) => {
-    console.log(`From: ${JSON.stringify(from)}, to: ${JSON.stringify(to)}`)
-    
     if (!to.meta.requiresAuth) {
         next();
         return;

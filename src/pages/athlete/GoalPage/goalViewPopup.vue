@@ -119,11 +119,6 @@ function submitGoal() {
     .update(newGoal)
     .then(() => {
       console.log("Updated Goal:", newGoal);
-      Object.assign(props.goal, {
-      name: newGoal.name,
-      description: newGoal.description,
-      date: new Date(newGoal.date).toISOString().split("T")[0], 
-    });
       if (props.refresh) props.refresh();
     })
     .catch((err) => console.log(err));

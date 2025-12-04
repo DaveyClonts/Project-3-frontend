@@ -39,14 +39,19 @@ function closeDialog() {
 }
 
 function confirmDelete() {
-    console.log(goal.value.goalID);
-    goalServices.delete(goal.value.goalID).then(() =>{
-        console.log("Deleted Goal:", goal);
-        closeDialog();
-    })
-    .catch((err) => {
-        console.log(err);
-    })
+    console.log(props.goal.id);
+    goalServices.delete(props.goal.id)
+        .then(() => {
+            console.log("Deleted Goal:", goal.value);
+
+            if (props.refresh) props.refresh();
+
+            emit("update:show", false);
+            emit("closeParentPopup");
+        })
+        .catch((err) => {
+            console.log(err);
+        });
 }
 </script>
 

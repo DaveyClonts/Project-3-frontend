@@ -104,7 +104,7 @@ getGoals();
 }
 
 .exercises-card {
-  height: 55%;
+  height: 23vw;
   width: 65vw;
   border-radius: 20px;
 }

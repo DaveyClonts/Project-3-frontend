@@ -42,9 +42,8 @@ const router = useRouter();
 const workouts = ref([]);
 
 onMounted(async () => {
-    console.log("get workouts");
-
     workoutServices.getAllForCoach().then((data) => {
+        console.log("get workouts: " + JSON.stringify(data));
         workouts.value = data;
     });
 });

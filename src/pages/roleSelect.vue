@@ -30,7 +30,7 @@ function selectCoach() {
         .update(user)
         .then(() => {
             store.setUser(user);
-            router.push({ name: "workoutsCoach" });
+            router.push({ name: "dashboardCoach" });
         })
         .catch((err) => {
             console.error("Error selecting role: " + err);

@@ -39,7 +39,7 @@
         <v-btn @click="addNote">Add Note</v-btn>
       </div>
       <div class="buttons">
-        <v-btn @click="submitGoal">Save</v-btn>
+        <v-btn @click="submitGoal" class="save-button">Save</v-btn>
         <GoalDeleteButton
           :goal="goal"
           :refresh="refresh"
@@ -200,5 +200,10 @@ function submitGoal() {
   margin-bottom: 1rem;
   z-index: 1;
   will-change: auto !important;
+}
+
+.save-button {
+  background-color: var(--btn-primary);
+  color: var(--btn-primary-text);
 }
 </style>

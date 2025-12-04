@@ -68,7 +68,7 @@ const router = createRouter({
             path: "/goalsAthlete",
             name: "goalsAthlete",
             component: goalAthlete,
-            meta: { requiresAuth: true, role: UserRole.Coach },
+            meta: { requiresAuth: true, role: UserRole.Athlete },
         },
         {
             path: "/dashboardAthlete",
